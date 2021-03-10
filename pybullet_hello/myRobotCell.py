@@ -12,8 +12,30 @@ import matplotlib.animation as animation
 from transform3d import Transform
 
 
+def get_continious(objects_l):
+    """ just to fix the list of list of list to finally make it one list to keep track of images and qs per timestep """
+    # print(len(objects_l))
+    fixed_objs = []
+    for obj in objects_l:
+        # print(img)
+        if obj:
+            # print("img = ", img)
+            for _obj in obj:
+                try:
+                    if _obj.any():  # for images
+                        # print("_obj = ", _obj)
+                        fixed_objs.append(_obj)
+                except:
+                    if obj:
+
+                        fixed_objs.append(_obj)
+                    # pass
+    # print(len(fixed_objs))
+    return fixed_objs
+
+
 class RobotCell:
-    def __init__(self, physicsClient, n_legos, dt=0.01):
+    def __init__(self, cube_position, dt=0.01):
 
         self.dt = dt
         # instead of the local pybullet env just use global?
@@ -27,8 +49,9 @@ class RobotCell:
 
         # self.legos = [p.loadURDF("lego/lego.urdf") for i in range(n_legos)]
         # load cube to pick
-        self.cube_xy = (0, 0)
-        self.cube_position = (self.cube_xy[0], self.cube_xy[1], 0)
+        # self.cube_xy = (0, 0)
+        # self.cube_position = (self.cube_xy[0], self.cube_xy[1], 0)
+        self.cube_position = cube_position
         # self.cube_id = p.loadURDF("generated_urdfs/box_example.urdf", self.cube_position, p.getQuaternionFromEuler((0, 0, 0)))
         self.cube_id = p.loadURDF("generated_urdfs/box_8.urdf", self.cube_position, p.getQuaternionFromEuler((0, 0, 0)))
 
@@ -156,25 +179,29 @@ class RobotCell:
             tool_start_t_tool_desired = world_t_tool_start.inv @ world_t_tool_desired
             dist = np.linalg.norm(tool_start_t_tool_desired.xyz_rotvec)
             images = []
+            qs = []
             for i, s in enumerate(lerp(dist, speed, acc, self.dt)):
                 world_t_tool_target = world_t_tool_start @ (tool_start_t_tool_desired * s)
                 self.set_q_target(self.ik(world_t_tool_target))
                 p.stepSimulation()
                 if record and i % 4 == 0:  # fps = 1/dt / 4
                     images.append(self.take_image())
-            return images
+                    qs.append(self.q_target)
+            return images, qs
 
     def gripper_move(self, d_desired, record=False, speed=1., acc=3.):
         d_start = self.q_target[-1]
         move = d_desired - d_start
         images = []
+        qs = []
         for i, s in enumerate(lerp(abs(move), speed, acc, self.dt)):
             self.q_target[-1] = self.q_target[-2] = d_start + s * move
             self.set_q_target(self.q_target)
             p.stepSimulation()
             if record and i % 4 == 0:
                 images.append(self.take_image())
-        return images
+                qs.append(self.q_target)
+        return images, qs
 
     def gripper_close(self, record=False):
         return self.gripper_move(0.0, record)
@@ -184,13 +211,28 @@ class RobotCell:
 
     def attempt_grasp(self, xy=(0, 0), theta=0, z_grasp=0.01, z_up=0.5, record=False):
         self.q_target[-1] = self.q_target[-2] = 0.03
-        self.move((*xy, z_up), theta, instant=False)
-        images = []
-        images += self.move((*xy, z_grasp), theta, record=record)
-        images += self.gripper_close(record=record)
-        images += self.move((*xy, z_up), theta, record=record)
+        images, qs = [], []
 
-        success = False
+        results = self.move((*xy, z_up), theta, instant=False)
+        images.append(results[0])
+        qs.append(results[1])
+
+        print("type(results[0])", type(results[0]))
+        # exit(1)
+
+        results = self.move((*xy, z_grasp), theta, record=record)
+        images.append(results[0])
+        qs.append(results[1])
+
+        results = self.gripper_close(record=record)
+        images.append(results[0])
+        qs.append(results[1])
+
+        results = self.move((*xy, z_up), theta, record=record)
+        images.append(results[0])
+        qs.append(results[1])
+
+        # success = False
         # for lego in self.legos:
         #     if p.getBasePositionAndOrientation(lego)[0][2] > z_up / 2:
         #         p.resetBasePositionAndOrientation(lego, (0, 0, -1), (0, 0, 0, 1))  # move away
@@ -198,7 +240,7 @@ class RobotCell:
         #         success = True
         #         self.n_grasped += 1
 
-        return success, images
+        return get_continious(images), get_continious(qs)
 
 
 def lerp(dist, vmax, amax, dt):

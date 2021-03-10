@@ -1,5 +1,6 @@
 from myRobotCell import *
-
+import pickle
+import pandas as pd
 
 def present_the_qs():
     """
@@ -58,21 +59,57 @@ if __name__ == "__main__":
 
     # present_the_qs()
     # present_the_move()
+    # TODO: separately from robot load the cube
+    # TODO: when moving also save the state of the q?
 
     physicsClient = p.connect(p.GUI)
 
-    robot_cell = RobotCell(physicsClient, n_legos=20)
+    cube_pos = (0.5, 0, 0)  # position of spawned cube
+    robot_cell = RobotCell(cube_pos)  # start simulation with robot & cube
 
-    height_of_block = 0.03 - 0.01
-
-    goal_pos = robot_cell.cube_xy
+    goal_pos = (robot_cell.cube_position[0], robot_cell.cube_position[1]) #  extract cube xy position
     print("\ngoal_pos = ", goal_pos)
-    success, images = robot_cell.attempt_grasp(xy=goal_pos, z_grasp=height_of_block, record=True)
-    robot_cell.move(pos=[0.5, -0.2, 1], instant=False, record=True)
-    robot_cell.move(pos=[0.5, -0.2, height_of_block], instant=False, record=True)
-    robot_cell.gripper_open()
-    robot_cell.move(pos=[0.5, -0.2, 1], instant=False, record=True)
 
+    z_grasp = 0.03 - 0.01
+    record = True
+
+    images_path, qs_path = [], []
+    images, qs = robot_cell.attempt_grasp(xy=goal_pos, z_grasp=z_grasp, record=record)
+    imgs_qs = robot_cell.move(pos=[0.5, -0.2, 1], instant=False, record=record)
+    images_path.append(imgs_qs[0])
+    qs_path.append(imgs_qs[1])
+
+    imgs_qs = robot_cell.move(pos=[0.5, -0.2, z_grasp], instant=False, record=record)
+    images_path.append(imgs_qs[0])
+    qs_path.append(imgs_qs[1])
+
+    imgs_qs = robot_cell.gripper_open()
+    images_path.append(imgs_qs[0])
+    qs_path.append(imgs_qs[1])
+
+    imgs_qs = robot_cell.move(pos=[0.5, -0.2, 1], instant=False, record=record)
+    images_path.append(imgs_qs[0])
+    qs_path.append(imgs_qs[1])
 
     # print(cubePos, cubeOrn)
     p.disconnect()
+
+    # TODO: weird dimensions of the images and qs
+    # I was expecting it all in 1 list
+    images_path = get_continious(images_path)
+    qs_path = get_continious(qs_path)
+
+    # TODO: have to fix saving the data to csv file - problem with the qs
+    df_states = pd.DataFrame(list(zip(images_path, qs_path)), columns=['images_path', 'qs_path'])
+    df_states.to_csv("path_state.csv", sep='@')
+
+    # print("qs")
+    # print(type(qs))
+    # print(qs)
+    #
+    fileObj = open('fixed_imag_q_problem.obj', 'wb')
+    pickle.dump({"images_path": images_path, 'qs_path': qs_path}, fileObj)
+    fileObj.close()
+
+    # imgs = np.array(images, dtype=np.float32) / 255 - 0.5
+    # data = list(zip(imgs, qs))
