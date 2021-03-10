@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<robot name="random_box">
+  <link name="box">
+    <visual>
+      <geometry>
+        <box size="0.018848187808504537 0.02828579555608026 0.03"/>
+      </geometry>
+      <material name="color">
+        <color rgba="0.9739392169338076 0.29556235652658014 0.04417052382083175 1"/>
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.018848187808504537 0.02828579555608026 0.03"/>
+      </geometry>
+    </collision>
+  </link>
+</robot>
