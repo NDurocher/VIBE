@@ -22,10 +22,49 @@
 import pybullet as p
 import time
 import math
-from datetime import datetime
-
-#clid = p.connect(p.SHARED_MEMORY)
 import pybullet_data
+import torch
+
+from torch import nn
+from torch.nn import functional as F
+from datetime import datetime
+#clid = p.connect(p.SHARED_MEMORY)
+
+class SmallUnet(nn.Module):
+    # similar to unet, see fig 1: https://arxiv.org/pdf/1505.04597.pdf
+    def __init__(self, features=(3, 16, 32, 64, 128)):
+        super().__init__()
+        self.features = features
+        self.l = []
+        self.r = []
+
+        for fi, fo in zip(features, features[1:]):
+            self.l.append(conv_block(fi, fo))
+        for fi, fo in zip(features[1:], features[2:]):
+            self.r.append(conv_block(fo + fi, fi))
+
+        self.pool = nn.MaxPool2d(2, 2)
+        self.upscale = nn.UpsamplingBilinear2d(scale_factor=2)
+
+        # register the modules
+        self._l = nn.Sequential(*self.l)
+        self._r = nn.Sequential(*self.r)
+
+    def forward(self, x):
+        fl = []
+        for l in self.l[:-1]:
+            x = l(x)
+            fl.append(x)
+            x = self.pool(x)
+        x = self.l[-1](x)
+        for r, f in zip(self.r[::-1], fl[::-1]):
+            x = self.upscale(x)
+            x = torch.cat((x, f), 1)
+            x = r(x)
+        return x
+
+
+
 
 p.connect(p.GUI)
 p.setAdditionalSearchPath(pybullet_data.getDataPath())
@@ -34,7 +73,7 @@ kukaId = p.loadURDF("kuka_iiwa/model.urdf", [0, 0, 0], useFixedBase=True)
 p.resetBasePositionAndOrientation(kukaId, [0, 0, 0], [0, 0, 0, 1])
 kukaEndEffectorIndex = 6
 numJoints = p.getNumJoints(kukaId)
-gripperId = p.loadSDF("gripper/wsg50_one_motor_gripper_new.sdf", )
+# PandaId = p.loadURDF("franka_panda/panda.urdf", [1, 0, 0], useFixedBase=True)
 
 
 viewMatrix = p.computeViewMatrix(
@@ -55,9 +94,9 @@ prev = 1
 if (numJoints != 7):
   exit()
 
-p.loadURDF("cube_small.urdf", [2, 2, 5])
-p.loadURDF("cube_small.urdf", [-2, -2, 5])
-p.loadURDF("cube_small.urdf", [2, -2, 5])
+# p.loadURDF("cube_small.urdf", [2, 2, 5])
+# p.loadURDF("cube_small.urdf", [-2, -2, 5])
+p.loadURDF("lego/lego.urdf", [-0.5, 0, 5])
 
 #lower limits for null space
 ll = [-.967, -2, -2.96, 0.19, -2.96, -2.09, -3.05]
@@ -92,8 +131,8 @@ trailDuration = 15
 logId1 = p.startStateLogging(p.STATE_LOGGING_GENERIC_ROBOT, "LOG0001.txt", [0, 1, 2])
 logId2 = p.startStateLogging(p.STATE_LOGGING_CONTACT_POINTS, "LOG0002.txt", bodyUniqueIdA=2)
 
-for i in range(5):
-  print("Body %d's name is %s." % (i, p.getBodyInfo(i)[1]))
+# for i in range(5):
+#   print("Body %d's name is %s." % (i, p.getBodyInfo(i)[1]))
 
 while 1:
   if (useRealTimeSimulation):
