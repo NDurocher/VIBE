@@ -17,7 +17,7 @@ def generate_random_urdf_box(save_path, how_many):
     """
     scale = 0.03
     cube_height = 0.03
-    gripper_width_limit = 0.03
+    gripper_width_limit = 0.055
 
     for i in range(how_many):
         rand_box_shape = (random.uniform(0.01, gripper_width_limit), random.uniform(0.01, gripper_width_limit), cube_height)

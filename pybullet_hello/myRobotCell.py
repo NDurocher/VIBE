@@ -1,4 +1,5 @@
 import os
+import sys
 import time
 import pickle
 from copy import deepcopy
@@ -27,18 +28,25 @@ class RobotCell:
         # self.legos = [p.loadURDF("lego/lego.urdf") for i in range(n_legos)]
         # load cube to pick
         self.cube_xy = (0, 0)
-        self.cube_position = (0, 0, 0)
-        self.cube_id = p.loadURDF("generated_urdfs/box_example.urdf", self.cube_position, p.getQuaternionFromEuler((0, 0, 0)))
+        self.cube_position = (self.cube_xy[0], self.cube_xy[1], 0)
+        # self.cube_id = p.loadURDF("generated_urdfs/box_example.urdf", self.cube_position, p.getQuaternionFromEuler((0, 0, 0)))
+        self.cube_id = p.loadURDF("generated_urdfs/box_8.urdf", self.cube_position, p.getQuaternionFromEuler((0, 0, 0)))
+
+        """
+        different boxes have different behaviour
+        maybe when we change shape of the box we should also change mass?
+        """
         p.changeDynamics(bodyUniqueId=self.cube_id,
                          linkIndex=-1,
-                         lateralFriction=999999,
-                         spinningFriction=999999,
-                         rollingFriction=999999,
-                         restitution=0.001,
-                         linearDamping=0.00001,
-                         angularDamping=0.00001,
-                         contactStiffness=999999,
-                         contactDamping=999999)
+                         mass=1.1,  # this mass works with the box_example.urdf but doesnt with other boxes
+                         lateralFriction=sys.maxsize,
+                         spinningFriction=sys.maxsize,
+                         rollingFriction=sys.maxsize,
+                         restitution=0.0,
+                         linearDamping=0.0,
+                         angularDamping=0.0,
+                         contactStiffness=sys.maxsize,
+                         contactDamping=sys.maxsize)
 
         self.n_grasped = 0
         self.rid = p.loadURDF(
@@ -139,7 +147,7 @@ class RobotCell:
         pos, quat = p.getLinkState(self.rid, 11)[:2]
         return Transform(p=pos, quat=quat)
 
-    def move(self, pos, theta=0., speed=2., acc=10., instant=False, record=False):
+    def move(self, pos, theta=0., speed=1.2, acc=5., instant=False, record=False):
         world_t_tool_desired = Transform(p=pos, rpy=(0, np.pi, np.pi / 2 + theta))
         if instant:
             self.set_q(self.ik(world_t_tool_desired))

@@ -68,10 +68,10 @@ if __name__ == "__main__":
     goal_pos = robot_cell.cube_xy
     print("\ngoal_pos = ", goal_pos)
     success, images = robot_cell.attempt_grasp(xy=goal_pos, z_grasp=height_of_block, record=True)
-    robot_cell.move(pos=[1, 0, 1], instant=False, record=True)
-    robot_cell.move(pos=[1, 0, height_of_block], instant=False, record=True)
+    robot_cell.move(pos=[0.5, -0.2, 1], instant=False, record=True)
+    robot_cell.move(pos=[0.5, -0.2, height_of_block], instant=False, record=True)
     robot_cell.gripper_open()
-    robot_cell.move(pos=[1, 0, 1], instant=False, record=True)
+    robot_cell.move(pos=[0.5, -0.2, 1], instant=False, record=True)
 
 
     # print(cubePos, cubeOrn)
