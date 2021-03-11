@@ -55,19 +55,39 @@ def present_the_move():
     p.disconnect()
 
 
-if __name__ == "__main__":
+def test_non_return_RobotCell():
+    physicsClient = p.connect(p.GUI)
 
-    # present_the_qs()
-    # present_the_move()
+    cube_pos = (0.5, 0, 0)  # position of spawned cube
+    robot_cell = RobotCell_nonrecord(cube_pos)  # start simulation with robot & cube
+
+    goal_pos = (robot_cell.cube_position[0], robot_cell.cube_position[1])  # extract cube xy position
+    print("\ngoal_pos = ", goal_pos)
+
+    z_grasp = 0.03 - 0.01
+    record = True
+
+    robot_cell.attempt_grasp(xy=goal_pos, z_grasp=z_grasp, record=record)
+    robot_cell.move(pos=[0.5, -0.2, 1], instant=False, record=record)
+
+    robot_cell.move(pos=[0.5, -0.2, z_grasp], instant=False, record=record)
+
+    robot_cell.gripper_open()
+
+    robot_cell.move(pos=[0.5, -0.2, 1], instant=False, record=record)
+
+    p.disconnect()
+
+
+def test_RobotCell_save_path():
     # TODO: separately from robot load the cube
     # TODO: when moving also save the state of the q?
-
     physicsClient = p.connect(p.GUI)
 
     cube_pos = (0.5, 0, 0)  # position of spawned cube
     robot_cell = RobotCell(cube_pos)  # start simulation with robot & cube
 
-    goal_pos = (robot_cell.cube_position[0], robot_cell.cube_position[1]) #  extract cube xy position
+    goal_pos = (robot_cell.cube_position[0], robot_cell.cube_position[1])  # extract cube xy position
     print("\ngoal_pos = ", goal_pos)
 
     z_grasp = 0.03 - 0.01
@@ -113,3 +133,16 @@ if __name__ == "__main__":
 
     # imgs = np.array(images, dtype=np.float32) / 255 - 0.5
     # data = list(zip(imgs, qs))
+
+
+if __name__ == "__main__":
+
+    # present_the_qs()
+    # present_the_move()
+    test_non_return_RobotCell()  # to run and test if its ok without saving anything - different Class
+
+    # test_RobotCell_save_path()
+
+
+
+
