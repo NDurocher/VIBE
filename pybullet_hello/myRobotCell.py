@@ -33,7 +33,7 @@ def get_continious(objects_l):
     # print(len(fixed_objs))
     return fixed_objs
 
-
+# TODO: maybe do joints stiffer so the jaws dont wobble
 class RobotCell:
     def __init__(self, cube_position, dt=0.01):
 

@@ -48,7 +48,7 @@ def present_the_move():
     for i in range(100):
         p.stepSimulation()
         robot_cell.move(pos=[i % 4, i % 4, 0])
-        if i% 4 == 0:
+        if i % 4 == 0:
             robot_cell.gripper_close()
         if i % 7 == 0:
             robot_cell.gripper_open()
