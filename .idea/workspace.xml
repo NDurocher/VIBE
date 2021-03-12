@@ -2,12 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="71628e8f-2730-4db5-a601-c088ec11d14d" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/Keypoint_Visuomotor_Behaviours.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Keypoint_Visuomotor_Behaviours.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pybullet_hello/fixed_imag_q_problem.obj" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/fixed_imag_q_problem.obj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pybullet_hello/is_franka_here.py" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/is_franka_here.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pybullet_hello/myRobotCell.py" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/myRobotCell.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pybullet_hello/path_state.csv" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/path_state.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pybullet_hello/rasmus_robot_move.py" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/rasmus_robot_move.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/RobotCell_pureRasmus.py" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/RobotCell_pureRasmus.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/fixed_imag_q.obj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/fixed_imag_q_problem.obj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/is_franka_here.py" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/help_demos/is_franka_here.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/load_fix_images.py" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/help_demos/load_fix_images.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/path_state.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/r2d2_box_generation.py" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/help_demos/r2d2_box_generation.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/readme.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/tmp_imag_q.obj" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,7 +38,18 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/pybullet_hello" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/pybullet_hello" />
+      <recent name="$PROJECT_DIR$/venv" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/readme_pictures" />
+      <recent name="$PROJECT_DIR$/pybullet_hello/help_demos" />
+    </key>
   </component>
   <component name="RunManager" selected="Python.rasmus_robot_move">
     <configuration name="is_franka_here" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
@@ -47,7 +64,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/pybullet_hello/is_franka_here.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/pybullet_hello/help_demos/is_franka_here.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -68,7 +85,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/pybullet_hello/load_fix_images.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/pybullet_hello/help_demos/load_fix_images.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />

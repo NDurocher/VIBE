@@ -1,4 +1,4 @@
-from r2d2_box_generation import *
+from pybullet_hello.help_demos.r2d2_box_generation import *
 
 class RobotCell:
     def __init__(self, n_legos, dt=0.01):
