@@ -33,6 +33,7 @@ def get_continious(objects_l):
     # print(len(fixed_objs))
     return fixed_objs
 
+
 # TODO: maybe do joints stiffer so the jaws dont wobble
 class RobotCell:
     def __init__(self, cube_position, dt=0.01):
@@ -170,7 +171,7 @@ class RobotCell:
         pos, quat = p.getLinkState(self.rid, 11)[:2]
         return Transform(p=pos, quat=quat)
 
-    def move(self, pos, theta=0., speed=1.2, acc=5., instant=False, record=False):
+    def move(self, pos, theta=0., speed=1.2, acc=5., instant=False, record=False, save=False):
         world_t_tool_desired = Transform(p=pos, rpy=(0, np.pi, np.pi / 2 + theta))
         if instant:
             self.set_q(self.ik(world_t_tool_desired))
@@ -180,16 +181,27 @@ class RobotCell:
             dist = np.linalg.norm(tool_start_t_tool_desired.xyz_rotvec)
             images = []
             qs = []
+            cube_positions = []
+            cube_orientations = []
             for i, s in enumerate(lerp(dist, speed, acc, self.dt)):
                 world_t_tool_target = world_t_tool_start @ (tool_start_t_tool_desired * s)
                 self.set_q_target(self.ik(world_t_tool_target))
                 p.stepSimulation()
                 if record and i % 4 == 0:  # fps = 1/dt / 4
                     images.append(self.take_image())
-                    qs.append(self.q_target)
-            return images, qs
+                    if save:
+                        qs.append(self.q_target)
+                        cube_pos, cube_orn = p.getBasePositionAndOrientation(self.cube_id)
+                        cube_positions.append(cube_pos)
+                        cube_positions.append(cube_pos)
+                        cube_orientations.append(cube_orn)
 
-    def gripper_move(self, d_desired, record=False, speed=1., acc=3.):
+            if save:
+                return images, qs, cube_positions, cube_orientations
+            else:
+                return None
+
+    def gripper_move(self, d_desired, record=False, speed=1., acc=3., save=False):
         d_start = self.q_target[-1]
         move = d_desired - d_start
         images = []
@@ -200,8 +212,12 @@ class RobotCell:
             p.stepSimulation()
             if record and i % 4 == 0:
                 images.append(self.take_image())
-                qs.append(self.q_target)
-        return images, qs
+                if save:
+                    qs.append(self.q_target)
+        if save:
+            return images, qs
+        else:
+            return None
 
     def gripper_close(self, record=False):
         return self.gripper_move(0.0, record)

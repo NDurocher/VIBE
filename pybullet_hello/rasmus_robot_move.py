@@ -82,10 +82,12 @@ def test_non_return_RobotCell():
 def test_RobotCell_save_path():
     # TODO: separately from robot load the cube
     # TODO: when moving also save the state of the q?
+    # Save step_no, joint positions and velocities of robot and Keypoint locations
+    # for now instead of Keypoint locations save the object_location and image
     physicsClient = p.connect(p.GUI)
 
-    cube_pos = (0.5, 0, 0)  # position of spawned cube
-    robot_cell = RobotCell(cube_pos)  # start simulation with robot & cube
+    cube_start_pos = (0.5, 0, 0)  # position of spawned cube
+    robot_cell = RobotCell(cube_start_pos)  # start simulation with robot & cube
 
     goal_pos = (robot_cell.cube_position[0], robot_cell.cube_position[1])  # extract cube xy position
     print("\ngoal_pos = ", goal_pos)
@@ -94,22 +96,28 @@ def test_RobotCell_save_path():
     record = True
 
     images_path, qs_path = [], []
-    images, qs = robot_cell.attempt_grasp(xy=goal_pos, z_grasp=z_grasp, record=record)
-    imgs_qs = robot_cell.move(pos=[0.5, -0.2, 1], instant=False, record=record)
+    imgs_qs = robot_cell.move(pos=[0.5, -0.2, 1], instant=False, record=record, save=True)
     images_path.append(imgs_qs[0])
     qs_path.append(imgs_qs[1])
 
-    imgs_qs = robot_cell.move(pos=[0.5, -0.2, z_grasp], instant=False, record=record)
-    images_path.append(imgs_qs[0])
-    qs_path.append(imgs_qs[1])
+    # images_path, qs_path = [], []
+    # images, qs = robot_cell.attempt_grasp(xy=goal_pos, z_grasp=z_grasp, record=record)
+    # imgs_qs = robot_cell.move(pos=[0.5, -0.2, 1], instant=False, record=record)
+    # images_path.append(imgs_qs[0])
+    # qs_path.append(imgs_qs[1])
+    #
+    # imgs_qs = robot_cell.move(pos=[0.5, -0.2, z_grasp], instant=False, record=record)
+    # images_path.append(imgs_qs[0])
+    # qs_path.append(imgs_qs[1])
+    #
+    # imgs_qs = robot_cell.gripper_open()
+    # images_path.append(imgs_qs[0])
+    # qs_path.append(imgs_qs[1])
+    #
+    # imgs_qs = robot_cell.move(pos=[0.5, -0.2, 1], instant=False, record=record)
+    # images_path.append(imgs_qs[0])
+    # qs_path.append(imgs_qs[1])
 
-    imgs_qs = robot_cell.gripper_open()
-    images_path.append(imgs_qs[0])
-    qs_path.append(imgs_qs[1])
-
-    imgs_qs = robot_cell.move(pos=[0.5, -0.2, 1], instant=False, record=record)
-    images_path.append(imgs_qs[0])
-    qs_path.append(imgs_qs[1])
 
     # print(cubePos, cubeOrn)
     p.disconnect()
@@ -137,12 +145,14 @@ def test_RobotCell_save_path():
 
 if __name__ == "__main__":
 
+    # print("pd.__version__", pd.__version__)
     # present_the_qs()
     # present_the_move()
     test_non_return_RobotCell()  # to run and test if its ok without saving anything - different Class
 
     # test_RobotCell_save_path()
-
+    # TODO: set up the venv !!!
+    # save the getJointInfo
 
 
 
