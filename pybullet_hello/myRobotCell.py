@@ -34,6 +34,16 @@ def get_continious(objects_l):
     return fixed_objs
 
 
+# TODO: Save step_no, joint positions and velocities of robot and Keypoint locations
+class State:
+    def __init__(self, qs, q_dots, cube_pos, cube_orient, keypoint=None):
+        self.q = qs
+        self.q_dots = q_dots
+        self.cube_position = cube_pos
+        self.cube_orientation = cube_orient
+        self.keypoint_location = keypoint
+
+
 # TODO: maybe do joints stiffer so the jaws dont wobble
 class RobotCell:
     def __init__(self, cube_position, dt=0.01):
@@ -54,7 +64,8 @@ class RobotCell:
         # self.cube_position = (self.cube_xy[0], self.cube_xy[1], 0)
         self.cube_position = cube_position
         # self.cube_id = p.loadURDF("generated_urdfs/box_example.urdf", self.cube_position, p.getQuaternionFromEuler((0, 0, 0)))
-        self.cube_id = p.loadURDF("generated_urdfs/box_8.urdf", self.cube_position, p.getQuaternionFromEuler((0, 0, 0)))
+        self.cube_id = p.loadURDF(os.getcwd()+"/generated_urdfs/box_example.urdf", self.cube_position, p.getQuaternionFromEuler((0, 0, 0)))
+
 
         """
         different boxes have different behaviour
@@ -180,9 +191,8 @@ class RobotCell:
             tool_start_t_tool_desired = world_t_tool_start.inv @ world_t_tool_desired
             dist = np.linalg.norm(tool_start_t_tool_desired.xyz_rotvec)
             images = []
-            qs = []
-            cube_positions = []
-            cube_orientations = []
+            states_l = []
+
             for i, s in enumerate(lerp(dist, speed, acc, self.dt)):
                 world_t_tool_target = world_t_tool_start @ (tool_start_t_tool_desired * s)
                 self.set_q_target(self.ik(world_t_tool_target))
@@ -190,14 +200,17 @@ class RobotCell:
                 if record and i % 4 == 0:  # fps = 1/dt / 4
                     images.append(self.take_image())
                     if save:
-                        qs.append(self.q_target)
+                        # qs.append(self.q_target)
                         cube_pos, cube_orn = p.getBasePositionAndOrientation(self.cube_id)
-                        cube_positions.append(cube_pos)
-                        cube_positions.append(cube_pos)
-                        cube_orientations.append(cube_orn)
 
+                        # maybe from here we could get the q_dots?
+                        # p.setJointMotorControlArray(
+                        #     self.rid, self.joint_idxs, p.POSITION_CONTROL, q,
+                        #     forces=[100] * 7 + [15] * 2, positionGains=[1] * 9
+                        # )
+                        states_l.append(State(qs=self.q_target, q_dots=None, cube_pos=cube_pos, cube_orient=cube_orn, keypoint=None))
             if save:
-                return images, qs, cube_positions, cube_orientations
+                return states_l
             else:
                 return None
 
@@ -205,7 +218,7 @@ class RobotCell:
         d_start = self.q_target[-1]
         move = d_desired - d_start
         images = []
-        qs = []
+        states_l = []
         for i, s in enumerate(lerp(abs(move), speed, acc, self.dt)):
             self.q_target[-1] = self.q_target[-2] = d_start + s * move
             self.set_q_target(self.q_target)
@@ -213,40 +226,32 @@ class RobotCell:
             if record and i % 4 == 0:
                 images.append(self.take_image())
                 if save:
-                    qs.append(self.q_target)
+                    cube_pos, cube_orn = p.getBasePositionAndOrientation(self.cube_id)
+                    states_l.append(
+                        State(qs=self.q_target, q_dots=None, cube_pos=cube_pos, cube_orient=cube_orn, keypoint=None))
+
         if save:
-            return images, qs
+            return states_l
         else:
             return None
 
-    def gripper_close(self, record=False):
-        return self.gripper_move(0.0, record)
+    def gripper_close(self, record=False, save=True):
+        return self.gripper_move(0.0, record, save=save)
 
-    def gripper_open(self, record=False):
-        return self.gripper_move(0.03, record)
+    def gripper_open(self, record=False, save=True):
+        return self.gripper_move(0.03, record, save=save)
 
-    def attempt_grasp(self, xy=(0, 0), theta=0, z_grasp=0.01, z_up=0.5, record=False):
+    def attempt_grasp(self, xy=(0, 0), theta=0, z_grasp=0.01, z_up=0.5, record=False, save=True):
         self.q_target[-1] = self.q_target[-2] = 0.03
-        images, qs = [], []
+        results_l = []
 
-        results = self.move((*xy, z_up), theta, instant=False)
-        images.append(results[0])
-        qs.append(results[1])
+        results_l.append(self.move((*xy, z_up), theta, instant=False, save=save))
 
-        print("type(results[0])", type(results[0]))
-        # exit(1)
+        results_l.append(self.move((*xy, z_grasp), theta, record=record, save=save))
 
-        results = self.move((*xy, z_grasp), theta, record=record)
-        images.append(results[0])
-        qs.append(results[1])
+        results_l.append(self.gripper_close(record=record, save=save))
 
-        results = self.gripper_close(record=record)
-        images.append(results[0])
-        qs.append(results[1])
-
-        results = self.move((*xy, z_up), theta, record=record)
-        images.append(results[0])
-        qs.append(results[1])
+        results_l.append(self.move((*xy, z_up), theta, record=record, save=save))
 
         # success = False
         # for lego in self.legos:
@@ -256,7 +261,7 @@ class RobotCell:
         #         success = True
         #         self.n_grasped += 1
 
-        return get_continious(images), get_continious(qs)
+        return results_l
 
 
 def lerp(dist, vmax, amax, dt):
@@ -302,8 +307,8 @@ class RobotCell_nonrecord:
         # self.cube_xy = (0, 0)
         # self.cube_position = (self.cube_xy[0], self.cube_xy[1], 0)
         self.cube_position = cube_position
-        # self.cube_id = p.loadURDF("generated_urdfs/box_example.urdf", self.cube_position, p.getQuaternionFromEuler((0, 0, 0)))
-        self.cube_id = p.loadURDF("generated_urdfs/box_8.urdf", self.cube_position, p.getQuaternionFromEuler((0, 0, 0)))
+        self.cube_id = p.loadURDF(os.getcwd()+"/pybullet_hello/" +"generated_urdfs/box_example.urdf", self.cube_position, p.getQuaternionFromEuler((0, 0, 0)))
+        # self.cube_id = p.loadURDF("generated_urdfs/box_8.urdf", self.cube_position, p.getQuaternionFromEuler((0, 0, 0)))
 
         """
         different boxes have different behaviour

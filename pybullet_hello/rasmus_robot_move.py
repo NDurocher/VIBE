@@ -1,3 +1,5 @@
+import csv
+
 from myRobotCell import *
 import pickle
 import pandas as pd
@@ -79,11 +81,52 @@ def test_non_return_RobotCell():
     p.disconnect()
 
 
+def get_flat_list(my_list):
+    flat_list = []
+    for item in my_list:
+        if(isinstance(item,list)):
+            get_flat_list(item)
+        else:
+            flat_list.append(item)
+    return flat_list
+
+
+def save_states_to_csv(states_loaded):
+    # use pandas to change list of class objects to dataframe and save it
+    if type(states_loaded) != list:
+        states_loaded = pickle.load(open('saved_pickles/states_flat.obj', 'rb'))
+    states_flat = []
+    # states_flat = get_flat_list(states_loaded)
+    for obj in states_loaded:
+        if type(obj) == State:
+            states_flat.append(obj)
+        else:
+            for ob in obj:
+                if type(ob) == State:
+                    states_flat.append(ob)
+                else:
+                    for o in ob:
+                        if type(o) == State:
+                            states_flat.append(o)
+                        else:
+                            for o_ in o:
+                                if type(o_) == State:
+                                    states_flat.append(o_)
+                                else:
+                                    for o__ in o_:
+                                        if type(o__) == State:
+                                            states_flat.append(o__)
+    list_of_dict = []
+    for obj in states_flat:
+        # print(obj.__dict__)
+        list_of_dict.append(obj.__dict__)
+
+    df = pd.DataFrame(list_of_dict)
+    df.to_csv("expert_trajectories/test1.csv", sep="$")
+
+
 def test_RobotCell_save_path():
-    # TODO: separately from robot load the cube
-    # TODO: when moving also save the state of the q?
-    # Save step_no, joint positions and velocities of robot and Keypoint locations
-    # for now instead of Keypoint locations save the object_location and image
+    # TODO: Save step_no, joint positions and velocities of robot and Keypoint locations
     physicsClient = p.connect(p.GUI)
 
     cube_start_pos = (0.5, 0, 0)  # position of spawned cube
@@ -95,52 +138,22 @@ def test_RobotCell_save_path():
     z_grasp = 0.03 - 0.01
     record = True
 
-    images_path, qs_path = [], []
-    imgs_qs = robot_cell.move(pos=[0.5, -0.2, 1], instant=False, record=record, save=True)
-    images_path.append(imgs_qs[0])
-    qs_path.append(imgs_qs[1])
+    states_1 = robot_cell.move(pos=[0.5, -0.2, 1], instant=False, record=record, save=True)
+    states_2 = robot_cell.attempt_grasp(xy=goal_pos, z_grasp=z_grasp, record=record, save=True)
+    states_3 = robot_cell.move(pos=[0.5, -0.2, 1], instant=False, record=record, save=True)
+    states_4 = robot_cell.move(pos=[0.5, -0.2, z_grasp], instant=False, record=record, save=True)
+    states_5 = robot_cell.gripper_open(save=True)
+    states_6 = robot_cell.move(pos=[0.5, -0.2, 1], instant=False, record=record, save=True)
 
-    # images_path, qs_path = [], []
-    # images, qs = robot_cell.attempt_grasp(xy=goal_pos, z_grasp=z_grasp, record=record)
-    # imgs_qs = robot_cell.move(pos=[0.5, -0.2, 1], instant=False, record=record)
-    # images_path.append(imgs_qs[0])
-    # qs_path.append(imgs_qs[1])
-    #
-    # imgs_qs = robot_cell.move(pos=[0.5, -0.2, z_grasp], instant=False, record=record)
-    # images_path.append(imgs_qs[0])
-    # qs_path.append(imgs_qs[1])
-    #
-    # imgs_qs = robot_cell.gripper_open()
-    # images_path.append(imgs_qs[0])
-    # qs_path.append(imgs_qs[1])
-    #
-    # imgs_qs = robot_cell.move(pos=[0.5, -0.2, 1], instant=False, record=record)
-    # images_path.append(imgs_qs[0])
-    # qs_path.append(imgs_qs[1])
+    reg_list = [states_1, states_2, states_3, states_4, states_5, states_6]
 
-
-    # print(cubePos, cubeOrn)
-    p.disconnect()
-
-    # TODO: weird dimensions of the images and qs
-    # I was expecting it all in 1 list
-    images_path = get_continious(images_path)
-    qs_path = get_continious(qs_path)
-
-    # TODO: have to fix saving the data to csv file - problem with the qs
-    df_states = pd.DataFrame(list(zip(images_path, qs_path)), columns=['images_path', 'qs_path'])
-    df_states.to_csv("path_state.csv", sep='@')
-
-    # print("qs")
-    # print(type(qs))
-    # print(qs)
-    #
-    fileObj = open('fixed_imag_q_problem.obj', 'wb')
-    pickle.dump({"images_path": images_path, 'qs_path': qs_path}, fileObj)
+    # save pickle
+    fileObj = open('saved_pickles/states_flat.obj', 'wb')
+    pickle.dump(reg_list, fileObj)
     fileObj.close()
 
-    # imgs = np.array(images, dtype=np.float32) / 255 - 0.5
-    # data = list(zip(imgs, qs))
+    # try to save list to csv
+    save_states_to_csv(states_loaded=reg_list)
 
 
 if __name__ == "__main__":
@@ -148,11 +161,9 @@ if __name__ == "__main__":
     # print("pd.__version__", pd.__version__)
     # present_the_qs()
     # present_the_move()
-    test_non_return_RobotCell()  # to run and test if its ok without saving anything - different Class
+    # test_non_return_RobotCell()  # to run and test if its ok without saving anything - different Class
 
-    # test_RobotCell_save_path()
-    # TODO: set up the venv !!!
-    # save the getJointInfo
+    test_RobotCell_save_path()
 
 
 
