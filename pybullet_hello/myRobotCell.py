@@ -278,6 +278,14 @@ class RobotCell_K:
 
         return results_l
 
+    def is_gripper_closed(self):
+        """
+        normal width of opened gripper = 0.03
+        """
+        # have some distance for actually grasping a cube
+        if self.q_target[-1] < 0.02:
+            return True
+        return False
 
 class RobotCell:
     def __init__(self, cube_position, dt=0.01):
