@@ -196,7 +196,7 @@ class RobotCell_K:
 
             if action == 'r':  # release
                 self.gripper_open()
-                self.gripper_close()
+                # self.gripper_close()
 
 
 
@@ -283,7 +283,7 @@ class RobotCell_K:
         normal width of opened gripper = 0.03
         """
         # have some distance for actually grasping a cube
-        if self.q_target[-1] < 0.02:
+        if self.q_target[-1] < 0.02:  # TODO: check actual width of cube
             return True
         return False
 

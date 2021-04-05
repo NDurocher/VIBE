@@ -70,38 +70,105 @@ def save_states_to_csv(states_loaded):
     df.to_csv("expert_trajectories/test1.csv", sep="$")
 
 
-def try_RobotCell_save_path():
-    # TODO: Save step_no, joint positions and velocities of robot and Keypoint locations
-    """
+def actions_ugly_path():
+    physicsClient = p.connect(p.GUI)
 
+    cube_start_pos = (0.5, 0, 0)  # position of spawned cube
+    robot_cell = RobotCell_K(cube_start_pos)  # start simulation with robot & cube
+
+    z_grasp = 0.03 - 0.01
+
+    pick_position = (robot_cell.cube_position[0], robot_cell.cube_position[1])
+    place_position = (0.3, -0.2)
+    print("\npick_position = ", pick_position)
+    print("\nplace_position = ", place_position)
+
+    save = False
+    record = True
+
+    while robot_cell.world_t_tool().p.copy()[0] <= pick_position[0]:
+        robot_cell.move_action('e')
+    while robot_cell.world_t_tool().p.copy()[1] <= pick_position[1]:
+        robot_cell.move_action('n')
+    robot_cell.move_action('g')
+    while robot_cell.world_t_tool().p.copy()[1] >= place_position[1]:
+        robot_cell.move_action('s')
+    robot_cell.move_action('r')
+
+
+def move_tcp_to_point_grasp_release(robot_cell, goal_position, goal, position_accuracy):
+    """
+    moves the TCP to the goal point and returns if the goal was achieved - cube grapsed or released
+    goal might be only 'grasp' or 'release'
+    """
+    if goal not in ('grasp', 'release'):
+        raise RuntimeError("only 'grasp' or 'release' are accepted!")
+
+    current_pos = robot_cell.world_t_tool().p
+    delta_x = goal_position[0] - current_pos[0]
+    delta_y = goal_position[1] - current_pos[1]
+    print("delta_x = %f  |  delta_y = %f" % (delta_x, delta_y))
+    goal_achieved = False
+
+    # check if can attempt grasp
+    if abs(delta_x) < position_accuracy and abs(delta_y) < position_accuracy:
+
+        # can try grasp
+        if goal == 'grasp':
+            robot_cell.move_action('g')
+            if robot_cell.is_gripper_closed():
+                print("grasped!")
+                goal_achieved = True
+                return goal_achieved
+
+        if goal == 'release':
+            robot_cell.move_action('r')
+            if not robot_cell.is_gripper_closed():
+                print("released!")
+                goal_achieved = True
+                return goal_achieved
+
+    # if have to move right or left!
+    if abs(delta_x) > abs(delta_y):
+        if delta_x >= 0:
+            robot_cell.move_action('e')
+        else:
+            robot_cell.move_action('w')
+
+    else:  # have to move up or down
+        if delta_y >= 0:
+            robot_cell.move_action('n')
+        else:
+            robot_cell.move_action('s')
+    return goal_achieved
+
+
+def get_trajectories_actions_pick_place():
+    # TODO: record and save the state!
+    """
+    randomizes the pick and place rotations and returns the expert demonstration
     """
     physicsClient = p.connect(p.GUI)
 
     cube_start_pos = (0.5, 0, 0)  # position of spawned cube
     robot_cell = RobotCell_K(cube_start_pos)  # start simulation with robot & cube
 
-    goal_pos = (robot_cell.cube_position[0], robot_cell.cube_position[1])  # extract cube xy position
-    print("\ngoal_pos = ", goal_pos)
+    pick_position = (robot_cell.cube_position[0], robot_cell.cube_position[1])
+    place_position = (0.3, -0.3)
 
-    z_grasp = 0.03 - 0.01
+    print("\npick_position = ", pick_position)
+    print("\nplace_position = ", place_position)
+
+    save = False
     record = True
+    pos_acc = 0.03
 
-    # states_1 = robot_cell.move(pos=[0.5, -0.2, 1], instant=False, record=record, save=True)
-    # states_2 = robot_cell.attempt_grasp(xy=goal_pos, z_grasp=z_grasp, record=record, save=True)
-    # states_3 = robot_cell.move(pos=[0.5, -0.2, 1], instant=False, record=record, save=True)
-    # states_4 = robot_cell.move(pos=[0.5, -0.2, z_grasp], instant=False, record=record, save=True)
-    # states_5 = robot_cell.gripper_open(save=True)
-    # states_6 = robot_cell.move(pos=[0.5, -0.2, 1], instant=False, record=record, save=True)
-    #
-    # reg_list = [states_1, states_2, states_3, states_4, states_5, states_6]
-    #
-    # # save pickle
-    # fileObj = open('saved_pickles/states_flat.obj', 'wb')
-    # pickle.dump(reg_list, fileObj)
-    # fileObj.close()
-    #
-    # # try to save list to csv
-    # save_states_to_csv(states_loaded=reg_list)
+    obj_grasped = False
+    obj_placed = False
+    while not obj_grasped:
+        obj_grasped = move_tcp_to_point_grasp_release(robot_cell, goal_position=pick_position, goal='grasp', position_accuracy=pos_acc)
+    while not obj_placed:
+        obj_placed = move_tcp_to_point_grasp_release(robot_cell, goal_position=place_position, goal='release', position_accuracy=pos_acc)
 
 
 def present_robot_actions():
@@ -159,7 +226,8 @@ def present_checking_gripper():
 
 if __name__ == "__main__":
     # print("pd.__version__", pd.__version__)
-    # try_RobotCell_save_path()
+    # actions_ugly_path()
+    get_trajectories_actions_pick_place()
 
     # present_robot_actions()
-    present_checking_gripper()
+    # present_checking_gripper()
