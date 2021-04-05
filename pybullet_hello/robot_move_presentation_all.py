@@ -40,7 +40,7 @@ def check_cameras():
     """
     play with the cameras
     I found this function take_top_image in the myRobotCell.py. so I used the same view matrix.
-    Maybe play with the FoV to fit the whole sceen.
+    Maybe play with the FoV to fit the whole scene.
     """
     physicsClient = p.connect(p.GUI)  # or p.DIRECT for non-graphical version
     cube_start_pos = (0.5, 0, 0)  # position of spawned cube
@@ -57,7 +57,8 @@ def check_cameras():
 
 def present_the_move():
     """
-    just present moving the tcp
+    just present moving the tcp with pics from the camera above. Make sure you have Sci View enabled on Pycharm.
+    You can look at Pictures folder for sample pictures
     :return:
     """
     physicsClient = p.connect(p.GUI)  # or p.DIRECT for non-graphical version
@@ -70,25 +71,45 @@ def present_the_move():
     z_grasp = 0.04
     record = True
 
-    #robot_cell.move(pos=[0.5, -0.2, 1], instant=False, record=record, save=True)
     robot_cell.move(pos=[0.15, 0, 1], instant=False, record=record, save=True)
+    img = robot_cell.take_image(view_matrix=p.computeViewMatrix((0, 0, 2), (0, 0, 0), (0, -1, 0)),
+                          projection_matrix=p.computeProjectionMatrixFOV(45, 1, 0.01, 10))
+    plt.imshow(img)
+    plt.show()
 
     robot_cell.attempt_grasp(xy=goal_pos, z_grasp=z_grasp, record=record, save=True)
+    img = robot_cell.take_image(view_matrix=p.computeViewMatrix((0, 0, 2), (0, 0, 0), (0, -1, 0)),
+                          projection_matrix=p.computeProjectionMatrixFOV(45, 1, 0.01, 10))
+    plt.imshow(img)
+    plt.show()
 
-    robot_cell.move(pos=[0.5, -0.3, 1], instant=False, record=record, save=True)
+    robot_cell.move(pos=[0.5, -0.3, 0.5], instant=False, record=record, save=True)
+    img = robot_cell.take_image(view_matrix=p.computeViewMatrix((0, 0, 2), (0, 0, 0), (0, -1, 0)),
+                          projection_matrix=p.computeProjectionMatrixFOV(55, 1, 0.01, 10))
+    plt.imshow(img)
+    plt.show()
 
     robot_cell.move(pos=[0.5, -0.3, z_grasp], instant=False, record=record, save=True)
+    img = robot_cell.take_image(view_matrix=p.computeViewMatrix((0, 0, 2), (0, 0, 0), (0, -1, 0)),
+                          projection_matrix=p.computeProjectionMatrixFOV(45, 1, 0.01, 10))
+    plt.imshow(img)
+    plt.show()
 
     robot_cell.gripper_open(save=True)
+    img = robot_cell.take_image(view_matrix=p.computeViewMatrix((0, 0, 2), (0, 0, 0), (0, -1, 0)),
+                          projection_matrix=p.computeProjectionMatrixFOV(45, 1, 0.01, 10))
+    plt.imshow(img)
+    plt.show()
 
     robot_cell.move(pos=[0.5, -0.3, 1], instant=False, record=record, save=True)
 
     p.disconnect()
 
 
-if __name__ == "__main__":
+if __name__ == "__main__": # Uncomment the functions you need
 
     # print("pd.__version__", pd.__version__)
     #present_the_qs()
+    check_cameras()
     present_the_move()
-    #check_cameras()
+
