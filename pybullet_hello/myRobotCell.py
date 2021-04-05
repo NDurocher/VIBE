@@ -32,6 +32,9 @@ class RobotCell:
 
         # TODO: load the table and make sure that cameras are in proper positions
         p.loadURDF("plane.urdf")
+        # p.loadURDF("table/table.urdf",
+        #     (0, 0, 0), p.getQuaternionFromEuler((0, 0, np.pi /2)),
+        #     useFixedBase=True)
         self.cube_position = cube_position
         self.cube_id = p.loadURDF(os.getcwd()+"/generated_urdfs/box_example.urdf", self.cube_position, p.getQuaternionFromEuler((0, 0, 0)))
 
@@ -149,10 +152,12 @@ class RobotCell:
 
     def world_t_tool(self):
         pos, quat = p.getLinkState(self.rid, 11)[:2]
+        #pos = pos + np.array([self.q_target[-1]/2, 0, 0])
         return Transform(p=pos, quat=quat)
 
     def move(self, pos, theta=0., speed=1.2, acc=5., instant=False, record=False, save=False):
-        world_t_tool_desired = Transform(p=pos, rpy=(0, np.pi, np.pi / 2 + theta))
+        #world_t_tool_desired = Transform(p=pos, rpy=(0, np.pi, np.pi / 2 + theta))
+        world_t_tool_desired = Transform(p=pos, rpy=(0, np.pi/2, 0 + theta))
         if instant:
             self.set_q(self.ik(world_t_tool_desired))
         else:
@@ -206,12 +211,17 @@ class RobotCell:
         return self.gripper_move(0.03, record, save=save)
 
     def attempt_grasp(self, xy=(0, 0), theta=0, z_grasp=0.01, z_up=0.5, record=False, save=True):
-        self.q_target[-1] = self.q_target[-2] = 0.03
+        #self.q_target[-1] = self.q_target[-2] = 0.05
         results_l = []
 
         results_l.append(self.move((*xy, z_up), theta, record=record, save=save))
 
         results_l.append(self.move((*xy, z_grasp), theta, record=record, save=save))
+
+        img = self.take_image(view_matrix=p.computeViewMatrix((0, 0, 2), (0, 0, 0), (0, -1, 0)),
+                                    projection_matrix=p.computeProjectionMatrixFOV(45, 1, 0.01, 10))
+        plt.imshow(img)
+        plt.show()
 
         results_l.append(self.gripper_close(record=record, save=save))
 
