@@ -1,4 +1,5 @@
 from myRobotCell import *
+from matplotlib import pyplot as plt
 
 def present_the_qs():
     """
@@ -35,6 +36,20 @@ def present_the_qs():
     p.disconnect()
 
 
+def check_cameras():
+    """
+    play with the cameras
+    """
+    physicsClient = p.connect(p.GUI)  # or p.DIRECT for non-graphical version
+    cube_start_pos = (0.5, 0, 0)  # position of spawned cube
+    robot_cell = RobotCell(cube_start_pos)  # start simulation with robot & cube
+    img = robot_cell.take_image(view_matrix=p.computeViewMatrix((0.5, 1, 1), (0, 0, 0.3), (0, 0, 1)),
+                                projection_matrix=p.computeProjectionMatrixFOV(30, 1, 0.01, 10))
+    plt.imshow(img)
+    plt.show()
+    p.disconnect()
+
+
 def present_the_move():
     """
     just present moving the tcp
@@ -63,4 +78,5 @@ if __name__ == "__main__":
 
     # print("pd.__version__", pd.__version__)
     # present_the_qs()
-    present_the_move()
+    # present_the_move()
+    check_cameras()
