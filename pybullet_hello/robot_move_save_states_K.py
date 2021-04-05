@@ -72,10 +72,13 @@ def save_states_to_csv(states_loaded):
 
 def try_RobotCell_save_path():
     # TODO: Save step_no, joint positions and velocities of robot and Keypoint locations
+    """
+
+    """
     physicsClient = p.connect(p.GUI)
 
     cube_start_pos = (0.5, 0, 0)  # position of spawned cube
-    robot_cell = RobotCell(cube_start_pos)  # start simulation with robot & cube
+    robot_cell = RobotCell_K(cube_start_pos)  # start simulation with robot & cube
 
     goal_pos = (robot_cell.cube_position[0], robot_cell.cube_position[1])  # extract cube xy position
     print("\ngoal_pos = ", goal_pos)
@@ -83,24 +86,63 @@ def try_RobotCell_save_path():
     z_grasp = 0.03 - 0.01
     record = True
 
-    states_1 = robot_cell.move(pos=[0.5, -0.2, 1], instant=False, record=record, save=True)
-    states_2 = robot_cell.attempt_grasp(xy=goal_pos, z_grasp=z_grasp, record=record, save=True)
-    states_3 = robot_cell.move(pos=[0.5, -0.2, 1], instant=False, record=record, save=True)
-    states_4 = robot_cell.move(pos=[0.5, -0.2, z_grasp], instant=False, record=record, save=True)
-    states_5 = robot_cell.gripper_open(save=True)
-    states_6 = robot_cell.move(pos=[0.5, -0.2, 1], instant=False, record=record, save=True)
+    # states_1 = robot_cell.move(pos=[0.5, -0.2, 1], instant=False, record=record, save=True)
+    # states_2 = robot_cell.attempt_grasp(xy=goal_pos, z_grasp=z_grasp, record=record, save=True)
+    # states_3 = robot_cell.move(pos=[0.5, -0.2, 1], instant=False, record=record, save=True)
+    # states_4 = robot_cell.move(pos=[0.5, -0.2, z_grasp], instant=False, record=record, save=True)
+    # states_5 = robot_cell.gripper_open(save=True)
+    # states_6 = robot_cell.move(pos=[0.5, -0.2, 1], instant=False, record=record, save=True)
+    #
+    # reg_list = [states_1, states_2, states_3, states_4, states_5, states_6]
+    #
+    # # save pickle
+    # fileObj = open('saved_pickles/states_flat.obj', 'wb')
+    # pickle.dump(reg_list, fileObj)
+    # fileObj.close()
+    #
+    # # try to save list to csv
+    # save_states_to_csv(states_loaded=reg_list)
 
-    reg_list = [states_1, states_2, states_3, states_4, states_5, states_6]
 
-    # save pickle
-    fileObj = open('saved_pickles/states_flat.obj', 'wb')
-    pickle.dump(reg_list, fileObj)
-    fileObj.close()
+def present_robot_actions():
+    """
+    sometimes it doesnt work best because of the number of steps taken in each axis
+    it seems like if it wants to stretch too much in jiggles in one place
+    sometimes it uses curves, probably to dodge the singularities
 
-    # try to save list to csv
-    save_states_to_csv(states_loaded=reg_list)
+    Important! Need to unify the dimensions of each step!
+    """
+    physicsClient = p.connect(p.GUI)
+
+    cube_start_pos = (0.5, 0, 0)  # position of spawned cube
+    robot_cell = RobotCell_K(cube_start_pos)  # start simulation with robot & cube
+
+    for i in range(3):
+        per_movement = 60
+        # go EAST and back
+        for j in range(60):
+            robot_cell.move_action(action='e')
+        for j in range(60):
+            robot_cell.move_action(action='w')
+
+        # go WEST and back
+        for j in range(60):
+            robot_cell.move_action(action='w')
+        for j in range(60):
+            robot_cell.move_action(action='e')
+
+        # go NORTH and back
+        for j in range(40):
+            robot_cell.move_action(action='n')
+        for j in range(20):
+            robot_cell.move_action(action='s')
+
+        for j in range(2):
+            robot_cell.move_action(action='d')
+            robot_cell.move_action(action='u')
 
 
 if __name__ == "__main__":
     # print("pd.__version__", pd.__version__)
+    # present_robot_actions()
     try_RobotCell_save_path()

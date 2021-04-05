@@ -12,14 +12,262 @@ import matplotlib.animation as animation
 from transform3d import Transform
 
 
-# TODO: Save step_no, joint positions and velocities of robot and Keypoint locations
-class State:
+class State_old:
     def __init__(self, qs, q_dots, cube_pos, cube_orient, keypoint=None):
         self.q = qs
         self.q_dots = q_dots
         self.cube_position = cube_pos
         self.cube_orientation = cube_orient
         self.keypoint_location = keypoint
+
+# TODO: Save step_no, joint positions and velocities of robot and Keypoint locations
+class State:
+    def __init__(self, is_gripper_open, next_expert_action, img):
+        self.is_gripper_open = is_gripper_open
+        self.next_expert_action = next_expert_action
+        self.img = img
+
+
+class RobotCell_K:
+    def __init__(self, cube_position, dt=0.01):
+
+        self.dt = dt
+        p.setTimeStep(dt)
+        p.setGravity(0, 0, -9.8)
+        p.setAdditionalSearchPath(pybullet_data.getDataPath())
+
+        # TODO: load the table and make sure that cameras are in proper positions
+        p.loadURDF("plane.urdf")
+        self.cube_position = cube_position
+        self.cube_id = p.loadURDF(os.getcwd()+"/generated_urdfs/box_example.urdf", self.cube_position, p.getQuaternionFromEuler((0, 0, 0)))
+
+
+        """
+        different boxes have different behaviour
+        maybe when we change shape of the box we should also change mass?
+        """
+        p.changeDynamics(bodyUniqueId=self.cube_id,
+                         linkIndex=-1,
+                         mass=1.1,  # this mass works with the box_example.urdf but doesnt with other boxes
+                         lateralFriction=sys.maxsize,
+                         spinningFriction=sys.maxsize,
+                         rollingFriction=sys.maxsize,
+                         restitution=0.0,
+                         linearDamping=0.0,
+                         angularDamping=0.0,
+                         contactStiffness=sys.maxsize,
+                         contactDamping=sys.maxsize)
+
+        self.n_grasped = 0
+        self.rid = p.loadURDF(
+            os.path.join(pybullet_data.getDataPath(), "franka_panda/panda.urdf"),
+            (0, -0.55, 0), p.getQuaternionFromEuler((0, 0, np.pi / 2)),
+            useFixedBase=True
+        )
+        print("self.rid ", self.rid)
+        print("p.getNumJoints(self.rid) ", p.getNumJoints(self.rid))
+
+        joint_infos = [p.getJointInfo(self.rid, i) for i in range(p.getNumJoints(self.rid))]
+        joint_infos = [ji for ji in joint_infos if ji[2] is not p.JOINT_FIXED]
+        self.joint_idxs = [ji[0] for ji in joint_infos]
+        self.joint_lower_limits = np.array([ji[8] for ji in joint_infos])
+        self.joint_upper_limits = np.array([ji[9] for ji in joint_infos])
+        self.joint_lower_limits[6] = -np.pi * 2
+        self.joint_upper_limits[6] = np.pi * 2
+        self.joint_range = self.joint_upper_limits - self.joint_lower_limits
+        self.joint_rest = (self.joint_lower_limits + self.joint_upper_limits) / 2
+        self.joint_rest[-2:] = 0.04
+        self.joint_rest[1] -= np.pi / 4
+        self.q_target = np.zeros(9)
+
+        for i, joint_idx in enumerate(self.joint_idxs):
+            p.changeDynamics(self.rid, joint_idx, linearDamping=0, angularDamping=0)
+        self.gripper_open()
+        self.reset()
+        # self.move(pos=(0,0,1))
+
+    def set_q(self, q):
+        for i, joint_idx in enumerate(self.joint_idxs):
+            p.resetJointState(self.rid, joint_idx, q[i])
+        self.set_q_target(q)
+
+    def set_q_target(self, q):
+        self.q_target = q
+        p.setJointMotorControlArray(
+            self.rid, self.joint_idxs, p.POSITION_CONTROL, q,
+            forces=[100] * 7 + [15] * 2, positionGains=[1] * 9
+        )
+
+    def reset_robot(self):
+        self.set_q(self.joint_rest)
+
+    def reset(self):
+        self.reset_robot()
+        # for lego in self.legos:
+        #     pos = *np.random.uniform(-0.1, 0.1, 2), 0.03
+        #     quat = np.random.randn(4)
+        #     quat = quat / np.linalg.norm(quat)
+        #     p.resetBasePositionAndOrientation(lego, pos, quat)
+        #     p.changeDynamics(lego, -1, mass=0.1)
+        self.n_grasped = 0
+        for i in range(50):  # let them fall to rest on the table
+            p.stepSimulation()
+
+    def take_image(self, res=400,
+                   view_matrix=p.computeViewMatrix((0.5, 1, 1), (0, 0, 0.3), (0, 0, 1)),
+                   projection_matrix=p.computeProjectionMatrixFOV(30, 1, 0.01, 10)):
+        img, depth, seg = p.getCameraImage(
+            res, res, view_matrix, projection_matrix,
+            shadow=1,
+        )[2:]
+        return img[..., :3]
+
+    def take_top_image(self, res=224, fov=8):
+        view_matrix = p.computeViewMatrix((0, 0, 2), (0, 0, 0), (0, -1, 0))
+        projection_matrix = p.computeProjectionMatrixFOV(fov, 1, 0.01, 10)
+        return self.take_image(res, view_matrix, projection_matrix)
+
+    def top_px_to_world(self, x, y, z=0.01, res=224, fov=8):
+        depth = 2 - z
+        p = np.array((x, y)) / res - 0.5  # from -.5 to .5
+        width_view = np.tan(np.deg2rad(fov) / 2) * depth * 2
+        p = p * width_view * (-1, 1)
+        return p
+
+    def show(self, img=None):
+        plt.Figure(figsize=(5, 5))
+        plt.imshow(self.take_image() if img is None else img)
+        plt.axis('off')
+        plt.tight_layout()
+        plt.show()
+
+    def show_top(self):
+        self.show(self.take_top_image())
+
+    def ik(self, world_t_tool: Transform, max_iter=100):
+        q = list(p.calculateInverseKinematics(
+            self.rid, 11, world_t_tool.p, world_t_tool.quat,
+            # list(self.joint_lower_limits), list(self.joint_upper_limits),
+            # list(self.joint_range), list(self.joint_rest),
+            maxNumIterations=max_iter
+        ))
+        q[-1] = q[-2] = self.q_target[-1]
+        return q
+
+    def world_t_tool(self):
+        pos, quat = p.getLinkState(self.rid, 11)[:2]
+        return Transform(p=pos, quat=quat)
+
+    def move_action(self, action, step_d=0.01):
+        """
+        move the TCP according to the allowed actions
+        """
+        z_grasp = 0.01
+        z_up = 0.5
+        allowed_actions = ('n', 's', 'e', 'w', 'u', 'd')
+        if action in allowed_actions:
+            pos_now = self.world_t_tool().p.copy()
+            # pos_next = pos_now.copy()
+            # pos_next.setflags(write=True)
+            if action == 'n':
+                pos_next = pos_now + [0, step_d, 0]
+                pos_next[2] = z_up
+            if action == 's':
+                pos_next = pos_now + [0, -step_d, 0]
+                pos_next[2] = z_up
+            if action == 'e':
+                pos_next = pos_now + [step_d, 0, 0]
+                pos_next[2] = z_up
+            if action == 'w':
+                pos_next = pos_now + [-step_d, 0, 0]
+                pos_next[2] = z_up
+
+            if action == 'u':
+                pos_next = pos_now
+                pos_next[2] = z_up
+            if action == 'd':
+                pos_next = pos_now
+                pos_next[2] = z_grasp
+
+            self.move(pos=np.array(pos_next))
+
+
+    def move(self, pos, theta=0., speed=1.2, acc=5., instant=False, record=False, save=False):
+        world_t_tool_desired = Transform(p=pos, rpy=(0, np.pi, np.pi / 2 + theta))
+        if instant:
+            self.set_q(self.ik(world_t_tool_desired))
+        else:
+            world_t_tool_start = self.world_t_tool()
+            tool_start_t_tool_desired = world_t_tool_start.inv @ world_t_tool_desired
+            dist = np.linalg.norm(tool_start_t_tool_desired.xyz_rotvec)
+            images = []
+            states_l = []
+
+            for i, s in enumerate(lerp(dist, speed, acc, self.dt)):
+                world_t_tool_target = world_t_tool_start @ (tool_start_t_tool_desired * s)
+                self.set_q_target(self.ik(world_t_tool_target))
+                p.stepSimulation()
+                if record and i % 4 == 0:  # fps = 1/dt / 4
+                    img_now = self.take_image()
+                    # images.append(self.take_image())
+                    if save:
+                        # qs.append(self.q_target)
+                        # cube_pos, cube_orn = p.getBasePositionAndOrientation(self.cube_id)
+
+                        states_l.append(State(is_gripper_open, next_expert_action, img=img_now))
+            if save:
+                return states_l
+            else:
+                return None
+
+    def gripper_move(self, d_desired, record=False, speed=1., acc=3., save=False):
+        d_start = self.q_target[-1]
+        move = d_desired - d_start
+        images = []
+        states_l = []
+        for i, s in enumerate(lerp(abs(move), speed, acc, self.dt)):
+            self.q_target[-1] = self.q_target[-2] = d_start + s * move
+            self.set_q_target(self.q_target)
+            p.stepSimulation()
+            if record and i % 4 == 0:
+                images.append(self.take_image())
+                if save:
+                    cube_pos, cube_orn = p.getBasePositionAndOrientation(self.cube_id)
+                    states_l.append(
+                        State(qs=self.q_target, q_dots=None, cube_pos=cube_pos, cube_orient=cube_orn, keypoint=None))
+
+        if save:
+            return states_l
+        else:
+            return None
+
+    def gripper_close(self, record=False, save=True):
+        return self.gripper_move(0.0, record, save=save)
+
+    def gripper_open(self, record=False, save=True):
+        return self.gripper_move(0.03, record, save=save)
+
+    def attempt_grasp(self, xy=(0, 0), theta=0, z_grasp=0.01, z_up=0.5, record=False, save=True):
+        self.q_target[-1] = self.q_target[-2] = 0.03
+        results_l = []
+
+        results_l.append(self.move((*xy, z_up), theta, record=record, save=save))
+
+        results_l.append(self.move((*xy, z_grasp), theta, record=record, save=save))
+
+        results_l.append(self.gripper_close(record=record, save=save))
+
+        results_l.append(self.move((*xy, z_up), theta, record=record, save=save))
+
+        # success = False
+        # for lego in self.legos:
+        #     if p.getBasePositionAndOrientation(lego)[0][2] > z_up / 2:
+        #         p.resetBasePositionAndOrientation(lego, (0, 0, -1), (0, 0, 0, 1))  # move away
+        #         p.changeDynamics(lego, -1, mass=0)  # static
+        #         success = True
+        #         self.n_grasped += 1
+
+        return results_l
 
 
 class RobotCell:
