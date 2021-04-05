@@ -161,12 +161,16 @@ class RobotCell_K:
     def move_action(self, action, step_d=0.01):
         """
         move the TCP according to the allowed actions
+        north, south, east, west,   grasp, release
         """
         z_grasp = 0.01
         z_up = 0.5
-        allowed_actions = ('n', 's', 'e', 'w', 'u', 'd')
-        if action in allowed_actions:
-            pos_now = self.world_t_tool().p.copy()
+        move_actions = ('n', 's', 'e', 'w')
+        gripper_actions = ('g', 'r')
+        pos_now = self.world_t_tool().p.copy()
+
+        """ move TCP actions """
+        if action in move_actions:
             # pos_next = pos_now.copy()
             # pos_next.setflags(write=True)
             if action == 'n':
@@ -181,15 +185,19 @@ class RobotCell_K:
             if action == 'w':
                 pos_next = pos_now + [-step_d, 0, 0]
                 pos_next[2] = z_up
-
-            if action == 'u':
-                pos_next = pos_now
-                pos_next[2] = z_up
-            if action == 'd':
-                pos_next = pos_now
-                pos_next[2] = z_grasp
-
             self.move(pos=np.array(pos_next))
+
+        """ Gripper actions """
+        if action in gripper_actions:
+            if action == 'g':  # grasp
+                # pos_next = pos_now
+                # pos_next[2] = z_grasp
+                self.attempt_grasp(xy=(pos_now[0], pos_now[1]), theta=0, z_grasp=z_grasp, z_up=z_up, record=True, save=False)
+
+            if action == 'r':  # release
+                self.gripper_open()
+                self.gripper_close()
+
 
 
     def move(self, pos, theta=0., speed=1.2, acc=5., instant=False, record=False, save=False):
@@ -214,7 +222,8 @@ class RobotCell_K:
                         # qs.append(self.q_target)
                         # cube_pos, cube_orn = p.getBasePositionAndOrientation(self.cube_id)
 
-                        states_l.append(State(is_gripper_open, next_expert_action, img=img_now))
+                        # states_l.append(State(is_gripper_open, next_expert_action, img=img_now))
+                        pass
             if save:
                 return states_l
             else:

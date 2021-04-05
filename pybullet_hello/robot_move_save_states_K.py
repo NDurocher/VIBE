@@ -118,31 +118,31 @@ def present_robot_actions():
     robot_cell = RobotCell_K(cube_start_pos)  # start simulation with robot & cube
 
     for i in range(3):
-        per_movement = 60
-        # go EAST and back
-        for j in range(60):
-            robot_cell.move_action(action='e')
-        for j in range(60):
-            robot_cell.move_action(action='w')
-
-        # go WEST and back
-        for j in range(60):
-            robot_cell.move_action(action='w')
-        for j in range(60):
-            robot_cell.move_action(action='e')
-
-        # go NORTH and back
-        for j in range(40):
-            robot_cell.move_action(action='n')
-        for j in range(20):
-            robot_cell.move_action(action='s')
+        # per_movement = 60
+        # # go EAST and back
+        # for j in range(60):
+        #     robot_cell.move_action(action='e')
+        # for j in range(60):
+        #     robot_cell.move_action(action='w')
+        #
+        # # go WEST and back
+        # for j in range(60):
+        #     robot_cell.move_action(action='w')
+        # for j in range(60):
+        #     robot_cell.move_action(action='e')
+        #
+        # # go NORTH and back
+        # for j in range(40):
+        #     robot_cell.move_action(action='n')
+        # for j in range(20):
+        #     robot_cell.move_action(action='s')
 
         for j in range(2):
-            robot_cell.move_action(action='d')
-            robot_cell.move_action(action='u')
+            robot_cell.move_action(action='g')
+            robot_cell.move_action(action='r')
 
 
 if __name__ == "__main__":
     # print("pd.__version__", pd.__version__)
-    # present_robot_actions()
-    try_RobotCell_save_path()
+    present_robot_actions()
+    # try_RobotCell_save_path()
