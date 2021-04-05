@@ -2,11 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="71628e8f-2730-4db5-a601-c088ec11d14d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/pybullet_hello/robot_move_save_states_K.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pybullet_hello/myRobotCell.py" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/myRobotCell.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pybullet_hello/rasmus_robot_move.py" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/robot_move_presentation_all.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pybullet_hello/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pybullet_hello/videos/block_generation-2021-03-09_13.47.23.mp4" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pybullet_hello/videos/block_grasping-2021-03-09_21.20.29.mp4" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pybullet_hello/videos/block_grasping-2021-03-09_22.05.54.mp4" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pybullet_hello/videos/images_qs_error_2021-03-10_16-47.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pybullet_hello/videos/pick_problem-2021-03-09_22.52.24.mp4" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pybullet_hello/videos/pick_problem-2021-03-10_08.06.41.mp4" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/robot_move_presentation_all.py" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/robot_move_presentation_all.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -176,16 +179,5 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/pybullet_hello/robot_move_presentation_all.py</url>
-          <line>132</line>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>
