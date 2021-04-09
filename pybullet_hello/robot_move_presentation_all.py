@@ -62,7 +62,7 @@ def present_the_move():
     :return:
     """
     physicsClient = p.connect(p.GUI)  # or p.DIRECT for non-graphical version
-    cube_start_pos = (0.5, 0, 0)  # position of spawned cube
+    cube_start_pos = (0, 0.2, 0)  # position of spawned cube
     robot_cell = RobotCell(cube_start_pos)  # start simulation with robot & cube
 
     goal_pos = (robot_cell.cube_position[0], robot_cell.cube_position[1])  # extract cube xy position
@@ -71,7 +71,7 @@ def present_the_move():
     z_grasp = 0.04
     record = True
 
-    robot_cell.move(pos=[0.15, 0, 1], instant=False, record=record, save=True)
+    robot_cell.move(pos=[0, 0.2, 1], instant=False, record=record, save=True)
     img = robot_cell.take_image(view_matrix=p.computeViewMatrix((0, 0, 2), (0, 0, 0), (0, -1, 0)),
                           projection_matrix=p.computeProjectionMatrixFOV(45, 1, 0.01, 10))
     plt.imshow(img)
@@ -83,13 +83,13 @@ def present_the_move():
     plt.imshow(img)
     plt.show()
 
-    robot_cell.move(pos=[0.5, -0.3, 0.5], instant=False, record=record, save=True)
+    robot_cell.move(pos=[0, 0, 0.5], instant=False, record=record, save=True)
     img = robot_cell.take_image(view_matrix=p.computeViewMatrix((0, 0, 2), (0, 0, 0), (0, -1, 0)),
                           projection_matrix=p.computeProjectionMatrixFOV(55, 1, 0.01, 10))
     plt.imshow(img)
     plt.show()
 
-    robot_cell.move(pos=[0.5, -0.3, z_grasp], instant=False, record=record, save=True)
+    robot_cell.move(pos=[0.5, 0, z_grasp], instant=False, record=record, save=True)
     img = robot_cell.take_image(view_matrix=p.computeViewMatrix((0, 0, 2), (0, 0, 0), (0, -1, 0)),
                           projection_matrix=p.computeProjectionMatrixFOV(45, 1, 0.01, 10))
     plt.imshow(img)
@@ -101,7 +101,7 @@ def present_the_move():
     plt.imshow(img)
     plt.show()
 
-    robot_cell.move(pos=[0.5, -0.3, 1], instant=False, record=record, save=True)
+    robot_cell.move(pos=[0.5, 0, 1], instant=False, record=record, save=True)
 
     p.disconnect()
 
