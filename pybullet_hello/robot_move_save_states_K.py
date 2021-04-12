@@ -1,4 +1,5 @@
 import csv
+import os
 
 from myRobotCell import *
 import pickle
@@ -96,7 +97,7 @@ def actions_ugly_path():
     robot_cell.move_action('r')
 
 
-def move_tcp_to_point_grasp_release(robot_cell, goal_position, goal, position_accuracy):
+def move_tcp_to_point_grasp_release(robot_cell, goal_position, goal, position_accuracy, save_path):
     """
     moves the TCP to the goal point and returns if the goal was achieved - cube grapsed or released
     goal might be only 'grasp' or 'release'
@@ -115,14 +116,14 @@ def move_tcp_to_point_grasp_release(robot_cell, goal_position, goal, position_ac
 
         # can try grasp
         if goal == 'grasp':
-            robot_cell.move_action('g')
+            robot_cell.move_action('g', save_path)
             if robot_cell.is_gripper_closed():
                 print("grasped!")
                 goal_achieved = True
                 return goal_achieved
 
         if goal == 'release':
-            robot_cell.move_action('r')
+            robot_cell.move_action('r', save_path)
             if not robot_cell.is_gripper_closed():
                 print("released!")
                 goal_achieved = True
@@ -131,19 +132,19 @@ def move_tcp_to_point_grasp_release(robot_cell, goal_position, goal, position_ac
     # if have to move right or left!
     if abs(delta_x) > abs(delta_y):
         if delta_x >= 0:
-            robot_cell.move_action('e')
+            robot_cell.move_action('e', save_path)
         else:
-            robot_cell.move_action('w')
+            robot_cell.move_action('w', save_path)
 
     else:  # have to move up or down
         if delta_y >= 0:
-            robot_cell.move_action('n')
+            robot_cell.move_action('n', save_path)
         else:
-            robot_cell.move_action('s')
+            robot_cell.move_action('s', save_path)
     return goal_achieved
 
 
-def get_trajectories_actions_pick_place():
+def get_trajectories_actions_pick_place(path_to_save):
     # TODO: record and save the state!
     """
     randomizes the pick and place rotations and returns the expert demonstration
@@ -159,16 +160,21 @@ def get_trajectories_actions_pick_place():
     print("\npick_position = ", pick_position)
     print("\nplace_position = ", place_position)
 
-    save = False
-    record = True
     pos_acc = 0.03
 
-    obj_grasped = False
-    obj_placed = False
-    while not obj_grasped:
-        obj_grasped = move_tcp_to_point_grasp_release(robot_cell, goal_position=pick_position, goal='grasp', position_accuracy=pos_acc)
-    while not obj_placed:
-        obj_placed = move_tcp_to_point_grasp_release(robot_cell, goal_position=place_position, goal='release', position_accuracy=pos_acc)
+    positions = []
+    positions.append((pick_position, place_position))
+    # TODO: positions = get_randomized_pick_place_xy_locations
+    for i in range(len(positions)):
+        start_pos, end_pos = positions[i]
+        print(i, start_pos, end_pos)
+
+        obj_grasped = False
+        obj_placed = False
+        while not obj_grasped:
+            obj_grasped = move_tcp_to_point_grasp_release(robot_cell, goal_position=pick_position, goal='grasp', position_accuracy=pos_acc, save_path=path_to_save)
+        while not obj_placed:
+            obj_placed = move_tcp_to_point_grasp_release(robot_cell, goal_position=place_position, goal='release', position_accuracy=pos_acc, save_path=path_to_save)
 
 
 def present_robot_actions():
@@ -225,9 +231,11 @@ def present_checking_gripper():
 
 
 if __name__ == "__main__":
+    print(os.getcwd())
+    trajectories_save_path = os.getcwd() + "/expert_trajectories/try_0"
     # print("pd.__version__", pd.__version__)
     # actions_ugly_path()
-    get_trajectories_actions_pick_place()
+    get_trajectories_actions_pick_place(trajectories_save_path)
 
     # present_robot_actions()
     # present_checking_gripper()

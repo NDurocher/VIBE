@@ -8,7 +8,7 @@ import pybullet as p
 import pybullet_data
 import pybullet_utils.bullet_client
 import matplotlib.pyplot as plt
-import matplotlib.animation as animation
+import matplotlib
 from transform3d import Transform
 
 
@@ -26,6 +26,27 @@ class State:
         self.is_gripper_open = is_gripper_open
         self.next_expert_action = next_expert_action
         self.img = img
+
+
+def get_save_action_path(save_path, action):
+    """ just add action to save path and create dirs """
+    if action == 'n':
+        action = 'north'
+    if action == 's':
+        action = 'south'
+    if action == 'e':
+        action = 'east'
+    if action == 'w':
+        action = 'west'
+    if action == 'g':
+        action = 'grasp'
+    if action == 'r':
+        action = 'release'
+
+    save_path = save_path + '/' + action
+    if not os.path.exists(save_path):
+        os.mkdir(save_path)
+    return save_path
 
 
 class RobotCell_K:
@@ -58,7 +79,7 @@ class RobotCell_K:
                          contactStiffness=sys.maxsize,
                          contactDamping=sys.maxsize)
 
-        self.n_grasped = 0
+        self.n_actions_taken = 0
         self.rid = p.loadURDF(
             os.path.join(pybullet_data.getDataPath(), "franka_panda/panda.urdf"),
             (0, -0.55, 0), p.getQuaternionFromEuler((0, 0, np.pi / 2)),
@@ -109,7 +130,7 @@ class RobotCell_K:
         #     quat = quat / np.linalg.norm(quat)
         #     p.resetBasePositionAndOrientation(lego, pos, quat)
         #     p.changeDynamics(lego, -1, mass=0.1)
-        self.n_grasped = 0
+        self.n_actions_taken = 0
         for i in range(50):  # let them fall to rest on the table
             p.stepSimulation()
 
@@ -158,7 +179,7 @@ class RobotCell_K:
         pos, quat = p.getLinkState(self.rid, 11)[:2]
         return Transform(p=pos, quat=quat)
 
-    def move_action(self, action, step_d=0.01):
+    def move_action(self, action, save_path, step_d=0.01):
         """
         move the TCP according to the allowed actions
         north, south, east, west,   grasp, release
@@ -168,6 +189,9 @@ class RobotCell_K:
         move_actions = ('n', 's', 'e', 'w')
         gripper_actions = ('g', 'r')
         pos_now = self.world_t_tool().p.copy()
+
+        """ save path update """
+        save_path = get_save_action_path(save_path, action) # also creates directory if wasnt before
 
         """ move TCP actions """
         if action in move_actions:
@@ -185,18 +209,23 @@ class RobotCell_K:
             if action == 'w':
                 pos_next = pos_now + [-step_d, 0, 0]
                 pos_next[2] = z_up
-            self.move(pos=np.array(pos_next))
+            """ SAVE """
+            img_action = self.move(pos=np.array(pos_next), save=True)
 
         """ Gripper actions """
         if action in gripper_actions:
             if action == 'g':  # grasp
                 # pos_next = pos_now
                 # pos_next[2] = z_grasp
-                self.attempt_grasp(xy=(pos_now[0], pos_now[1]), theta=0, z_grasp=z_grasp, z_up=z_up, record=True, save=False)
+                img_action = self.attempt_grasp(xy=(pos_now[0], pos_now[1]), theta=0, z_grasp=z_grasp, z_up=z_up, record=True, save=True)
 
             if action == 'r':  # release
-                self.gripper_open()
-                # self.gripper_close()
+                img_action = self.attempt_release(xy=(pos_now[0], pos_now[1]), theta=0, z_grasp=z_grasp, z_up=z_up, record=True, save=True)
+
+        """ save image to dir """
+        # import matplotlib
+        matplotlib.image.imsave(save_path + '/' + str(self.n_actions_taken) + '.png', img_action)
+        self.n_actions_taken += 1
 
 
 
@@ -215,17 +244,13 @@ class RobotCell_K:
                 world_t_tool_target = world_t_tool_start @ (tool_start_t_tool_desired * s)
                 self.set_q_target(self.ik(world_t_tool_target))
                 p.stepSimulation()
-                if record and i % 4 == 0:  # fps = 1/dt / 4
-                    img_now = self.take_image()
-                    # images.append(self.take_image())
-                    if save:
-                        # qs.append(self.q_target)
-                        # cube_pos, cube_orn = p.getBasePositionAndOrientation(self.cube_id)
+                # if record and i % 4 == 0:  # fps = 1/dt / 4
+                #     img_now = self.take_image()
+                #     # images.append(self.take_image())
 
-                        # states_l.append(State(is_gripper_open, next_expert_action, img=img_now))
-                        pass
             if save:
-                return states_l
+                img_now = self.take_image()
+                return img_now
             else:
                 return None
 
@@ -250,33 +275,38 @@ class RobotCell_K:
         else:
             return None
 
-    def gripper_close(self, record=False, save=True):
+    def gripper_close(self, record=False, save=False):
         return self.gripper_move(0.0, record, save=save)
 
-    def gripper_open(self, record=False, save=True):
+    def gripper_open(self, record=False, save=False):
         return self.gripper_move(0.03, record, save=save)
 
-    def attempt_grasp(self, xy=(0, 0), theta=0, z_grasp=0.01, z_up=0.5, record=False, save=True):
+    def attempt_grasp(self, xy=(0, 0), theta=0, z_grasp=0.01, z_up=0.5, record=False, save=False):
         self.q_target[-1] = self.q_target[-2] = 0.03
-        results_l = []
 
-        results_l.append(self.move((*xy, z_up), theta, record=record, save=save))
+        self.move((*xy, z_up), theta, record=record, save=save)
+        self.move((*xy, z_grasp), theta, record=record, save=save)
+        self.gripper_close(record=record, save=False)
+        self.move((*xy, z_up), theta, record=record, save=save)
 
-        results_l.append(self.move((*xy, z_grasp), theta, record=record, save=save))
+        """ taking picture after an action """
+        if save:
+            img = self.take_image()
+            return img
+        return None
 
-        results_l.append(self.gripper_close(record=record, save=save))
+    def attempt_release(self, xy=(0, 0), theta=0, z_grasp=0.01, z_up=0.5, record=False, save=False):
+        self.q_target[-1] = self.q_target[-2] = 0.03
 
-        results_l.append(self.move((*xy, z_up), theta, record=record, save=save))
-
-        # success = False
-        # for lego in self.legos:
-        #     if p.getBasePositionAndOrientation(lego)[0][2] > z_up / 2:
-        #         p.resetBasePositionAndOrientation(lego, (0, 0, -1), (0, 0, 0, 1))  # move away
-        #         p.changeDynamics(lego, -1, mass=0)  # static
-        #         success = True
-        #         self.n_grasped += 1
-
-        return results_l
+        self.move((*xy, z_up), theta, record=record, save=save)
+        self.move((*xy, z_grasp), theta, record=record, save=save)
+        self.gripper_open(record=record, save=False)
+        self.move((*xy, z_up), theta, record=record, save=save)
+        """ taking picture after an action """
+        if save:
+            img = self.take_image()
+            return img
+        return None
 
     def is_gripper_closed(self):
         """
