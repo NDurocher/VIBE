@@ -1,5 +1,7 @@
 import csv
 import os
+import random
+import time
 
 from myRobotCell import *
 import pickle
@@ -144,37 +146,59 @@ def move_tcp_to_point_grasp_release(robot_cell, goal_position, goal, position_ac
     return goal_achieved
 
 
-def get_trajectories_actions_pick_place(path_to_save):
+def get_random_grasp_release_positions(n_trajectories):
+    """
+    grasp save area:
+        x = [-0.25; 0.25]
+        y = [-0.2; 0.2]
+
+    release save area:
+        x = [0.05; 0.28]
+        y = [-0.07; 0.07]
+    """
+    # grasp_loc = (0, 0.2, 0)  # position of spawned cube
+    # release_loc = (0.28, 0, 0)
+    positions = []
+
+    for i in range(n_trajectories):
+        grasp_x = round(random.uniform(0, 0.11), 4)
+        grasp_y = round(random.uniform(0, 0.21), 4)
+        release_x = round(random.uniform(0.05, 0.28), 4)
+        release_y = round(random.uniform(-0.07, 0.07), 4)
+        positions.append( ( (grasp_x, grasp_y, 0), (release_x, release_y, 0) ) )
+
+    return positions
+
+
+def get_trajectories_actions_pick_place(pos_acc=0.018):
     # TODO: record and save the state!
     """
     randomizes the pick and place rotations and returns the expert demonstration
     """
-    physicsClient = p.connect(p.GUI)
+    path_to_save = os.getcwd() + "/expert_trajectories/try_x"
+    positions = get_random_grasp_release_positions(5)
 
-    cube_start_pos = (0.5, 0, 0)  # position of spawned cube
-    robot_cell = RobotCell_K(cube_start_pos)  # start simulation with robot & cube
-
-    pick_position = (robot_cell.cube_position[0], robot_cell.cube_position[1])
-    place_position = (0.3, -0.3)
-
-    print("\npick_position = ", pick_position)
-    print("\nplace_position = ", place_position)
-
-    pos_acc = 0.03
-
-    positions = []
-    positions.append((pick_position, place_position))
     # TODO: positions = get_randomized_pick_place_xy_locations
     for i in range(len(positions)):
-        start_pos, end_pos = positions[i]
-        print(i, start_pos, end_pos)
+        pick_position, release_loc = positions[i]
+
+        # path_to_save += str(i)
+        if not os.path.exists(path_to_save):
+            os.mkdir(path_to_save)
+
+        physicsClient = p.connect(p.GUI)
+        robot_cell = RobotCell(pick_position, release_loc)  # start simulation with robot & cube
+        print(i, pick_position, release_loc)
 
         obj_grasped = False
         obj_placed = False
         while not obj_grasped:
             obj_grasped = move_tcp_to_point_grasp_release(robot_cell, goal_position=pick_position, goal='grasp', position_accuracy=pos_acc, save_path=path_to_save)
         while not obj_placed:
-            obj_placed = move_tcp_to_point_grasp_release(robot_cell, goal_position=place_position, goal='release', position_accuracy=pos_acc, save_path=path_to_save)
+            obj_placed = move_tcp_to_point_grasp_release(robot_cell, goal_position=release_loc, goal='release', position_accuracy=pos_acc, save_path=path_to_save)
+        robot_cell.reset()
+        p.disconnect()
+        time.sleep(0.2)
 
 
 def present_robot_actions():
@@ -232,10 +256,9 @@ def present_checking_gripper():
 
 if __name__ == "__main__":
     print(os.getcwd())
-    trajectories_save_path = os.getcwd() + "/expert_trajectories/try_0"
     # print("pd.__version__", pd.__version__)
     # actions_ugly_path()
-    get_trajectories_actions_pick_place(trajectories_save_path)
+    get_trajectories_actions_pick_place()
 
     # present_robot_actions()
     # present_checking_gripper()
