@@ -23,19 +23,18 @@ class State:
 
 
 class RobotCell:
-    def __init__(self, cube_position, dt=0.01):
+    def __init__(self, grasp_loc, rel_loc, dt=0.01):
 
         self.dt = dt
         p.setTimeStep(dt)
         p.setGravity(0, 0, -9.8)
         p.setAdditionalSearchPath(pybullet_data.getDataPath())
-
+        self.rel_loc = (rel_loc[0], rel_loc[1], 0.001) #Place Location
         # TODO: load the table and make sure that cameras are in proper positions
         p.loadURDF("plane.urdf")
-        # p.loadURDF("table/table.urdf",
-        #     (0, 0, 0), p.getQuaternionFromEuler((0, 0, np.pi /2)),
-        #     useFixedBase=True)
-        self.cube_position = cube_position
+        p.loadURDF(os.getcwd()+"/generated_urdfs/Rectangle.urdf", self.rel_loc, p.getQuaternionFromEuler((0, 0, np.pi/2)),
+             useFixedBase=True)
+        self.cube_position = grasp_loc
         self.cube_id = p.loadURDF(os.getcwd()+"/generated_urdfs/box_example.urdf", self.cube_position, p.getQuaternionFromEuler((0, 0, 0)))
 
 
