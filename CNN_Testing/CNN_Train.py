@@ -10,17 +10,20 @@ import torch.nn.functional as F
 from torchvision import datasets, transforms, models
 from pathlib import Path
 from PIL import Image
-import os, sys
+import os
 
 data_dir = Path("data/")
 
-class CNN:
-    def __init__(self,isnew = False):
+class CNN(nn.Module):
+    def __init__(self, isnew = False):
+        super(CNN, self).__init__()
         if isnew == True:
             self.model = models.resnet50(pretrained=True) #torch.hub.load('pytorch/vision:v0.9.0', 'resnet34', pretrained=True)
         else:
-            self.model = models.resnet50()
-            self.model.load_state_dict(torch.load('KEYVIBE_model.pth'))
+            # self.model = models.resnet50(pretrained=False)
+            self.model = torch.load('KEYVIBE_model.pth')
+        with open("action.txt", "r") as f:
+            self.categories = [s.strip() for s in f.readlines()]
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         self.train_losses, self.test_losses = [], []
 
@@ -58,16 +61,17 @@ class CNN:
         self.model.fc = nn.Sequential(nn.Linear(2048, 512),
                                       nn.ReLU(),
                                       nn.Dropout(0.2),
-                                      nn.Linear(512, 2),
+                                      nn.Linear(512, 3),
                                       nn.LogSoftmax(dim=1))
         criterion = nn.NLLLoss()
         optimizer = optim.Adam(self.model.fc.parameters(), lr=0.003)
         self.model.to(self.device)
 
-        epochs = 1
+        epochs = 8
         steps = 0
         running_loss = 0
-        print_every = 10
+        print_every = 4
+
 
         for epoch in range(epochs):
             for inputs, labels in self.trainloader:
@@ -110,7 +114,7 @@ class CNN:
         plt.show()
 
     def resize(self, path):
-        # This was in case the reszing in the load function did not work
+        # This was in case the resizing in the load function did not work
         dirs = os.listdir(path)
         for item in dirs:
             if os.path.isfile(path + item):
@@ -119,8 +123,8 @@ class CNN:
                 imResize = im.resize((200, 200), Image.ANTIALIAS)
                 imResize.save(f + ' resized.jpg', 'JPEG', quality=90)
 
-    def RUN(self):
-        input_image = Image.open("./IMG_7740.JPG")
+    def RUN(self, imgpath):
+        input_image = Image.open(imgpath)
         preprocess = transforms.Compose([
             transforms.Resize(256),
             transforms.CenterCrop(224),
@@ -132,15 +136,20 @@ class CNN:
         with torch.no_grad():
             output = self.model(input_batch)
         probabilities = torch.nn.functional.softmax(output[0], dim=0)
+        prob, catid = torch.topk(probabilities, 3)
+        for i in range(prob.size(0)):
+            print(self.categories[catid[i]], prob[i].item())
         print(probabilities)
+
 
 def main():
     Resnet = CNN(True)
     Resnet.load_split_train_test(data_dir, .2)
     Resnet.train()
     Resnet.plot_loss()
-    Resnet.RUN()
+    Resnet.RUN('data/north/north45.jpg')
 
 
 if __name__ == '__main__':
     main()
+
