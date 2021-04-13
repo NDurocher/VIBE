@@ -1,4 +1,5 @@
 import csv
+import math
 import os
 import random
 import time
@@ -145,12 +146,38 @@ def move_tcp_to_point_grasp_release(robot_cell, goal_position, goal, position_ac
             robot_cell.move_action('s', save_path)
     return goal_achieved
 
+def get_smart_random_grasp_release_positions(n_trajectories, th_distance=0.2):
+    """
+    reachability area:
+        x = [-0.2; 0.2]
+        y = [-0.16; 0.16]
+    randomize grasp place normally
+    then randomize release place in the correct distance from the grasp place
+    """
+    positions = []
+
+    for i in range(n_trajectories):
+        grasp_x = round(random.uniform(-0.2, 0.2), 4)
+        grasp_y = round(random.uniform(-0.15, 0.15), 4)
+
+        distance = 0
+        while distance < th_distance:
+            release_x = round(random.uniform(-0.2, 0.2), 4)
+            release_y = round(random.uniform(-0.15, 0.15), 4)
+            distance = math.sqrt( math.pow(release_x - grasp_x, 2) + math.pow(release_y - grasp_y, 2))
+            print("distance = ", distance)
+        positions.append( ( (grasp_x, grasp_y, 0), (release_x, release_y, 0) ) )
+
+    print("all the positions:")
+    print(positions)
+    return positions
+
 
 def get_random_grasp_release_positions(n_trajectories):
     """
     grasp save area:
-        x = [-0.25; 0.25]
-        y = [-0.2; 0.2]
+        x = [0; 0.111]
+        y = [0; 0.21]
 
     release save area:
         x = [0.05; 0.28]
@@ -175,8 +202,10 @@ def get_trajectories_actions_pick_place(pos_acc=0.018):
     """
     randomizes the pick and place rotations and returns the expert demonstration
     """
-    path_to_save = os.getcwd() + "/expert_trajectories/try_x"
-    positions = get_random_grasp_release_positions(5)
+    path_to_save = os.getcwd() + "/expert_trajectories/try_smart"
+    # positions = get_random_grasp_release_positions(5)
+    positions = get_smart_random_grasp_release_positions(10)
+    # exit(1)
 
     # TODO: positions = get_randomized_pick_place_xy_locations
     for i in range(len(positions)):
