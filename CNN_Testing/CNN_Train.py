@@ -60,7 +60,7 @@ class CNN(nn.Module):
 
         self.model.fc = nn.Sequential(nn.Linear(2048, 512),
                                       nn.ReLU(),
-                                      nn.Dropout(0.2),
+                                      nn.Dropout(.2),
                                       nn.Linear(512, 3),
                                       nn.LogSoftmax(dim=1))
         criterion = nn.NLLLoss()
@@ -71,7 +71,7 @@ class CNN(nn.Module):
         steps = 0
         running_loss = 0
         print_every = 4
-
+        self.model.train()
 
         for epoch in range(epochs):
             for inputs, labels in self.trainloader:
@@ -143,10 +143,10 @@ class CNN(nn.Module):
 
 
 def main():
-    Resnet = CNN(True)
-    Resnet.load_split_train_test(data_dir, .2)
-    Resnet.train()
-    Resnet.plot_loss()
+    Resnet = CNN(False)
+    # Resnet.load_split_train_test(data_dir, .2)
+    # Resnet.train()
+    # Resnet.plot_loss()
     Resnet.RUN('data/north/north45.jpg')
 
 
