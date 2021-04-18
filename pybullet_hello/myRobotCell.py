@@ -234,14 +234,16 @@ class RobotCell:
         # matplotlib.image.imsave(save_path + '/' + str(self.n_actions_taken) + '.jpg', img_action)
         imageio.imwrite(save_path + '/' + str(self.n_actions_taken) + '.jpg', img_action)
 
+
         # im = Image.fromarray(A)
         # im.save("your_file.jpeg")
         self.n_actions_taken += 1
 
-
-
     def move(self, pos, theta=0., speed=1.2, acc=5., instant=False, record=False, save=False):
-        # world_t_tool_desired = Transform(p=pos, rpy=(0, np.pi, np.pi / 2 + theta))
+        # take image before executing an action!
+        img_start = self.take_image(view_matrix=p.computeViewMatrix((0, 0, 2), (0, 0, 0), (0, -1, 0)),
+                                  projection_matrix=p.computeProjectionMatrixFOV(45, 1, 0.01, 10))
+
         world_t_tool_desired = Transform(p=pos, rpy=(0, np.pi / 2, 0 + theta))
         if instant:
             self.set_q(self.ik(world_t_tool_desired))
@@ -254,14 +256,12 @@ class RobotCell:
                 world_t_tool_target = world_t_tool_start @ (tool_start_t_tool_desired * s)
                 self.set_q_target(self.ik(world_t_tool_target))
                 p.stepSimulation()
-                if record and i % 4 == 0:  # fps = 1/dt / 4
-                    img_now = self.take_image()
-                #     # images.append(self.take_image())
+                # if record and i % 4 == 0:  # fps = 1/dt / 4
+                #     img_start = self.take_image()
+                # #     # images.append(self.take_image())
 
             if save:
-                img_now = self.take_image(view_matrix=p.computeViewMatrix((0, 0, 2), (0, 0, 0), (0, -1, 0)),
-                          projection_matrix=p.computeProjectionMatrixFOV(45, 1, 0.01, 10))
-                return img_now
+                return img_start
             else:
                 return None
 
@@ -295,31 +295,34 @@ class RobotCell:
     def attempt_grasp(self, xy, z_grasp, z_up, theta=0, record=False, save=False):
         # self.q_target[-1] = self.q_target[-2] = 0.03
 
-        self.move((*xy, z_up), theta, record=record, save=save)
-        self.move((*xy, z_grasp), theta, record=record, save=save)
-        self.gripper_close(record=record, save=False)
-        self.move((*xy, z_up), theta, record=record, save=save)
-
-        """ taking picture after an action """
+        """ taking picture before an action """
         if save:
-            img_now = self.take_image(view_matrix=p.computeViewMatrix((0, 0, 2), (0, 0, 0), (0, -1, 0)),
+            img_start = self.take_image(view_matrix=p.computeViewMatrix((0, 0, 2), (0, 0, 0), (0, -1, 0)),
                                                  projection_matrix=p.computeProjectionMatrixFOV(45, 1, 0.01, 10))
+        self.move((*xy, z_up), theta, record=record, save=False)
+        self.move((*xy, z_grasp), theta, record=record, save=False)
+        self.gripper_close(record=record, save=False)
+        self.move((*xy, z_up), theta, record=record, save=False)
 
-            return img_now
+        if save:
+            return img_start
         return None
 
     def attempt_release(self, xy=(0, 0), theta=0, z_grasp=0.01, z_up=0.5, record=False, save=False):
         self.q_target[-1] = self.q_target[-2] = 0.03
 
-        self.move((*xy, z_up), theta, record=record, save=save)
-        self.move((*xy, z_grasp), theta, record=record, save=save)
+        """ taking picture before an action """
+        if save:
+            img_start = self.take_image(view_matrix=p.computeViewMatrix((0, 0, 2), (0, 0, 0), (0, -1, 0)),
+                                        projection_matrix=p.computeProjectionMatrixFOV(45, 1, 0.01, 10))
+
+        self.move((*xy, z_up), theta, record=record, save=False)
+        self.move((*xy, z_grasp), theta, record=record, save=False)
         self.gripper_open(record=record, save=False)
-        self.move((*xy, z_up), theta, record=record, save=save)
+        self.move((*xy, z_up), theta, record=record, save=False)
         """ taking picture after an action """
         if save:
-            img_now = self.take_image(view_matrix=p.computeViewMatrix((0, 0, 2), (0, 0, 0), (0, -1, 0)),
-                                                 projection_matrix=p.computeProjectionMatrixFOV(45, 1, 0.01, 10))
-            return img_now
+            return img_start
         return None
 
     def is_gripper_closed(self):
