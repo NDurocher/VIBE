@@ -2552,7 +2552,7 @@
       <recent name="$PROJECT_DIR$/pybullet_hello/help_demos" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.robot_move_save_states_K">
+  <component name="RunManager" selected="Python.robot_CNN_actions">
     <configuration name="CNN_Train" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Keypoint_Visuomotor_Behaviours" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -2616,7 +2616,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="robot_move_save_states_K" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="robot_CNN_actions" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Keypoint_Visuomotor_Behaviours" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -2628,7 +2628,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/pybullet_hello/robot_move_save_states_K.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/pybullet_hello/robot_CNN_actions.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -2637,28 +2637,34 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="Nosetests in robot_move_save_states_K.py" type="tests" factoryName="Nosetests" temporary="true" nameIsGenerated="true">
+    <configuration name="robot_generate_expert_data" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Keypoint_Visuomotor_Behaviours" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/pybullet_hello" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="_new_regexPattern" value="&quot;&quot;" />
-      <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;$PROJECT_DIR$/pybullet_hello/robot_move_save_states_K.py&quot;" />
-      <option name="_new_targetType" value="&quot;PATH&quot;" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/pybullet_hello/robot_generate_expert_data.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.robot_move_save_states_K" />
+        <item itemvalue="Python.robot_CNN_actions" />
+        <item itemvalue="Python.robot_generate_expert_data" />
         <item itemvalue="Python.CNN_Train" />
         <item itemvalue="Python.put_all_export" />
         <item itemvalue="Python.inv_kin" />
-        <item itemvalue="Python tests.Nosetests in robot_move_save_states_K.py" />
       </list>
     </recent_temporary>
   </component>
