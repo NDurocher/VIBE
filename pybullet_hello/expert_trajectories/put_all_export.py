@@ -27,6 +27,7 @@ if __name__ == "__main__":
                     # puts the files into EXPORT directory!
                     new_loc = new_name.replace(dir, 'export')
                     print("new_loc", new_loc)
-                    # os.rename(img_path, new_loc)
+                    os.rename(img_path, new_loc)
+                    # exit(1)
 
 

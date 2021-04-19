@@ -8,96 +8,7 @@ from myRobotCell import *
 import pickle
 import pandas as pd
 
-
-def get_continious(objects_l):
-    """ just to fix the list of list of list to finally make it one list to keep track of images and qs per timestep """
-    # print(len(objects_l))
-    fixed_objs = []
-    for obj in objects_l:
-        # print(img)
-        if obj:
-            # print("img = ", img)
-            for _obj in obj:
-                try:
-                    if _obj.any():  # for images
-                        # print("_obj = ", _obj)
-                        fixed_objs.append(_obj)
-                except:
-                    if obj:
-                        fixed_objs.append(_obj)
-                    # pass
-    # print(len(fixed_objs))
-    return fixed_objs
-
-
-def get_flat_list(my_list):
-    flat_list = []
-    for item in my_list:
-        if (isinstance(item, list)):
-            get_flat_list(item)
-        else:
-            flat_list.append(item)
-    return flat_list
-
-
-def save_states_to_csv(states_loaded):
-    # use pandas to change list of class objects to dataframe and save it
-    if type(states_loaded) != list:
-        states_loaded = pickle.load(open('saved_pickles/states_flat.obj', 'rb'))
-    states_flat = []
-    # states_flat = get_flat_list(states_loaded)
-    for obj in states_loaded:
-        if type(obj) == State:
-            states_flat.append(obj)
-        else:
-            for ob in obj:
-                if type(ob) == State:
-                    states_flat.append(ob)
-                else:
-                    for o in ob:
-                        if type(o) == State:
-                            states_flat.append(o)
-                        else:
-                            for o_ in o:
-                                if type(o_) == State:
-                                    states_flat.append(o_)
-                                else:
-                                    for o__ in o_:
-                                        if type(o__) == State:
-                                            states_flat.append(o__)
-    list_of_dict = []
-    for obj in states_flat:
-        # print(obj.__dict__)
-        list_of_dict.append(obj.__dict__)
-
-    df = pd.DataFrame(list_of_dict)
-    df.to_csv("expert_trajectories/test1.csv", sep="$")
-
-
-def actions_ugly_path():
-    physicsClient = p.connect(p.GUI)
-
-    cube_start_pos = (0.5, 0, 0)  # position of spawned cube
-    robot_cell = RobotCell_K(cube_start_pos)  # start simulation with robot & cube
-
-    z_grasp = 0.03 - 0.01
-
-    pick_position = (robot_cell.cube_position[0], robot_cell.cube_position[1])
-    place_position = (0.3, -0.2)
-    print("\npick_position = ", pick_position)
-    print("\nplace_position = ", place_position)
-
-    save = False
-    record = True
-
-    while robot_cell.world_t_tool().p.copy()[0] <= pick_position[0]:
-        robot_cell.move_action('e')
-    while robot_cell.world_t_tool().p.copy()[1] <= pick_position[1]:
-        robot_cell.move_action('n')
-    robot_cell.move_action('g')
-    while robot_cell.world_t_tool().p.copy()[1] >= place_position[1]:
-        robot_cell.move_action('s')
-    robot_cell.move_action('r')
+from pybullet_hello.CNN_Train import CNN
 
 
 def move_tcp_to_point_grasp_release(robot_cell, goal_position, goal, position_accuracy, save_path, no_tries):
@@ -168,7 +79,7 @@ def get_smart_random_grasp_release_positions(n_trajectories, th_distance=0.2):
     """
     reachability area:
         x = [-0.2; 0.2]
-        y = [-0.16; 0.16]
+        y = [-0.15; 0.15]
     randomize grasp place normally
     then randomize release place in the correct distance from the grasp place
     """
@@ -266,64 +177,72 @@ def get_trajectories_actions_pick_place():
         time.sleep(0.2)
 
 
-def present_robot_actions():
-    """
-    sometimes it doesnt work best because of the number of steps taken in each axis
-    it seems like if it wants to stretch too much in jiggles in one place
-    sometimes it uses curves, probably to dodge the singularities
+def get_lacking_grasp_release_img():
+    path_to_save = os.getcwd() + "/expert_trajectories/grasp_release"
+    positions = get_smart_random_grasp_release_positions(700)
 
-    Important! Need to unify the dimensions of each step!
-    """
-    physicsClient = p.connect(p.GUI)
+    for i in range(len(positions)):
+        pick_position, release_loc = positions[i]
+        if not os.path.exists(path_to_save):
+            os.mkdir(path_to_save)
+            if not os.path.exists(path_to_save + '/grasp'):
+                os.mkdir(path_to_save + '/grasp')
+            if not os.path.exists(path_to_save + '/release'):
+                os.mkdir(path_to_save + '/release')
 
-    cube_start_pos = (0.5, 0, 0)  # position of spawned cube
-    robot_cell = RobotCell(cube_start_pos)  # start simulation with robot & cube
+        # physicsClient = p.connect(p.GUI)
+        physicsClient = p.connect(p.DIRECT)
+        robot_cell = RobotCell(pick_position, release_loc)  # start simulation with robot & cube
+        robot_cell.n_actions_taken += i
 
-    for i in range(3):
-        per_movement = 60
-        # go EAST and back
-        for j in range(60):
-            robot_cell.move_action(action='e')
-        for j in range(60):
-            robot_cell.move_action(action='w')
+        robot_cell.move((pick_position[0], pick_position[1], 0.5))
+        robot_cell.move(pick_position)
+        robot_cell.move_action('g', path_to_save)
 
-        # go WEST and back
-        for j in range(60):
-            robot_cell.move_action(action='w')
-        for j in range(60):
-            robot_cell.move_action(action='e')
+        robot_cell.move((release_loc[0], release_loc[1], 0.5))
+        robot_cell.move(release_loc)
+        robot_cell.move_action('r', path_to_save)
 
-        # go NORTH and back
-        for j in range(40):
-            robot_cell.move_action(action='n')
-        for j in range(20):
-            robot_cell.move_action(action='s')
-
-        for j in range(2):
-            robot_cell.move_action(action='g')
-            robot_cell.move_action(action='r')
+        p.disconnect()
+        time.sleep(0.2)
 
 
-def present_checking_gripper():
-    physicsClient = p.connect(p.GUI)
+def move_robot_with_cnn():
+    """ load the model of the CNN and """
+    # load cnn module
+    Resnet = CNN(False).cpu()
+    # use it to
 
-    cube_start_pos = (0.5, 0, 0)  # position of spawned cube
-    robot_cell = RobotCell(cube_start_pos)  # start simulation with robot & cube
+    positions = get_smart_random_grasp_release_positions(1)
+    for i in range(len(positions)):
+        pick_position, release_loc = positions[i]
+        physicsClient = p.connect(p.GUI)
+        # physicsClient = p.connect(p.DIRECT)
+        robot_cell = RobotCell(pick_position, release_loc)  # start simulation with robot & cube
+        print(i, pick_position, release_loc)
 
-    robot_cell.gripper_close()
-    print("gripper closed:", robot_cell.is_gripper_closed())
-    print("self.q_target[-1]=", robot_cell.q_target[-1], "self.q_target[-2]=", robot_cell.q_target[-2])
+        pos_acc = 0.018
+        no_attempts = 0
+        # just take picture and then take action
+        take_actions_no = 100
+        for i in range(take_actions_no):
+            # while True:
+            img_now = robot_cell.take_image(view_matrix=p.computeViewMatrix((0, 0, 2), (0, 0, 0), (0, -1, 0)),
+                                      projection_matrix=p.computeProjectionMatrixFOV(45, 1, 0.01, 10))
+            probs = Resnet.RUN(img_now, live=True)
+            id_to_action_name = {0: 'e', 1: 'n', 2: 's', 3: 'w'}
+            action_to_take = id_to_action_name[int(np.argmax(probs))]
+            robot_cell.move_action(action_to_take, save_path=None)
+            if action_to_take == 'r':
+                break
 
-    robot_cell.gripper_open()
-    print("gripper opened:", robot_cell.is_gripper_closed())
-    print("self.q_target[-1]=", robot_cell.q_target[-1], "self.q_target[-2]=", robot_cell.q_target[-2])
+        p.disconnect()
+        time.sleep(0.2)
+
 
 
 if __name__ == "__main__":
     print(os.getcwd())
-    # print("pd.__version__", pd.__version__)
-    # actions_ugly_path()
-    get_trajectories_actions_pick_place()
-
-    # present_robot_actions()
-    # present_checking_gripper()
+    # get_trajectories_actions_pick_place()
+    # get_lacking_grasp_release_img()
+    move_robot_with_cnn()

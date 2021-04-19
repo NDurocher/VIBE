@@ -197,9 +197,6 @@ class RobotCell:
         gripper_actions = ('g', 'r')
         pos_now = self.world_t_tool().p.copy()
 
-        """ save path update """
-        save_path = get_save_action_path(save_path, action) # also creates directory if wasnt before
-
         """ move TCP actions """
         if action in move_actions:
             # pos_next = pos_now.copy()
@@ -232,7 +229,10 @@ class RobotCell:
         """ save image to dir """
         # import matplotlib
         # matplotlib.image.imsave(save_path + '/' + str(self.n_actions_taken) + '.jpg', img_action)
-        imageio.imwrite(save_path + '/' + str(self.n_actions_taken) + '.jpg', img_action)
+        if save_path is not None:
+            """ save path update """
+            save_path = get_save_action_path(save_path, action)  # also creates directory if wasnt before
+            imageio.imwrite(save_path + '/' + str(self.n_actions_taken) + '.jpg', img_action)
 
 
         # im = Image.fromarray(A)
