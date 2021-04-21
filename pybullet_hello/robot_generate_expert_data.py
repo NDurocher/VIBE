@@ -203,7 +203,6 @@ def get_lacking_grasp_release_img():
         time.sleep(0.2)
 
 
-
 if __name__ == "__main__":
     print(os.getcwd())
     get_trajectories_actions_pick_place()

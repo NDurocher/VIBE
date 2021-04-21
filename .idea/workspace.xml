@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="71628e8f-2730-4db5-a601-c088ec11d14d" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/robot_generate_expert_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/robot_generate_expert_data.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,7 +45,7 @@
       <recent name="$PROJECT_DIR$/pybullet_hello/help_demos" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.put_all_export">
+  <component name="RunManager" selected="Python.robot_generate_expert_data">
     <configuration name="CNN_Train" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Keypoint_Visuomotor_Behaviours" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -152,8 +153,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.put_all_export" />
         <item itemvalue="Python.robot_generate_expert_data" />
+        <item itemvalue="Python.put_all_export" />
         <item itemvalue="Python.robot_CNN_actions" />
         <item itemvalue="Python.CNN_Train" />
         <item itemvalue="Python.inv_kin" />
