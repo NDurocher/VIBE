@@ -45,7 +45,7 @@
       <recent name="$PROJECT_DIR$/pybullet_hello/help_demos" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.robot_generate_expert_data">
+  <component name="RunManager" selected="Python.put_all_export">
     <configuration name="CNN_Train" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Keypoint_Visuomotor_Behaviours" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -153,8 +153,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.robot_generate_expert_data" />
         <item itemvalue="Python.put_all_export" />
+        <item itemvalue="Python.robot_generate_expert_data" />
         <item itemvalue="Python.robot_CNN_actions" />
         <item itemvalue="Python.CNN_Train" />
         <item itemvalue="Python.inv_kin" />
