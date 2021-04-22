@@ -7,7 +7,7 @@ import time
 from myRobotCell import *
 
 
-def move_tcp_to_point_grasp_release(robot_cell, goal_position, goal, position_accuracy, save_path, no_tries):
+def move_tcp_to_point_grasp_release(robot_cell, goal_position, goal, position_accuracy, save_path, no_tries, tries_threshold=40):
     """
     moves the TCP to the goal point and returns if the goal was achieved - cube grapsed or released
     goal might be only 'grasp' or 'release'
@@ -22,29 +22,31 @@ def move_tcp_to_point_grasp_release(robot_cell, goal_position, goal, position_ac
     dist = math.sqrt( delta_x**2 + delta_y**2)
     print("dist = ", dist)
     goal_achieved = False
+    stuck_detected = False
 
-    tries_threshold = 30
-    if dist < 0.047 and dist >= position_accuracy:
+    if dist < 0.07 and dist >= position_accuracy:
         no_tries += 1
     # check if can attempt grasp
     if dist < position_accuracy or no_tries == tries_threshold:
         if no_tries == tries_threshold:
-            print("stuck in place -> try action now!")
-            time.sleep(30)
+            print("<!!!!!!!!> stuck in place -> try action now!")
+            stuck_detected = True
+            return goal_achieved, no_tries, stuck_detected
+            # time.sleep(30)
         # can try grasp
         if goal == 'grasp':
             robot_cell.move_action('g', save_path)
             if robot_cell.is_gripper_closed():
                 print("grasped!")
                 goal_achieved = True
-                return goal_achieved, no_tries
+                return goal_achieved, no_tries, stuck_detected
 
         if goal == 'release':
             robot_cell.move_action('r', save_path)
             if not robot_cell.is_gripper_closed():
                 print("released!")
                 goal_achieved = True
-                return goal_achieved, no_tries
+                return goal_achieved, no_tries, stuck_detected
 
     # if have to move right or left!
     if abs(delta_x) > abs(delta_y):
@@ -68,7 +70,7 @@ def move_tcp_to_point_grasp_release(robot_cell, goal_position, goal, position_ac
         r_size = len(os.listdir(save_path + '/release/.'))
         print("pictures so far: n=%d, s=%d, e=%d, w=%d, g=%d, r=%d" % ( n_size, s_size, e_size, w_size, g_size, r_size ))
 
-    return goal_achieved, no_tries
+    return goal_achieved, no_tries, stuck_detected
 
 
 def get_smart_random_grasp_release_positions(n_trajectories, th_distance=0.2):
@@ -122,14 +124,14 @@ def get_random_grasp_release_positions(n_trajectories):
     return positions
 
 
-def get_trajectories_actions_pick_place():
+def get_trajectories_actions_pick_place(how_many):
     # TODO: record and save the state!
     """
     randomizes the pick and place rotations and returns the expert demonstration
     """
     path_to_save = os.getcwd() + "/expert_trajectories/try_smart_fast"
     # positions = get_random_grasp_release_positions(5)
-    positions = get_smart_random_grasp_release_positions(1000)
+    positions = get_smart_random_grasp_release_positions(how_many)
     # exit(1)
 
     # TODO: positions = get_randomized_pick_place_xy_locations
@@ -157,27 +159,33 @@ def get_trajectories_actions_pick_place():
         robot_cell = RobotCell(pick_position, release_loc)  # start simulation with robot & cube
         print(i, pick_position, release_loc)
 
+        stuck_detected = False
+
         obj_grasped = False
         obj_placed = False
 
         pos_acc = 0.018
+        tries_threshold = 40
         no_attempts = 0
-        while not obj_grasped:
-            obj_grasped, no_attempts = move_tcp_to_point_grasp_release(robot_cell, goal_position=pick_position, goal='grasp', position_accuracy=pos_acc, save_path=path_to_save, no_tries=no_attempts)
+        while not obj_grasped and not stuck_detected:
+            obj_grasped, no_attempts, stuck_detected = move_tcp_to_point_grasp_release(robot_cell, goal_position=pick_position, goal='grasp', position_accuracy=pos_acc, save_path=path_to_save, no_tries=no_attempts, tries_threshold=tries_threshold)
 
         no_attempts = 0
-        while not obj_placed:
-            obj_placed, no_attempts = move_tcp_to_point_grasp_release(robot_cell, goal_position=release_loc, goal='release', position_accuracy=pos_acc, save_path=path_to_save, no_tries=no_attempts)
+        while not obj_placed and not stuck_detected:
+            obj_placed, no_attempts, stuck_detected = move_tcp_to_point_grasp_release(robot_cell, goal_position=release_loc, goal='release', position_accuracy=pos_acc, save_path=path_to_save, no_tries=no_attempts, tries_threshold=tries_threshold)
+
         robot_cell.reset()
         p.disconnect()
         time.sleep(0.2)
 
 
-def get_lacking_grasp_release_img():
+def get_lacking_grasp_release_img(how_many):
     path_to_save = os.getcwd() + "/expert_trajectories/grasp_release"
-    positions = get_smart_random_grasp_release_positions(700)
+    positions = get_smart_random_grasp_release_positions(how_many)
 
     for i in range(len(positions)):
+        print(" ======= progress: %d out of %d" % (i, len(positions)))
+
         pick_position, release_loc = positions[i]
         if not os.path.exists(path_to_save):
             os.mkdir(path_to_save)
@@ -205,5 +213,5 @@ def get_lacking_grasp_release_img():
 
 if __name__ == "__main__":
     print(os.getcwd())
-    get_trajectories_actions_pick_place()
-    # get_lacking_grasp_release_img()
+    get_trajectories_actions_pick_place(1000)
+    # get_lacking_grasp_release_img(100)
