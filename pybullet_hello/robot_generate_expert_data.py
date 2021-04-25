@@ -73,6 +73,120 @@ def move_tcp_to_point_grasp_release(robot_cell, goal_position, goal, position_ac
     return goal_achieved, no_tries, stuck_detected
 
 
+def select_action_xy(delta_x, delta_y, sim_factor):
+    """ if have to move right or left and check for similar actions """
+    # check for similar actions
+    similar_ratios = 1 - sim_factor < delta_y / delta_x < 1 + sim_factor
+
+    if abs(delta_x) > abs(delta_y):
+        if delta_x >= 0:
+            action = 'e'
+        else:
+            action = 'w'
+
+    else:  # have to move up or down
+        if delta_y >= 0:
+            action = 'n'
+        else:
+            action = 's'
+
+    # if similar ratios: we konw the action taken, then we can decide the similar action on the other axis
+    similar_action = None
+    if similar_ratios:
+        if action == "e" or action == "w":
+        # similar_action = north or south
+            if delta_y >= 0 :
+                similar_action = "n"
+            else:
+                similar_action = "s"
+        if action == "n" or action == "s":
+            # similar_action = north or south
+            if delta_x >= 0:
+                similar_action = "e"
+            else:
+                similar_action = "w"
+    return action, similar_action
+
+
+def move_tcp_to_point_grasp_release_save_similar(robot_cell, goal_position, goal, position_accuracy, try_path, no_tries, tries_threshold=40):
+    """
+    IF THE delta_x IS CLOSE TO THE delta_y THEN SAVE SAME PICTURE TO 2 DIRECTORIES!
+    moves the TCP to the goal point and returns if the goal was achieved - cube grapsed or released
+    goal might be only 'grasp' or 'release'
+    """
+    if goal not in ('grasp', 'release'):
+        raise RuntimeError("only 'grasp' or 'release' are accepted!")
+
+    current_pos = robot_cell.world_t_tool().p
+    delta_x = goal_position[0] - current_pos[0]
+    delta_y = goal_position[1] - current_pos[1]
+
+    # print("delta_x = %f  |  delta_y = %f" % (delta_x, delta_y))
+    dist = math.sqrt( delta_x**2 + delta_y**2)
+    print("dist = ", dist)
+    goal_achieved = False
+    stuck_detected = False
+
+    if 0.07 > dist >= position_accuracy:
+    # if dist <= position_accuracy:
+        no_tries += 1
+    # check if can attempt grasp
+    if dist < position_accuracy or no_tries == tries_threshold and (goal == 'grasp' or 'release'):
+        if no_tries == tries_threshold:
+            print("<!!!!!!!!> stuck in place -> try action now!")
+            stuck_detected = True
+            # exit('stuck in place!')
+            return goal_achieved, no_tries, stuck_detected
+
+        # can try grasp
+        if goal == 'grasp':
+            action = 'g'
+            img = robot_cell.move_action_get_img(action)
+            if robot_cell.is_gripper_closed():
+                print("grasped!")
+                goal_achieved = True
+                imageio.imwrite(get_save_action_path(try_path, action) + '/' + str(robot_cell.n_actions_taken) + '.jpg',
+                                img)
+                return goal_achieved, no_tries, stuck_detected
+        if goal == 'release':
+            action = 'r'
+            img = robot_cell.move_action_get_img(action)
+            if not robot_cell.is_gripper_closed():
+                print("released!")
+                goal_achieved = True
+                imageio.imwrite(get_save_action_path(try_path, action) + '/' + str(robot_cell.n_actions_taken) + '.jpg',
+                                img)
+                return goal_achieved, no_tries, stuck_detected
+
+    action, similar_action = select_action_xy(delta_x, delta_y, sim_factor=0.2)
+
+    # take action
+    img = robot_cell.move_action_get_img(action)
+    # save images to correct dirs!
+    imageio.imwrite(get_save_action_path(try_path, action) + '/' + str(robot_cell.n_actions_taken) + '.jpg', img)
+    if similar_action:
+        # save images to correct dirs!
+        print("action:", action)
+        print("n_actions_taken:", robot_cell.n_actions_taken)
+        print("similar_action:", similar_action)
+        print("saves similar actions!")
+        imageio.imwrite(get_save_action_path(try_path, similar_action) + '/' + str(robot_cell.n_actions_taken) + '_s.jpg', img)
+        # exit(1)
+
+    # present the state of dirs
+    if robot_cell.n_actions_taken % 10 == 0:
+        n_size = len(os.listdir(try_path + '/north/.'))
+        s_size = len(os.listdir(try_path + '/south/.'))
+        e_size = len(os.listdir(try_path + '/east/.'))
+        w_size = len(os.listdir(try_path + '/west/.'))
+        g_size = len(os.listdir(try_path + '/grasp/.'))
+        r_size = len(os.listdir(try_path + '/release/.'))
+        print("pictures so far: n=%d, s=%d, e=%d, w=%d, g=%d, r=%d" % ( n_size, s_size, e_size, w_size, g_size, r_size ))
+
+    return goal_achieved, no_tries, stuck_detected
+
+
+
 def get_smart_random_grasp_release_positions(n_trajectories, th_distance=0.2):
     """
     reachability area:
@@ -134,28 +248,29 @@ def get_trajectories_actions_pick_place(how_many):
     positions = get_smart_random_grasp_release_positions(how_many)
     # exit(1)
 
+    # path_to_save += str(i)
+    if not os.path.exists(path_to_save):
+        os.mkdir(path_to_save)
+    if not os.path.exists(path_to_save + '/north'):
+        os.mkdir(path_to_save + '/north')
+    if not os.path.exists(path_to_save + '/south'):
+        os.mkdir(path_to_save + '/south')
+    if not os.path.exists(path_to_save + '/east'):
+        os.mkdir(path_to_save + '/east')
+    if not os.path.exists(path_to_save + '/west'):
+        os.mkdir(path_to_save + '/west')
+    if not os.path.exists(path_to_save + '/grasp'):
+        os.mkdir(path_to_save + '/grasp')
+    if not os.path.exists(path_to_save + '/release'):
+        os.mkdir(path_to_save + '/release')
+    # exit('dirs')
+
     # TODO: positions = get_randomized_pick_place_xy_locations
     for i in range(len(positions)):
         pick_position, release_loc = positions[i]
 
-        # path_to_save += str(i)
-        if not os.path.exists(path_to_save):
-            os.mkdir(path_to_save)
-            if not os.path.exists(path_to_save + '/north'):
-                os.mkdir(path_to_save + '/north')
-            if not os.path.exists(path_to_save + '/south'):
-                os.mkdir(path_to_save + '/south')
-            if not os.path.exists(path_to_save + '/east'):
-                os.mkdir(path_to_save + '/east')
-            if not os.path.exists(path_to_save + '/west'):
-                os.mkdir(path_to_save + '/west')
-            if not os.path.exists(path_to_save + '/grasp'):
-                os.mkdir(path_to_save + '/grasp')
-            if not os.path.exists(path_to_save + '/release'):
-                os.mkdir(path_to_save + '/release')
-
-        # physicsClient = p.connect(p.GUI)
-        physicsClient = p.connect(p.DIRECT)
+        physicsClient = p.connect(p.GUI)
+        # physicsClient = p.connect(p.DIRECT)
         robot_cell = RobotCell(pick_position, release_loc)  # start simulation with robot & cube
         print(i, pick_position, release_loc)
 
@@ -165,14 +280,16 @@ def get_trajectories_actions_pick_place(how_many):
         obj_placed = False
 
         pos_acc = 0.018
-        tries_threshold = 40
+        tries_threshold = 24
         no_attempts = 0
         while not obj_grasped and not stuck_detected:
-            obj_grasped, no_attempts, stuck_detected = move_tcp_to_point_grasp_release(robot_cell, goal_position=pick_position, goal='grasp', position_accuracy=pos_acc, save_path=path_to_save, no_tries=no_attempts, tries_threshold=tries_threshold)
+            # obj_grasped, no_attempts, stuck_detected = move_tcp_to_point_grasp_release(robot_cell, goal_position=pick_position, goal='grasp', position_accuracy=pos_acc, save_path=path_to_save, no_tries=no_attempts, tries_threshold=tries_threshold)
+            obj_grasped, no_attempts, stuck_detected = move_tcp_to_point_grasp_release_save_similar(robot_cell, goal_position=pick_position, goal='grasp', position_accuracy=pos_acc, try_path=path_to_save, no_tries=no_attempts, tries_threshold=tries_threshold)
 
         no_attempts = 0
         while not obj_placed and not stuck_detected:
-            obj_placed, no_attempts, stuck_detected = move_tcp_to_point_grasp_release(robot_cell, goal_position=release_loc, goal='release', position_accuracy=pos_acc, save_path=path_to_save, no_tries=no_attempts, tries_threshold=tries_threshold)
+            # obj_placed, no_attempts, stuck_detected = move_tcp_to_point_grasp_release(robot_cell, goal_position=release_loc, goal='release', position_accuracy=pos_acc, save_path=path_to_save, no_tries=no_attempts, tries_threshold=tries_threshold)
+            obj_placed, no_attempts, stuck_detected = move_tcp_to_point_grasp_release_save_similar(robot_cell, goal_position=release_loc, goal='release', position_accuracy=pos_acc, try_path=path_to_save, no_tries=no_attempts, tries_threshold=tries_threshold)
 
         robot_cell.reset()
         p.disconnect()

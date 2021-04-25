@@ -21,7 +21,7 @@ class CNN(nn.Module):
             self.model = models.resnet18(pretrained=True) #torch.hub.load('pytorch/vision:v0.9.0', 'resnet34', pretrained=True)
         else:
             # self.model = models.resnet50(pretrained=False)
-            self.model = torch.load('CNN_models/KEYVIBE_model_01.pth')
+            self.model = torch.load('CNN_models/KEYVIBE_model_02.pth')
             if torch.cuda.is_available():
               self.model.cuda()
         with open("CNN_models/action.txt", "r") as f:
@@ -65,7 +65,7 @@ class CNN(nn.Module):
         self.model.fc = nn.Sequential(nn.Linear(num_ftrs, 64),
                                       nn.ReLU(),
                                       nn.Dropout(.2),
-                                      nn.Linear(64, 4),
+                                      nn.Linear(64, 6),
                                       nn.LogSoftmax(dim=1))
         criterion = nn.NLLLoss().to(self.device)
         optimizer = optim.Adam(self.model.fc.parameters(), lr=0.003)
@@ -144,7 +144,7 @@ class CNN(nn.Module):
         with torch.no_grad():
             output = self.model(input_batch)
         probabilities = torch.nn.functional.softmax(output[0], dim=0)
-        prob, catid = torch.topk(probabilities, 4)
+        prob, catid = torch.topk(probabilities, 6)
         for i in range(prob.size(0)):
             print(self.categories[catid[i]], prob[i].item())
         print(probabilities)
@@ -161,7 +161,8 @@ def main():
     # probs = torch.tensor([0.365, 0.9055, 0.2201, 0.0580])
     action = int(np.argmax(probs))
     print(action)
-    id_to_action_name = {0: 'e', 1: 'n', 2: 's', 3: 'w'}
+    # id_to_action_name = {0: 'e', 1: 'n', 2: 's', 3: 'w'}  # old 4 actions
+    id_to_action_name = {0: 'e', 1: 'g', 2: 'n', 3: 'r', 4: 's', 5: 'w'}  # new 6 actions
     print(id_to_action_name[action])
 
 

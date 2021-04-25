@@ -1,4 +1,6 @@
 east
+grasp
 north
+release
 south
 west

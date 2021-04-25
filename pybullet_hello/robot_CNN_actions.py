@@ -21,6 +21,8 @@ def move_robot_with_cnn():
     positions = get_smart_random_grasp_release_positions(1)
     for i in range(len(positions)):
         pick_position, release_loc = positions[i]
+        # pick_position = (-0.1, -0.1, 0)
+        # release_loc = (0.1, 0.1, 0)
         physicsClient = p.connect(p.GUI)
         # physicsClient = p.connect(p.DIRECT)
         robot_cell = RobotCell(pick_position, release_loc)  # start simulation with robot & cube
@@ -34,9 +36,20 @@ def move_robot_with_cnn():
             # while True:
             img_now = robot_cell.take_image(view_matrix=p.computeViewMatrix((0, 0, 2), (0, 0, 0), (0, -1, 0)),
                                       projection_matrix=p.computeProjectionMatrixFOV(45, 1, 0.01, 10))
+            # plt.imshow(img_now)
+
             probs = Resnet.RUN(img_now, live=True)
-            id_to_action_name = {0: 'e', 1: 'n', 2: 's', 3: 'w'}
-            action_to_take = id_to_action_name[int(np.argmax(probs))]
+            print("probabilities of actions :", probs)
+
+            # id_to_action_name = {0: 'e', 1: 'n', 2: 's', 3: 'w'}  # old 4 actions
+            id_to_action_name = {0: 'e', 1: 'g', 2: 'n', 3: 'r', 4: 's', 5: 'w'}  # new 6 actions
+            sampled_prob_id = int(np.random.choice([0, 1, 2, 3, 4, 5], 1, p=np.array(probs)))
+            highest_prob_id = int(np.argmax(probs))
+            print("highest_prob_id = %d  sampled_prob_id = %d" % (highest_prob_id, sampled_prob_id))
+
+            # action_to_take = id_to_action_name[highest_prob_id]
+            action_to_take = id_to_action_name[sampled_prob_id]
+            print("chosen action: ", action_to_take)
             robot_cell.move_action(action_to_take, save_path=None)
             if action_to_take == 'r':
                 break

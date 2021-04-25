@@ -186,6 +186,51 @@ class RobotCell:
         return Transform(p=pos, quat=quat)
 
     # def move_action(self, action, save_path, step_d=0.01):
+    def move_action_get_img(self, action, step_d=0.007):
+        """
+        move the TCP according to the allowed actions
+        north, south, east, west,   grasp, release
+        """
+        z_grasp = 0.04
+        z_up = 0.6
+        move_actions = ('n', 's', 'e', 'w')
+        gripper_actions = ('g', 'r')
+        pos_now = self.world_t_tool().p.copy()
+
+        """ move TCP actions """
+        if action in move_actions:
+            # pos_next = pos_now.copy()
+            # pos_next.setflags(write=True)
+            if action == 'n':
+                pos_next = pos_now + [0, step_d, 0]
+                pos_next[2] = z_up
+            if action == 's':
+                pos_next = pos_now + [0, -step_d, 0]
+                pos_next[2] = z_up
+            if action == 'e':
+                pos_next = pos_now + [step_d, 0, 0]
+                pos_next[2] = z_up
+            if action == 'w':
+                pos_next = pos_now + [-step_d, 0, 0]
+                pos_next[2] = z_up
+            """ SAVE """
+            img_action = self.move(pos=np.array(pos_next), save=True)
+
+        """ Gripper actions """
+        if action in gripper_actions:
+            if action == 'g':  # grasp
+                # pos_next = pos_now
+                # pos_next[2] = z_grasp
+                img_action = self.attempt_grasp(xy=(pos_now[0], pos_now[1]), theta=0, z_grasp=z_grasp, z_up=z_up, record=True, save=True)
+
+            if action == 'r':  # release
+                img_action = self.attempt_release(xy=(pos_now[0], pos_now[1]), theta=0, z_grasp=z_grasp, z_up=z_up, record=True, save=True)
+
+        self.n_actions_taken += 1
+        return img_action
+
+
+
     def move_action(self, action, save_path, step_d=0.007):
         """
         move the TCP according to the allowed actions
