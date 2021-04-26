@@ -269,8 +269,8 @@ def get_trajectories_actions_pick_place(how_many):
     for i in range(len(positions)):
         pick_position, release_loc = positions[i]
 
-        physicsClient = p.connect(p.GUI)
-        # physicsClient = p.connect(p.DIRECT)
+        # physicsClient = p.connect(p.GUI)
+        physicsClient = p.connect(p.DIRECT)
         robot_cell = RobotCell(pick_position, release_loc)  # start simulation with robot & cube
         print(i, pick_position, release_loc)
 
