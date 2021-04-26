@@ -51,7 +51,7 @@ def get_save_action_path(save_path, action):
 
 
 class RobotCell:
-    def __init__(self, grasp_loc, rel_loc, dt=0.01):
+    def __init__(self, grasp_loc, rel_loc, n_steps_taken, dt=0.01):
 
         self.dt = dt
         p.setTimeStep(dt)
@@ -84,7 +84,7 @@ class RobotCell:
                          contactStiffness=sys.maxsize,
                          contactDamping=sys.maxsize)
 
-        self.n_actions_taken = 0
+        self.n_actions_taken = n_steps_taken
         self.rid = p.loadURDF(
             os.path.join(pybullet_data.getDataPath(), "franka_panda/panda.urdf"),
             (0, -0.55, 0), p.getQuaternionFromEuler((0, 0, np.pi / 2)),
