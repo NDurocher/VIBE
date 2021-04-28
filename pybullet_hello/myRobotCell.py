@@ -51,7 +51,7 @@ def get_save_action_path(save_path, action):
 
 
 class RobotCell:
-    def __init__(self, grasp_loc, rel_loc, n_steps_taken, dt=0.01):
+    def __init__(self, grasp_loc, rel_loc, n_steps_taken, start_tcp_pos, dt=0.01):
 
         self.dt = dt
         p.setTimeStep(dt)
@@ -111,7 +111,7 @@ class RobotCell:
             p.changeDynamics(self.rid, joint_idx, linearDamping=0, angularDamping=0)
         self.gripper_open()
         self.reset()
-        # self.move(pos=(0,0,1))
+        self.move(pos=start_tcp_pos)
 
     def set_q(self, q):
         for i, joint_idx in enumerate(self.joint_idxs):
@@ -339,6 +339,7 @@ class RobotCell:
 
     def attempt_grasp(self, xy, z_grasp, z_up, theta=0, record=False, save=False):
         # self.q_target[-1] = self.q_target[-2] = 0.03
+        self.gripper_open(record=record, save=False)
 
         """ taking picture before an action """
         if save:

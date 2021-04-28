@@ -21,7 +21,8 @@ class CNN(nn.Module):
             self.model = models.resnet18(pretrained=True) #torch.hub.load('pytorch/vision:v0.9.0', 'resnet34', pretrained=True)
         else:
             # self.model = models.resnet50(pretrained=False)
-            self.model = torch.load('CNN_models/KEYVIBE_model_02.pth')
+            # self.model = torch.load('CNN_models/KEYVIBE_model_02.pth')
+            self.model = torch.load('CNN_models/KEYVIBE_model_best_nathan_83.pth')
             if torch.cuda.is_available():
               self.model.cuda()
         with open("CNN_models/action.txt", "r") as f:
@@ -32,12 +33,16 @@ class CNN(nn.Module):
 
     def load_split_train_test(self, data_dir, valid_size=.2):
         train_transforms = transforms.Compose([transforms.Resize((256, 256)),
+                                               transforms.RandomVerticalFlip(),
+                                               transforms.RandomHorizontalFlip(),
                                                transforms.ToTensor(),
                                                ])
 
         test_transforms = transforms.Compose([transforms.Resize((256, 256)),
-                                              transforms.ToTensor(),
-                                              ])
+                                               transforms.RandomVerticalFlip(),
+                                               transforms.RandomHorizontalFlip(),
+                                               transforms.ToTensor(),
+                                               ])
 
         train_data = datasets.ImageFolder(data_dir, transform=train_transforms)
         test_data = datasets.ImageFolder(data_dir, transform=test_transforms)
@@ -133,12 +138,17 @@ class CNN(nn.Module):
             input_image = Image.fromarray(imgpath)
         else:
             input_image = Image.open(imgpath)
+
         preprocess = transforms.Compose([
             transforms.Resize(256),
             transforms.CenterCrop(224),
             transforms.ToTensor(),
             transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
         ])
+
+        """ that was wrong """
+        # preprocess = transforms.Compose([transforms.Resize((256, 256)), transforms.ToTensor(), ])
+
         input_tensor = preprocess(input_image)
         input_batch = input_tensor.unsqueeze(0)  # create a mini-batch as expected by the model
         with torch.no_grad():

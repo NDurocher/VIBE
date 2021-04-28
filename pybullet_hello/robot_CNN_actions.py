@@ -9,6 +9,7 @@ import pickle
 import pandas as pd
 
 from pybullet_hello.CNN_Train import CNN
+from pybullet_hello.robot_generate_expert_data import get_random_tcp_start_pos
 
 
 def move_robot_with_cnn():
@@ -18,6 +19,8 @@ def move_robot_with_cnn():
     # use it to
 
     from pybullet_hello.robot_generate_expert_data import get_smart_random_grasp_release_positions
+    n_steps_taken = 0
+
     positions = get_smart_random_grasp_release_positions(1)
     for i in range(len(positions)):
         pick_position, release_loc = positions[i]
@@ -25,7 +28,11 @@ def move_robot_with_cnn():
         # release_loc = (0.1, 0.1, 0)
         physicsClient = p.connect(p.GUI)
         # physicsClient = p.connect(p.DIRECT)
-        robot_cell = RobotCell(pick_position, release_loc)  # start simulation with robot & cube
+
+        start_tcp_pos = get_random_tcp_start_pos()
+
+        robot_cell = RobotCell(pick_position, release_loc, n_steps_taken,
+                               start_tcp_pos=start_tcp_pos)  # start simulation with robot & cube
         print(i, pick_position, release_loc)
 
         pos_acc = 0.018
@@ -47,10 +54,12 @@ def move_robot_with_cnn():
             highest_prob_id = int(np.argmax(probs))
             print("highest_prob_id = %d  sampled_prob_id = %d" % (highest_prob_id, sampled_prob_id))
 
-            # action_to_take = id_to_action_name[highest_prob_id]
-            action_to_take = id_to_action_name[sampled_prob_id]
+            action_to_take = id_to_action_name[highest_prob_id]
+            # action_to_take = id_to_action_name[sampled_prob_id]
             print("chosen action: ", action_to_take)
             robot_cell.move_action(action_to_take, save_path=None)
+            n_steps_taken += 1
+
             if action_to_take == 'r':
                 break
 

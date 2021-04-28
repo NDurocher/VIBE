@@ -237,6 +237,19 @@ def get_random_grasp_release_positions(n_trajectories):
     return positions
 
 
+def get_random_tcp_start_pos():
+    """ reachability area:
+        x = [-0.2; 0.4]
+        y = [-0.28; -0.1] """
+    z_up = 0.6
+    tcp_x = round(random.uniform(-0.2, 0.4), 4)
+    tcp_y = round(random.uniform(-0.28, -0.1), 4)
+
+    start_tcp_pos = (tcp_x, tcp_y, z_up)
+    # start_tcp_pos = (-0.2, -0.28, z_up)
+    return start_tcp_pos
+
+
 def get_trajectories_actions_pick_place(how_many):
     # TODO: record and save the state!
     """
@@ -269,9 +282,12 @@ def get_trajectories_actions_pick_place(how_many):
 
     for i in range(len(positions)):
         pick_position, release_loc = positions[i]
-        # physicsClient = p.connect(p.GUI)
-        physicsClient = p.connect(p.DIRECT)
-        robot_cell = RobotCell(pick_position, release_loc, n_steps_taken)  # start simulation with robot & cube
+        physicsClient = p.connect(p.GUI)
+        # physicsClient = p.connect(p.DIRECT)
+
+        start_tcp_pos = get_random_tcp_start_pos()
+
+        robot_cell = RobotCell(pick_position, release_loc, n_steps_taken, start_tcp_pos=start_tcp_pos)  # start simulation with robot & cube
         print(i, pick_position, release_loc)
 
         stuck_detected = False
@@ -315,7 +331,7 @@ def get_lacking_grasp_release_img(how_many):
 
         # physicsClient = p.connect(p.GUI)
         physicsClient = p.connect(p.DIRECT)
-        robot_cell = RobotCell(pick_position, release_loc)  # start simulation with robot & cube
+        robot_cell = RobotCell(pick_position, release_loc, i)  # start simulation with robot & cube
         robot_cell.n_actions_taken += i
 
         robot_cell.move((pick_position[0], pick_position[1], 0.5))
@@ -333,4 +349,4 @@ def get_lacking_grasp_release_img(how_many):
 if __name__ == "__main__":
     print(os.getcwd())
     get_trajectories_actions_pick_place(1000)
-    # get_lacking_grasp_release_img(100)
+    # get_lacking_grasp_release_img(2000)
