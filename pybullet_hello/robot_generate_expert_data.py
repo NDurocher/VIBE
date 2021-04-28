@@ -318,6 +318,7 @@ def get_lacking_grasp_release_img(how_many):
     path_to_save = os.getcwd() + "/expert_trajectories/grasp_release"
     positions = get_smart_random_grasp_release_positions(how_many)
 
+
     for i in range(len(positions)):
         print(" ======= progress: %d out of %d" % (i, len(positions)))
 
@@ -331,7 +332,11 @@ def get_lacking_grasp_release_img(how_many):
 
         # physicsClient = p.connect(p.GUI)
         physicsClient = p.connect(p.DIRECT)
-        robot_cell = RobotCell(pick_position, release_loc, i)  # start simulation with robot & cube
+
+        start_tcp_pos = get_random_tcp_start_pos()
+
+        robot_cell = RobotCell(pick_position, release_loc, i,
+                               start_tcp_pos=start_tcp_pos)  # start simulation with robot & cube
         robot_cell.n_actions_taken += i
 
         robot_cell.move((pick_position[0], pick_position[1], 0.5))
@@ -348,5 +353,5 @@ def get_lacking_grasp_release_img(how_many):
 
 if __name__ == "__main__":
     print(os.getcwd())
-    get_trajectories_actions_pick_place(1000)
-    # get_lacking_grasp_release_img(2000)
+    # get_trajectories_actions_pick_place(1000)
+    get_lacking_grasp_release_img(2000)
