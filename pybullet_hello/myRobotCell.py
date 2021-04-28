@@ -344,6 +344,7 @@ class RobotCell:
         if save:
             img_start = self.take_image(view_matrix=p.computeViewMatrix((0, 0, 2), (0, 0, 0), (0, -1, 0)),
                                                  projection_matrix=p.computeProjectionMatrixFOV(45, 1, 0.01, 10))
+        self.gripper_open(record=record, save=False)
         self.move((*xy, z_up), theta, record=record, save=False)
         self.move((*xy, z_grasp), theta, record=record, save=False)
         self.gripper_close(record=record, save=False)
