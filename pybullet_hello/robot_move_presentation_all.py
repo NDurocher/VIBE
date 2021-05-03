@@ -67,8 +67,8 @@ def present_the_move():
     # r_pick_y = 0.25
     # r_place_x = 0.25
     # r_place_y = 0
-    grasp_loc = (0, 0.25,0) # position of spawned cube
-    rel_loc = (0.25, 0, 0)
+    grasp_loc = (0.25, 0.25,0) # position of spawned cube
+    rel_loc = (0.25, 0.25, 0)
     robot_cell = RobotCell(grasp_loc, rel_loc)  # start simulation with robot & cube
 
     z_grasp = 0.04
@@ -118,13 +118,6 @@ def present_the_move():
 if __name__ == "__main__": # Uncomment the functions you need
 
     # print("pd.__version__", pd.__version__)
-<<<<<<< Updated upstream
     #present_the_qs()
-    check_cameras()
-    present_the_move()
-
-=======
-    # present_the_qs()
-    present_the_move()
     #check_cameras()
->>>>>>> Stashed changes
+    present_the_move()

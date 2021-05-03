@@ -3,11 +3,7 @@
   <link name="rect">
     <visual>
       <geometry>
-<<<<<<< Updated upstream
-        <box size="0.3 0.15 0"/>
-=======
         <box size="0.25 0.25 0"/>
->>>>>>> Stashed changes
       </geometry>
       <material name="color">
           <color rgba="0.11 0.80 0.11 1"/>
