@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d3f3fdc4-8679-446d-a4ee-1cbe202580db" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/CNN_models/KEYVIBE_model_best_nathan_83.pth" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CNN_Train.py" beforeDir="false" afterPath="$PROJECT_DIR$/CNN_Train.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myRobotCell.py" beforeDir="false" afterPath="$PROJECT_DIR$/myRobotCell.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/robot_CNN_actions.py" beforeDir="false" afterPath="$PROJECT_DIR$/robot_CNN_actions.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated_urdfs/Rectangle.urdf" beforeDir="false" afterPath="$PROJECT_DIR$/generated_urdfs/Rectangle.urdf" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -176,6 +173,7 @@
       <workItem from="1619534839301" duration="1911000" />
       <workItem from="1619538575733" duration="2500000" />
       <workItem from="1619631222324" duration="728000" />
+      <workItem from="1620050534958" duration="46000" />
     </task>
     <servers />
   </component>
