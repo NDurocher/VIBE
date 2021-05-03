@@ -118,7 +118,13 @@ def present_the_move():
 if __name__ == "__main__": # Uncomment the functions you need
 
     # print("pd.__version__", pd.__version__)
+<<<<<<< Updated upstream
     #present_the_qs()
     check_cameras()
     present_the_move()
 
+=======
+    # present_the_qs()
+    present_the_move()
+    #check_cameras()
+>>>>>>> Stashed changes

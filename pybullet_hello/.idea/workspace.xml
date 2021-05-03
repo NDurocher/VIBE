@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="d3f3fdc4-8679-446d-a4ee-1cbe202580db" name="Default Changelist" comment="">
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/myRobotCell.py" beforeDir="false" afterPath="$PROJECT_DIR$/myRobotCell.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/robot_move_presentation_all.py" beforeDir="false" afterPath="$PROJECT_DIR$/robot_move_presentation_all.py" afterDir="false" />
@@ -12356,6 +12357,11 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/robot_generate_expert_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/robot_generate_expert_data.py" afterDir="false" />
 >>>>>>> Stashed changes
+=======
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated_urdfs/Rectangle.urdf" beforeDir="false" afterPath="$PROJECT_DIR$/generated_urdfs/Rectangle.urdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/robot_move_presentation_all.py" beforeDir="false" afterPath="$PROJECT_DIR$/robot_move_presentation_all.py" afterDir="false" />
+>>>>>>> Stashed changes
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -12395,6 +12401,7 @@
     <configuration name="myRobotCell" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
 =======
     <property name="WebServerToolWindowFactoryState" value="false" />
+<<<<<<< Updated upstream
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../Tools for AI/ludo Project/Tools_of_AI-LudoProject" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -12402,6 +12409,11 @@
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
   </component>
   <component name="RunManager" selected="Python.robot_generate_expert_data">
+=======
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/robot_move_presentation_all.py" />
+  </component>
+  <component name="RunManager" selected="Python.robot_move_presentation_all">
+>>>>>>> Stashed changes
     <configuration name="generate_random_cube" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
 >>>>>>> Stashed changes
       <module name="pybullet_hello" />
@@ -12472,7 +12484,11 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+<<<<<<< Updated upstream
     <configuration name="robot_generate_expert_data" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+=======
+    <configuration name="robot_move_presentation_all" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+>>>>>>> Stashed changes
       <module name="pybullet_hello" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -12480,6 +12496,9 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="true" />
@@ -12487,9 +12506,13 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/robot_move_presentation_all.py" />
 =======
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/robot_generate_expert_data.py" />
+>>>>>>> Stashed changes
+=======
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/robot_move_presentation_all.py" />
 >>>>>>> Stashed changes
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
@@ -12509,11 +12532,19 @@
       <item itemvalue="Python.generate_random_cube" />
       <item itemvalue="Python.is_franka_here" />
       <item itemvalue="Python.rasmus_robot_move" />
+<<<<<<< Updated upstream
       <item itemvalue="Python.robot_generate_expert_data" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python.robot_generate_expert_data" />
+=======
+      <item itemvalue="Python.robot_move_presentation_all" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.robot_move_presentation_all" />
+>>>>>>> Stashed changes
         <item itemvalue="Python.rasmus_robot_move" />
         <item itemvalue="Python.generate_random_cube" />
         <item itemvalue="Python.is_franka_here" />
@@ -12541,9 +12572,13 @@
       <workItem from="1619534839301" duration="1911000" />
       <workItem from="1619538575733" duration="2500000" />
       <workItem from="1619631222324" duration="728000" />
+<<<<<<< Updated upstream
       <workItem from="1619639224206" duration="1750000" />
       <workItem from="1620029690561" duration="79000" />
       <workItem from="1620029821173" duration="626000" />
+>>>>>>> Stashed changes
+=======
+      <workItem from="1620049289882" duration="751000" />
 >>>>>>> Stashed changes
     </task>
     <servers />
@@ -12602,10 +12637,14 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     <SUITE FILE_PATH="coverage/myRobotCell_py$robot_move_presentation_all.coverage" NAME="robot_move_presentation_all Coverage Results" MODIFIED="1618231074032" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/myRobotCell_py$rasmus_robot_move.coverage" NAME="rasmus_robot_move Coverage Results" MODIFIED="1617612905078" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/myRobotCell_py$myRobotCell.coverage" NAME="myRobotCell Coverage Results" MODIFIED="1617612958049" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
 =======
+=======
+    <SUITE FILE_PATH="coverage/robot_generate_expert_data_py$robot_move_presentation_all.coverage" NAME="robot_move_presentation_all Coverage Results" MODIFIED="1620050030741" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+>>>>>>> Stashed changes
     <SUITE FILE_PATH="coverage/robot_CNN_actions_py$robot_CNN_actions.coverage" NAME="robot_CNN_actions Coverage Results" MODIFIED="1619632987358" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/robot_generate_expert_data_py$robot_generate_expert_data.coverage" NAME="robot_generate_expert_data Coverage Results" MODIFIED="1619640206323" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
 >>>>>>> Stashed changes
