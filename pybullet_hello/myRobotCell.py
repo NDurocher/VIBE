@@ -63,7 +63,7 @@ class RobotCell:
         p.loadURDF("plane.urdf")
         p.loadURDF(os.getcwd() + "/generated_urdfs/Rectangle.urdf", self.rel_loc,
                    p.getQuaternionFromEuler((0, 0, np.pi / 2)),
-                   useFixedBase=True)
+                   useFixedBase=False)
         self.cube_position = grasp_loc
         self.cube_id = p.loadURDF(os.getcwd()+"/generated_urdfs/box_example.urdf", self.cube_position, p.getQuaternionFromEuler((0, 0, 0)))
 

@@ -95,8 +95,8 @@ def performance_robot_with_cnn(no_tries):
     for i in range(1, len(positions)):
 
         pick_position, release_loc = positions[i]
-        # physicsClient = p.connect(p.GUI)
-        physicsClient = p.connect(p.DIRECT)
+        physicsClient = p.connect(p.GUI)
+        # physicsClient = p.connect(p.DIRECT)
 
         robot_cell = RobotCell(pick_position, release_loc, n_steps_taken,
                                start_tcp_pos=start_tcp_pos)  # start simulation with robot & cube

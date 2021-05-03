@@ -218,7 +218,7 @@ def get_img_move_tcp_to_point_grasp_release(robot_cell, goal_position, goal, pos
             print("<!!!!!!!!> stuck in place -> try action now!")
             stuck_detected = True
             # exit('stuck in place!')
-            return img, goal_achieved, no_tries, stuck_detected
+            return img, None, similar_action, goal_achieved, no_tries, stuck_detected
 
         # can try grasp
         if goal == 'grasp':
@@ -379,6 +379,16 @@ def get_trajectories_actions_pick_place(how_many):
             img, action, similar_action, obj_placed, no_attempts, stuck_detected = get_img_move_tcp_to_point_grasp_release(robot_cell, goal_position=release_loc, goal='release', position_accuracy=pos_acc, no_tries=no_attempts, tries_threshold=tries_threshold, n_steps_taken=n_steps_taken)
             n_steps_taken += 1
             imgs_trajectory_l.append({'img': img, 'action': action, 'similar_action': similar_action})
+
+            # check for the dropping of the cube
+            if action != "r":
+                if p.getBasePositionAndOrientation(robot_cell.cube_id)[0][2] < robot_cell.world_t_tool().p[2]/2:
+                    stuck_detected = True
+                    # while True:
+                    #     print("TEST THE GRASPING")
+                    #     time.sleep(100)
+
+
 
         if not stuck_detected:
             # save the imgs to dirs given the list
