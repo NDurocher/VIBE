@@ -269,9 +269,18 @@ def get_trajectories_actions_pick_place(how_many):
 
     for i in range(len(positions)):
         pick_position, release_loc = positions[i]
+<<<<<<< Updated upstream
         # physicsClient = p.connect(p.GUI)
         physicsClient = p.connect(p.DIRECT)
         robot_cell = RobotCell(pick_position, release_loc, n_steps_taken)  # start simulation with robot & cube
+=======
+        #physicsClient = p.connect(p.GUI)
+        physicsClient = p.connect(p.DIRECT)
+
+        start_tcp_pos = get_random_tcp_start_pos()
+
+        robot_cell = RobotCell(pick_position, release_loc, n_steps_taken, start_tcp_pos=start_tcp_pos)  # start simulation with robot & cube
+>>>>>>> Stashed changes
         print(i, pick_position, release_loc)
 
         stuck_detected = False
@@ -332,5 +341,10 @@ def get_lacking_grasp_release_img(how_many):
 
 if __name__ == "__main__":
     print(os.getcwd())
+<<<<<<< Updated upstream
     get_trajectories_actions_pick_place(1000)
     #get_lacking_grasp_release_img(100)
+=======
+    get_trajectories_actions_pick_place(65)
+    #get_lacking_grasp_release_img(2000)
+>>>>>>> Stashed changes
