@@ -14011,6 +14011,7 @@
       <change afterPath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/west/97.jpg" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/west/98.jpg" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/west/99.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pybullet_hello/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pybullet_hello/generated_urdfs/Rectangle.urdf" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/generated_urdfs/Rectangle.urdf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pybullet_hello/robot_generate_expert_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/robot_generate_expert_data.py" afterDir="false" />
@@ -14200,7 +14201,7 @@
       <workItem from="1619433765623" duration="3136000" />
       <workItem from="1619438565684" duration="4188000" />
       <workItem from="1619633137670" duration="470000" />
-      <workItem from="1620048959249" duration="64000" />
+      <workItem from="1620048959249" duration="197000" />
     </task>
     <servers />
   </component>
