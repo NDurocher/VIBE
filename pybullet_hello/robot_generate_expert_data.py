@@ -455,5 +455,5 @@ def get_lacking_grasp_release_img(how_many):
 
 if __name__ == "__main__":
     print(os.getcwd())
-    get_trajectories_actions_pick_place(100)
+    get_trajectories_actions_pick_place(150)
     # get_lacking_grasp_release_img(2000)
