@@ -80,10 +80,10 @@ def is_tcp_in_good_release(current_pos, release_loc):
     return False
 
 
-def performance_robot_with_cnn(no_tries):
+def performance_robot_with_cnn(do_gui, no_tries, model_name):
     """ load the model of the CNN and """
     # load cnn module
-    Resnet = CNN(False)
+    Resnet = CNN(False, model_name)
 
     from pybullet_hello.robot_generate_expert_data import get_smart_random_grasp_release_positions
     n_steps_taken = 0
@@ -95,8 +95,10 @@ def performance_robot_with_cnn(no_tries):
     for i in range(1, len(positions)):
 
         pick_position, release_loc = positions[i]
-        physicsClient = p.connect(p.GUI)
-        # physicsClient = p.connect(p.DIRECT)
+        if do_gui:
+            physicsClient = p.connect(p.GUI)
+        else:
+            physicsClient = p.connect(p.DIRECT)
 
         robot_cell = RobotCell(pick_position, release_loc, n_steps_taken,
                                start_tcp_pos=start_tcp_pos)  # start simulation with robot & cube
@@ -118,11 +120,11 @@ def performance_robot_with_cnn(no_tries):
 
             action_to_take = id_to_action_name[highest_prob_id]
             # action_to_take = id_to_action_name[sampled_prob_id]
-            print("chosen action: ", action_to_take)
+            # print("chosen action: ", action_to_take)
             robot_cell.move_action(action_to_take, save_path=None)
             n_steps_taken += 1
-            print("current_pos = ", robot_cell.world_t_tool().p)
-            print("release_loc = ", release_loc)
+            # print("current_pos = ", robot_cell.world_t_tool().p)
+            # print("release_loc = ", release_loc)
             actions_taken += 1
 
             if action_to_take == 'r':
@@ -135,7 +137,7 @@ def performance_robot_with_cnn(no_tries):
                     time.sleep(2)
                     # exit("testing")
 
-            print("actions_taken = %d" % actions_taken)
+            print("actions_taken = %d  last action=%s" % (actions_taken, action_to_take))
             tried_grasping = tried_grasping or action_to_take == 'g'
             if actions_taken >= 80 and not tried_grasping\
                     or actions_taken >= 150:
@@ -146,9 +148,21 @@ def performance_robot_with_cnn(no_tries):
 
         winrate = success_no / i
         print("========== try=%d winrate = %f  ==========" % (i, winrate))
+        return winrate
 
 
 if __name__ == "__main__":
     print(os.getcwd())
     # move_robot_with_cnn()
-    performance_robot_with_cnn(no_tries=100)
+    performance_l = []
+    no_tries = 2
+
+    model_names = ('natural_p50.pth', 'natural_p50_without_sim.pth', 'natural_p100.pth', 'natural_p100_without_sim.pth', 'natural_p150.pth', 'natural_p150_without_sim.pth')
+    for model in model_names:
+        winrate = performance_robot_with_cnn(do_gui=False, no_tries=no_tries, model_name=model)
+        # performance_robot_with_cnn(do_gui=False, no_tries=100, model_name=model_names[0])
+        performance_l.append({"model": model, "no_tries": no_tries, "winrate": winrate})
+        df = pd.DataFrame(performance_l)
+        df.to_csv("permormance_models.csv")
+
+    print("performance_l = \n", performance_l)

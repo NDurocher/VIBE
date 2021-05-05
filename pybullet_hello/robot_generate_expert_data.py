@@ -356,8 +356,8 @@ def get_trajectories_actions_pick_place(how_many):
         positions = get_smart_random_grasp_release_positions(1)
 
         pick_position, release_loc = positions[0]
-        # physicsClient = p.connect(p.GUI)
-        physicsClient = p.connect(p.DIRECT)
+        physicsClient = p.connect(p.GUI)
+        # physicsClient = p.connect(p.DIRECT)
 
         start_tcp_pos = get_random_tcp_start_pos()
 

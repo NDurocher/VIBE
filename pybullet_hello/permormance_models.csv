@@ -1,0 +1,7 @@
+,model,no_tries,winrate
+0,natural_p50.pth,2,0.0
+1,natural_p50_without_sim.pth,2,0.0
+2,natural_p100.pth,2,1.0
+3,natural_p100_without_sim.pth,2,0.0
+4,natural_p150.pth,2,0.0
+5,natural_p150_without_sim.pth,2,1.0

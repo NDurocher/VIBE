@@ -15,14 +15,13 @@ import os
 # data_dir = Path('/content/drive/My Drive/KEYVIBE/CNN_Testing/data/')
 
 class CNN(nn.Module):
-    def __init__(self, isnew = False):
+    def __init__(self, isnew=False, model_name=None):
         super(CNN, self).__init__()
         if isnew == True:
             self.model = models.resnet18(pretrained=True) #torch.hub.load('pytorch/vision:v0.9.0', 'resnet34', pretrained=True)
         else:
-            # self.model = models.resnet50(pretrained=False)
             # self.model = torch.load('CNN_models/KEYVIBE_model_best_nathan.pth', map_location=torch.device('cpu'))
-            self.model = torch.load('CNN_models/180Traj_Natural_Resnet18.pth', map_location=torch.device('cpu'))
+            self.model = torch.load('CNN_models/' + model_name, map_location=torch.device('cpu'))
             if torch.cuda.is_available():
               self.model.cuda()
         with open("CNN_models/action.txt", "r") as f:

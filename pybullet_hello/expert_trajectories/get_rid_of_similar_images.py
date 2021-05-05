@@ -7,7 +7,8 @@ if __name__ == "__main__":
     dirs = os.listdir(os.getcwd() + '/.')
     for dir in dirs:
         # try_smart_fast_p_50, try_smart_fast_p_100, try_smart_fast_p_150
-        wanted_dirs = ('try_smart_fast_p50', 'try_smart_fast_p100', 'try_smart_fast_p150')
+        # wanted_dirs = ('try_smart_fast_p50', 'try_smart_fast_p100', 'try_smart_fast_p150')
+        wanted_dirs = ('try_smart_fast_p200')
 
         if dir in wanted_dirs:
         # if dir == 'try_smart_fast_p50test':
@@ -41,7 +42,7 @@ if __name__ == "__main__":
                     img_path = str(path_dir_try) + "/" + str(img)
                     print("img_path", img_path)
                     # .strip('.')[0]
-                    if not img_path.split('.')[0].endswith('similar'):
+                    if not 'similar' in img_path.split('.')[0]:
                         # move to the new directory
                         new_name = img_path.split('.')[0] + "_copied.jpg"
                         import os.path
