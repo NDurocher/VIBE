@@ -327,7 +327,6 @@ def get_trajectories_actions_pick_place(how_many):
     """
     path_to_save = os.getcwd() + "/expert_trajectories/try_smart_fast"
     # positions = get_random_grasp_release_positions(5)
-    positions = get_smart_random_grasp_release_positions(how_many)
     # exit(1)
 
     # path_to_save += str(i)
@@ -350,15 +349,20 @@ def get_trajectories_actions_pick_place(how_many):
     # TODO: positions = get_randomized_pick_place_xy_locations
     n_steps_taken = 0
 
-    for i in range(len(positions)):
-        pick_position, release_loc = positions[i]
-        physicsClient = p.connect(p.GUI)
-        # physicsClient = p.connect(p.DIRECT)
+    # for i in range(len(positions)):
+    trajs_generated = 0
+
+    while trajs_generated != how_many:
+        positions = get_smart_random_grasp_release_positions(1)
+
+        pick_position, release_loc = positions[0]
+        # physicsClient = p.connect(p.GUI)
+        physicsClient = p.connect(p.DIRECT)
 
         start_tcp_pos = get_random_tcp_start_pos()
 
         robot_cell = RobotCell(pick_position, release_loc, n_steps_taken, start_tcp_pos=start_tcp_pos)  # start simulation with robot & cube
-        print(i, pick_position, release_loc)
+        print(trajs_generated, pick_position, release_loc)
 
         stuck_detected = False
         obj_grasped = False
@@ -375,7 +379,7 @@ def get_trajectories_actions_pick_place(how_many):
             imgs_trajectory_l.append({'img': img, 'action': action, 'similar_action': similar_action})
 
         no_attempts = 0
-        while not obj_placed and not stuck_detected:
+        while not obj_placed and obj_grasped and not stuck_detected:
             img, action, similar_action, obj_placed, no_attempts, stuck_detected = get_img_move_tcp_to_point_grasp_release(robot_cell, goal_position=release_loc, goal='release', position_accuracy=pos_acc, no_tries=no_attempts, tries_threshold=tries_threshold, n_steps_taken=n_steps_taken)
             n_steps_taken += 1
             imgs_trajectory_l.append({'img': img, 'action': action, 'similar_action': similar_action})
@@ -388,24 +392,23 @@ def get_trajectories_actions_pick_place(how_many):
                     #     print("TEST THE GRASPING")
                     #     time.sleep(100)
 
-
-
-        if not stuck_detected:
+        if not stuck_detected and obj_grasped and obj_placed:
             # save the imgs to dirs given the list
             for traj_step, img_info in enumerate(imgs_trajectory_l):
-                imageio.imwrite(get_save_action_path(path_to_save, img_info['action']) + '/' + str(traj_step) + '.jpg', img_info['img'])
+                imageio.imwrite(get_save_action_path(path_to_save, img_info['action']) + '/' + str(traj_step) + '_' + str(trajs_generated) + '.jpg', img_info['img'])
                 if img_info['similar_action']:
                     imageio.imwrite(get_save_action_path(path_to_save, img_info['similar_action']) + '/' + str(traj_step) + '_similar.jpg', img_info['img'])
+            trajs_generated += 1
 
+        print("================= trajs_generated = ", trajs_generated)
         # present the state of dirs
-        if robot_cell.n_actions_taken % 10 == 0:
-            n_size = len(os.listdir(path_to_save + '/north/.'))
-            s_size = len(os.listdir(path_to_save + '/south/.'))
-            e_size = len(os.listdir(path_to_save + '/east/.'))
-            w_size = len(os.listdir(path_to_save + '/west/.'))
-            g_size = len(os.listdir(path_to_save + '/grasp/.'))
-            r_size = len(os.listdir(path_to_save + '/release/.'))
-            print("pictures so far: n=%d, s=%d, e=%d, w=%d, g=%d, r=%d" % (n_size, s_size, e_size, w_size, g_size, r_size))
+        n_size = len(os.listdir(path_to_save + '/north/.'))
+        s_size = len(os.listdir(path_to_save + '/south/.'))
+        e_size = len(os.listdir(path_to_save + '/east/.'))
+        w_size = len(os.listdir(path_to_save + '/west/.'))
+        g_size = len(os.listdir(path_to_save + '/grasp/.'))
+        r_size = len(os.listdir(path_to_save + '/release/.'))
+        print("pictures so far: n=%d, s=%d, e=%d, w=%d, g=%d, r=%d" % (n_size, s_size, e_size, w_size, g_size, r_size))
 
         # exit("see what about stucking")
 
@@ -417,7 +420,6 @@ def get_trajectories_actions_pick_place(how_many):
 def get_lacking_grasp_release_img(how_many):
     path_to_save = os.getcwd() + "/expert_trajectories/grasp_release"
     positions = get_smart_random_grasp_release_positions(how_many)
-
 
     for i in range(len(positions)):
         print(" ======= progress: %d out of %d" % (i, len(positions)))
@@ -453,5 +455,5 @@ def get_lacking_grasp_release_img(how_many):
 
 if __name__ == "__main__":
     print(os.getcwd())
-    get_trajectories_actions_pick_place(50)
+    get_trajectories_actions_pick_place(100)
     # get_lacking_grasp_release_img(2000)
