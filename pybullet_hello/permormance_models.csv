@@ -1,2 +1,7 @@
 ,model,no_tries,winrate
-0,natural_p200.pth,100,0.7878787878787878
+0,natural_p100.pth,100,0.76
+1,natural_p100_without_sim.pth,100,0.71
+2,natural_p150.pth,100,0.62
+3,natural_p150_without_sim.pth,100,0.83
+4,natural_p200.pth,100,0.78
+5,natural_p200_without_sim.pth,100,0.59

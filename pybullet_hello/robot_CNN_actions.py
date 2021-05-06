@@ -106,6 +106,7 @@ def performance_robot_with_cnn(do_gui, no_tries, model_name):
         tried_grasping = False
         actions_taken = 0
         winrate = 0
+        last_few_actions = []
         while not goal_achieved:
             # just take picture and then take action
             img_now = robot_cell.take_image(view_matrix=p.computeViewMatrix((0, 0, 2), (0, 0, 0), (0, -1, 0)),
@@ -128,6 +129,17 @@ def performance_robot_with_cnn(do_gui, no_tries, model_name):
             # print("release_loc = ", release_loc)
             actions_taken += 1
 
+            """ keep track of repeated grasps! """
+            detected_stuck_on_grasp = False
+            if actions_taken < 7:
+                last_few_actions.append(action_to_take)
+            else:
+                last_few_actions.pop(0)
+                last_few_actions.append(action_to_take)
+            if len(set(last_few_actions)) == 1 and last_few_actions[0] == 'g':
+                detected_stuck_on_grasp = True
+                print('detected stuck on grasping!')
+
             if action_to_take == 'r':
                 # check if the release was in the correct area - if yes then
                 current_pos = robot_cell.world_t_tool().p
@@ -138,12 +150,11 @@ def performance_robot_with_cnn(do_gui, no_tries, model_name):
                     time.sleep(2)
                     # exit("testing")
 
-            winrate = success_no / i
+            winrate = success_no / (i+1)
             print("model = %s | traj_no = %d out of %d <winrate = %f> | actions_taken = %d  last action=%s" %
                   (model, i, no_tries, winrate, actions_taken, action_to_take))
             tried_grasping = tried_grasping or action_to_take == 'g'
-            if actions_taken >= 80 and not tried_grasping\
-                    or actions_taken >= 150:
+            if actions_taken >= 80 and not tried_grasping or detected_stuck_on_grasp or actions_taken >= 150:
                 print("robot stuck - didnt achieve the goal")
                 goal_achieved = True
                 p.disconnect()
@@ -159,9 +170,19 @@ if __name__ == "__main__":
     performance_l = []
     no_tries = 100
 
-    model_names = ('natural_p50.pth', 'natural_p50_without_sim.pth', 'natural_p100.pth', 'natural_p100_without_sim.pth',
-                   'natural_p150.pth', 'natural_p150_without_sim.pth', 'natural_p200.pth', 'natural_p200_without_sim.pth')
-    for model in model_names[6:7]:
+    model_names = (
+        # 'natural_p50.pth',
+        # 'natural_p50_without_sim.pth',
+        # 'natural_p100.pth',
+        # 'natural_p100_without_sim.pth',
+        # 'natural_p150.pth',
+        # 'natural_p150_without_sim.pth',
+        # 'natural_p200.pth',
+        # 'natural_p200_without_sim.pth',
+        'natural_p250.pth',
+        'natural_p250_without_sim.pth'
+    )
+    for model in model_names:
         winrate = performance_robot_with_cnn(do_gui=False, no_tries=no_tries, model_name=model)
         # performance_robot_with_cnn(do_gui=False, no_tries=100, model_name=model_names[0])
         results_now = {"model": model, "no_tries": no_tries, "winrate": winrate}

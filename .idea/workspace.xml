@@ -4,6 +4,7 @@
     <list default="true" id="71628e8f-2730-4db5-a601-c088ec11d14d" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pybullet_hello/CNN_models/models_performance.csv" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/CNN_models/models_performance.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/get_rid_of_similar_images.py" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/get_rid_of_similar_images.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pybullet_hello/permormance_models.csv" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/permormance_models.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pybullet_hello/robot_CNN_actions.py" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/robot_CNN_actions.py" afterDir="false" />
     </list>
@@ -171,9 +172,9 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.robot_CNN_actions" />
+        <item itemvalue="Python.get_rid_of_similar_images" />
         <item itemvalue="Python.excercise_1_pygame" />
         <item itemvalue="Python.robot_generate_expert_data" />
-        <item itemvalue="Python.get_rid_of_similar_images" />
         <item itemvalue="Python.CNN_Train" />
       </list>
     </recent_temporary>
@@ -206,7 +207,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/pybullet_hello/expert_trajectories/get_rid_of_similar_images.py</url>
-          <line>53</line>
+          <line>54</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -216,12 +217,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/pybullet_hello/expert_trajectories/get_rid_of_similar_images.py</url>
-          <line>14</line>
+          <line>15</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/pybullet_hello/expert_trajectories/get_rid_of_similar_images.py</url>
-          <line>46</line>
+          <line>47</line>
           <option name="timeStamp" value="4" />
         </line-breakpoint>
       </breakpoints>

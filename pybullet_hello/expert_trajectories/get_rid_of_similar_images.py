@@ -8,7 +8,8 @@ if __name__ == "__main__":
     for dir in dirs:
         # try_smart_fast_p_50, try_smart_fast_p_100, try_smart_fast_p_150
         # wanted_dirs = ('try_smart_fast_p50', 'try_smart_fast_p100', 'try_smart_fast_p150')
-        wanted_dirs = ('try_smart_fast_p200')
+        # wanted_dirs = ('try_smart_fast_p200')
+        wanted_dirs = ('try_smart_fast_p250')
 
         if dir in wanted_dirs:
         # if dir == 'try_smart_fast_p50test':
