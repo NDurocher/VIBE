@@ -105,6 +105,7 @@ def performance_robot_with_cnn(do_gui, no_tries, model_name):
         goal_achieved = False
         tried_grasping = False
         actions_taken = 0
+        winrate = 0
         while not goal_achieved:
             # just take picture and then take action
             img_now = robot_cell.take_image(view_matrix=p.computeViewMatrix((0, 0, 2), (0, 0, 0), (0, -1, 0)),
@@ -137,7 +138,9 @@ def performance_robot_with_cnn(do_gui, no_tries, model_name):
                     time.sleep(2)
                     # exit("testing")
 
-            print("actions_taken = %d  last action=%s" % (actions_taken, action_to_take))
+            winrate = success_no / i
+            print("model = %s | traj_no = %d out of %d <winrate = %f> | actions_taken = %d  last action=%s" %
+                  (model, i, no_tries, winrate, actions_taken, action_to_take))
             tried_grasping = tried_grasping or action_to_take == 'g'
             if actions_taken >= 80 and not tried_grasping\
                     or actions_taken >= 150:
@@ -146,22 +149,24 @@ def performance_robot_with_cnn(do_gui, no_tries, model_name):
                 p.disconnect()
                 time.sleep(2)
 
-        winrate = success_no / i
-        print("========== try=%d winrate = %f  ==========" % (i, winrate))
-        return winrate
+        # print("========== try=%d winrate = %f  ==========" % (i, winrate))
+    return winrate
 
 
 if __name__ == "__main__":
     print(os.getcwd())
     # move_robot_with_cnn()
     performance_l = []
-    no_tries = 2
+    no_tries = 100
 
-    model_names = ('natural_p50.pth', 'natural_p50_without_sim.pth', 'natural_p100.pth', 'natural_p100_without_sim.pth', 'natural_p150.pth', 'natural_p150_without_sim.pth')
-    for model in model_names:
+    model_names = ('natural_p50.pth', 'natural_p50_without_sim.pth', 'natural_p100.pth', 'natural_p100_without_sim.pth',
+                   'natural_p150.pth', 'natural_p150_without_sim.pth', 'natural_p200.pth', 'natural_p200_without_sim.pth')
+    for model in model_names[6:7]:
         winrate = performance_robot_with_cnn(do_gui=False, no_tries=no_tries, model_name=model)
         # performance_robot_with_cnn(do_gui=False, no_tries=100, model_name=model_names[0])
-        performance_l.append({"model": model, "no_tries": no_tries, "winrate": winrate})
+        results_now = {"model": model, "no_tries": no_tries, "winrate": winrate}
+        performance_l.append(results_now)
+        print("<!> results_now = \n", results_now)
         df = pd.DataFrame(performance_l)
         df.to_csv("permormance_models.csv")
 

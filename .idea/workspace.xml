@@ -2,22 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="71628e8f-2730-4db5-a601-c088ec11d14d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/pybullet_hello/CNN_models/models_performance.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/csv-plugin.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/csv-plugin.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pybullet_hello/CNN_Train.py" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/CNN_Train.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pybullet_hello/CNN_models/180Traj_Natural_Resnet18.pth" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pybullet_hello/CNN_models/180Traj_Natural_Resnet34.pth" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pybullet_hello/CNN_models/KEYVIBE_model_01.pth" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pybullet_hello/CNN_models/KEYVIBE_model_02.pth" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pybullet_hello/CNN_models/KEYVIBE_model_best_nathan.pth" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pybullet_hello/CNN_models/KEYVIBE_model_best_nathan_83.pth" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pybullet_hello/CNN_models/each1000.pth" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pybullet_hello/CNN_models/each2000_best.pth" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pybullet_hello/CNN_models/noteach2000_best.pth" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/get_rid_of_similar_images.py" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/get_rid_of_similar_images.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/CNN_models/models_performance.csv" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/CNN_models/models_performance.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/permormance_models.csv" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/permormance_models.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pybullet_hello/robot_CNN_actions.py" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/robot_CNN_actions.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pybullet_hello/robot_generate_expert_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/robot_generate_expert_data.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

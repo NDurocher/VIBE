@@ -1,2 +1,3 @@
 model_name,no_trajectories_tested,succes_rate;
-150_natural,100,0.656566;
+natural_p150.pth,100,0.656566;
+natural_p200.pth,100,0.7878787878787878;
