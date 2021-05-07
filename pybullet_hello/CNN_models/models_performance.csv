@@ -7,3 +7,8 @@ natural_p150.pth,100,0.62;
 natural_p150_without_sim.pth,100,0.83;
 natural_p200.pth,100,0.78;
 natural_p200_without_sim.pth,100,0.59;
+natural_p250.pth,100,0.8;
+
+
+
+natural_p50.pth,300,0.13333333333333333

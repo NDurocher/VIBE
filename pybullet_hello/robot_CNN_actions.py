@@ -171,15 +171,16 @@ if __name__ == "__main__":
     no_tries = 100
 
     model_names = (
-        'natural_p50.pth',
-        'natural_p50_without_sim.pth',
-        'natural_p100.pth',
-        'natural_p100_without_sim.pth',
-        'natural_p150.pth',
-        'natural_p150_without_sim.pth',
-        'natural_p200.pth',
-        'natural_p200_without_sim.pth',
-        'natural_p250.pth',
+        # 'natural_p50.pth',
+        # 'natural_p50_without_sim.pth',
+        # 'natural_p100.pth',
+        # 'natural_p100_without_sim.pth',
+        # 'natural_p150.pth',
+        # 'natural_p150_without_sim.pth',
+        # 'natural_p200.pth',
+        # 'natural_p200_without_sim.pth',
+        # 'natural_p250.pth',
+        'natural_p250_2.pth',
         # 'natural_p250_without_sim.pth'
     )
     for model in model_names:
