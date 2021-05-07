@@ -93,7 +93,6 @@ def performance_robot_with_cnn(do_gui, no_tries, model_name):
     positions = get_smart_random_grasp_release_positions(no_tries)
 
     for i in range(1, len(positions)):
-
         pick_position, release_loc = positions[i]
         if do_gui:
             physicsClient = p.connect(p.GUI)
@@ -154,6 +153,7 @@ def performance_robot_with_cnn(do_gui, no_tries, model_name):
             print("model = %s | traj_no = %d out of %d <winrate = %f> | actions_taken = %d  last action=%s" %
                   (model, i, no_tries, winrate, actions_taken, action_to_take))
             tried_grasping = tried_grasping or action_to_take == 'g'
+
             if actions_taken >= 80 and not tried_grasping or detected_stuck_on_grasp or actions_taken >= 150:
                 print("robot stuck - didnt achieve the goal")
                 goal_achieved = True
@@ -180,9 +180,10 @@ if __name__ == "__main__":
         # 'natural_p200.pth',
         # 'natural_p200_without_sim.pth',
         # 'natural_p250.pth',
-        'natural_p250_2.pth',
-        # 'natural_p250_without_sim.pth'
+        # 'natural_p250_2.pth',
+        'natural_p250_without_sim.pth',
     )
+
     for model in model_names:
         winrate = performance_robot_with_cnn(do_gui=False, no_tries=no_tries, model_name=model)
         # performance_robot_with_cnn(do_gui=False, no_tries=100, model_name=model_names[0])
