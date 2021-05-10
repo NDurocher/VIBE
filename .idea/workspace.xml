@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="71628e8f-2730-4db5-a601-c088ec11d14d" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pybullet_hello/CNN_models/models_performance.csv" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/CNN_models/models_performance.csv" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
