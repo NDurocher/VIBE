@@ -50,6 +50,39 @@ def get_save_action_path(save_path, action):
     return save_path
 
 
+def set_dynamics_of_objects(list_ids):
+    for rigid_obj_id in list_ids:
+        p.changeDynamics(bodyUniqueId=rigid_obj_id,
+                         linkIndex=-1,
+                         mass=1.1,  # this mass works with the box_example.urdf but doesnt with other boxes
+                         lateralFriction=0.3,
+                         spinningFriction=0.003,
+                         rollingFriction=0.003,
+                         restitution=0.0,
+                         linearDamping=0.0,
+                         angularDamping=0.0,
+                         contactStiffness=-1,
+                         contactDamping=-1)
+    return None
+
+
+def set_fingertips_friction(body_id, link_indexes):
+
+    for finger_id in link_indexes:
+        p.changeDynamics(bodyUniqueId=body_id,
+                         linkIndex=finger_id,
+                         mass=1.1,  # this mass works with the box_example.urdf but doesnt with other boxes
+                         lateralFriction=sys.maxsize,
+                         spinningFriction=sys.maxsize,
+                         rollingFriction=sys.maxsize,
+                         restitution=0.0,
+                         linearDamping=0.0,
+                         angularDamping=0.0,
+                         contactStiffness=-1,
+                         contactDamping=-1)
+    return None
+
+
 class RobotCell:
     def __init__(self, grasp_loc, rel_loc, n_steps_taken, start_tcp_pos, dt=0.01):
 
@@ -61,28 +94,21 @@ class RobotCell:
         # TODO: load the table and make sure that cameras are in proper positions
         self.rel_loc = (rel_loc[0], rel_loc[1], 0.001)  # Place Location
         p.loadURDF("plane.urdf")
-        p.loadURDF(os.getcwd() + "/generated_urdfs/Rectangle.urdf", self.rel_loc,
+
+
+        self.mat_id = p.loadURDF(os.getcwd() + "/generated_urdfs/Rectangle.urdf", self.rel_loc,
                    p.getQuaternionFromEuler((0, 0, np.pi / 2)),
                    useFixedBase=False)
+
         self.cube_position = grasp_loc
         self.cube_id = p.loadURDF(os.getcwd()+"/generated_urdfs/box_example.urdf", self.cube_position, p.getQuaternionFromEuler((0, 0, 0)))
 
+        set_dynamics_of_objects([self.mat_id, self.cube_id])
 
         """
         different boxes have different behaviour
         maybe when we change shape of the box we should also change mass?
         """
-        p.changeDynamics(bodyUniqueId=self.cube_id,
-                         linkIndex=-1,
-                         mass=1.1,  # this mass works with the box_example.urdf but doesnt with other boxes
-                         lateralFriction=sys.maxsize,
-                         spinningFriction=sys.maxsize,
-                         rollingFriction=sys.maxsize,
-                         restitution=0.0,
-                         linearDamping=0.0,
-                         angularDamping=0.0,
-                         contactStiffness=sys.maxsize,
-                         contactDamping=sys.maxsize)
 
         self.n_actions_taken = n_steps_taken
         self.rid = p.loadURDF(
@@ -90,7 +116,9 @@ class RobotCell:
             (0, -0.55, 0), p.getQuaternionFromEuler((0, 0, np.pi / 2)),
             useFixedBase=True
         )
+        set_fingertips_friction(body_id=self.rid, link_indexes=[10, 11])
 
+        # self.q_target[-1] = self.q_target[-2]
         print("self.rid ", self.rid)
         print("p.getNumJoints(self.rid) ", p.getNumJoints(self.rid))
 
@@ -149,10 +177,9 @@ class RobotCell:
         )[2:]
         return img[..., :3]
 
-    def take_top_image(self, res=224, fov=8):
-        view_matrix = p.computeViewMatrix((0, 0, 2), (0, 0, 0), (0, -1, 0))
-        projection_matrix = p.computeProjectionMatrixFOV(fov, 1, 0.01, 10)
-        return self.take_image(res, view_matrix, projection_matrix)
+    def take_top_image(self):
+        return self.take_image(view_matrix=p.computeViewMatrix((0, 0, 2), (0, 0, 0), (0, -1, 0)),
+                                      projection_matrix=p.computeProjectionMatrixFOV(45, 1, 0.01, 10))
 
     def top_px_to_world(self, x, y, z=0.01, res=224, fov=8):
         depth = 2 - z
@@ -221,10 +248,10 @@ class RobotCell:
             if action == 'g':  # grasp
                 # pos_next = pos_now
                 # pos_next[2] = z_grasp
-                img_action = self.attempt_grasp(xy=(pos_now[0], pos_now[1]), theta=0, z_grasp=z_grasp, z_up=z_up, record=True, save=True)
+                img_action = self.attempt_grasp(xy=(pos_now[0], pos_now[1]), theta=0, z_grasp=z_grasp, z_up=z_up, save=True)
 
             if action == 'r':  # release
-                img_action = self.attempt_release(xy=(pos_now[0], pos_now[1]), theta=0, z_grasp=z_grasp, z_up=z_up, record=True, save=True)
+                img_action = self.attempt_release(xy=(pos_now[0], pos_now[1]), theta=0, z_grasp=z_grasp, z_up=z_up, save=True)
 
         self.n_actions_taken += 1
         return img_action
@@ -259,17 +286,17 @@ class RobotCell:
                 pos_next = pos_now + [-step_d, 0, 0]
                 pos_next[2] = z_up
             """ SAVE """
-            img_action = self.move(pos=np.array(pos_next), save=True)
+            img_action = self.move(pos=np.array(pos_next), save=False)
 
         """ Gripper actions """
         if action in gripper_actions:
             if action == 'g':  # grasp
                 # pos_next = pos_now
                 # pos_next[2] = z_grasp
-                img_action = self.attempt_grasp(xy=(pos_now[0], pos_now[1]), theta=0, z_grasp=z_grasp, z_up=z_up, record=True, save=True)
+                img_action = self.attempt_grasp(xy=(pos_now[0], pos_now[1]), theta=0, z_grasp=z_grasp, z_up=z_up, save=True)
 
             if action == 'r':  # release
-                img_action = self.attempt_release(xy=(pos_now[0], pos_now[1]), theta=0, z_grasp=z_grasp, z_up=z_up, record=True, save=True)
+                img_action = self.attempt_release(xy=(pos_now[0], pos_now[1]), theta=0, z_grasp=z_grasp, z_up=z_up, save=True)
 
         """ save image to dir """
         # import matplotlib
@@ -284,10 +311,9 @@ class RobotCell:
         # im.save("your_file.jpeg")
         self.n_actions_taken += 1
 
-    def move(self, pos, theta=0., speed=1.2, acc=5., instant=False, record=False, save=False):
+    def move(self, pos, theta=0., speed=1.2, acc=5., instant=False, save=False):
         # take image before executing an action!
-        img_start = self.take_image(view_matrix=p.computeViewMatrix((0, 0, 2), (0, 0, 0), (0, -1, 0)),
-                                  projection_matrix=p.computeProjectionMatrixFOV(45, 1, 0.01, 10))
+        img_start = self.take_top_image()
 
         world_t_tool_desired = Transform(p=pos, rpy=(0, np.pi / 2, 0 + theta))
         if instant:
@@ -301,72 +327,61 @@ class RobotCell:
                 world_t_tool_target = world_t_tool_start @ (tool_start_t_tool_desired * s)
                 self.set_q_target(self.ik(world_t_tool_target))
                 p.stepSimulation()
-                # if record and i % 4 == 0:  # fps = 1/dt / 4
-                #     img_start = self.take_image()
-                # #     # images.append(self.take_image())
+                if save and i % 4 == 0:  # fps = 1/dt / 4
+                    self.take_top_image()
+                    # img_start = self.take_image()
+                #     # images.append(self.take_image())
 
             if save:
                 return img_start
             else:
                 return None
 
-    def gripper_move(self, d_desired, record=False, speed=1., acc=3., save=False):
+    def gripper_move(self, d_desired, save=False, speed=1., acc=3.):
         d_start = self.q_target[-1]
         move = d_desired - d_start
-        images = []
-        states_l = []
         for i, s in enumerate(lerp(abs(move), speed, acc, self.dt)):
             self.q_target[-1] = self.q_target[-2] = d_start + s * move
             self.set_q_target(self.q_target)
             p.stepSimulation()
-            if record and i % 4 == 0:
-                images.append(self.take_image())
-                if save:
-                    cube_pos, cube_orn = p.getBasePositionAndOrientation(self.cube_id)
-                    states_l.append(
-                        State(qs=self.q_target, q_dots=None, cube_pos=cube_pos, cube_orient=cube_orn, keypoint=None))
+            if save and i % 4 == 0:
+                self.take_top_image()
+        return None
 
-        if save:
-            return states_l
-        else:
-            return None
+    def gripper_close(self, save=False):
+        return self.gripper_move(0.0, save)
 
-    def gripper_close(self, record=False, save=False):
-        return self.gripper_move(0.0, record, save=save)
+    def gripper_open(self, save=False):
+        return self.gripper_move(0.1, save)
 
-    def gripper_open(self, record=False, save=False):
-        return self.gripper_move(0.1, record, save=save)
-
-    def attempt_grasp(self, xy, z_grasp, z_up, theta=0, record=False, save=False):
-        # self.q_target[-1] = self.q_target[-2] = 0.03
-        self.gripper_open(record=record, save=False)
+    def attempt_grasp(self, xy, z_grasp, z_up, theta=0, save=False):
+        self.gripper_open(save=save)
 
         """ taking picture before an action """
         if save:
-            img_start = self.take_image(view_matrix=p.computeViewMatrix((0, 0, 2), (0, 0, 0), (0, -1, 0)),
-                                                 projection_matrix=p.computeProjectionMatrixFOV(45, 1, 0.01, 10))
-        self.gripper_open(record=record, save=False)
-        self.move((*xy, z_up), theta, record=record, save=False)
-        self.move((*xy, z_grasp), theta, record=record, save=False)
-        self.gripper_close(record=record, save=False)
-        self.move((*xy, z_up), theta, record=record, save=False)
+            img_start = self.take_top_image()
+
+        self.gripper_open(save=True)
+        self.move((*xy, z_up), theta, save=True)
+        self.move((*xy, z_grasp), theta, save=True)
+        self.gripper_close(save=True)
+        self.move((*xy, z_up), theta, save=True)
 
         if save:
             return img_start
         return None
 
-    def attempt_release(self, xy=(0, 0), theta=0, z_grasp=0.01, z_up=0.5, record=False, save=False):
-        self.q_target[-1] = self.q_target[-2] = 0.03
+    def attempt_release(self, xy=(0, 0), theta=0, z_grasp=0.01, z_up=0.5, save=False):
+        # self.q_target[-1] = self.q_target[-2] = 0.03
 
         """ taking picture before an action """
         if save:
-            img_start = self.take_image(view_matrix=p.computeViewMatrix((0, 0, 2), (0, 0, 0), (0, -1, 0)),
-                                        projection_matrix=p.computeProjectionMatrixFOV(45, 1, 0.01, 10))
+            img_start = self.take_top_image()
 
-        self.move((*xy, z_up), theta, record=record, save=False)
-        self.move((*xy, z_grasp), theta, record=record, save=False)
-        self.gripper_open(record=record, save=False)
-        self.move((*xy, z_up), theta, record=record, save=False)
+        self.move((*xy, z_up), theta, save=True)
+        self.move((*xy, z_grasp), theta, save=True)
+        self.gripper_open(save=True)
+        self.move((*xy, z_up), theta, save=True)
         """ taking picture after an action """
         if save:
             return img_start

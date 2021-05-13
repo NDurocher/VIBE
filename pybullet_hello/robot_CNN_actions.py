@@ -39,8 +39,7 @@ def move_robot_with_cnn():
         take_actions_no = 200
         for i in range(take_actions_no):
             # while True:
-            img_now = robot_cell.take_image(view_matrix=p.computeViewMatrix((0, 0, 2), (0, 0, 0), (0, -1, 0)),
-                                      projection_matrix=p.computeProjectionMatrixFOV(45, 1, 0.01, 10))
+            img_now = robot_cell.take_top_image()
             # plt.imshow(img_now)
 
             probs = Resnet.RUN(img_now, live=True).cpu()
@@ -80,7 +79,7 @@ def is_tcp_in_good_release(current_pos, release_loc):
     return False
 
 
-def performance_robot_with_cnn(do_gui, no_tries, model_name):
+def performance_robot_with_cnn(do_gui, no_tries, model_name, demonstrate=False):
     """ load the model of the CNN and """
     # load cnn module
     Resnet = CNN(False, model_name)
@@ -94,13 +93,17 @@ def performance_robot_with_cnn(do_gui, no_tries, model_name):
 
     for i in range(1, len(positions)):
         pick_position, release_loc = positions[i]
-        if do_gui:
+        if do_gui or demonstrate:
             physicsClient = p.connect(p.GUI)
         else:
             physicsClient = p.connect(p.DIRECT)
 
         robot_cell = RobotCell(pick_position, release_loc, n_steps_taken,
                                start_tcp_pos=start_tcp_pos)  # start simulation with robot & cube
+
+        # second_cube_pos = (robot_cell.cube_position[1]+0.2, robot_cell.cube_position[0]-0.2, 0)
+        # second_cube_id = p.loadURDF(os.getcwd()+"/generated_urdfs/box_example_2.urdf", second_cube_pos, p.getQuaternionFromEuler((0, 0, 0)))
+
         goal_achieved = False
         tried_grasping = False
         actions_taken = 0
@@ -108,8 +111,8 @@ def performance_robot_with_cnn(do_gui, no_tries, model_name):
         last_few_actions = []
         while not goal_achieved:
             # just take picture and then take action
-            img_now = robot_cell.take_image(view_matrix=p.computeViewMatrix((0, 0, 2), (0, 0, 0), (0, -1, 0)),
-                                      projection_matrix=p.computeProjectionMatrixFOV(45, 1, 0.01, 10))
+
+            img_now = robot_cell.take_top_image()
             # plt.imshow(img_now)
 
             probs = Resnet.RUN(img_now, live=True).cpu()
@@ -143,11 +146,12 @@ def performance_robot_with_cnn(do_gui, no_tries, model_name):
                 # check if the release was in the correct area - if yes then
                 current_pos = robot_cell.world_t_tool().p
                 if is_tcp_in_good_release(current_pos, release_loc):
-                    goal_achieved = True
-                    success_no += 1
-                    p.disconnect()
-                    time.sleep(2)
-                    # exit("testing")
+                    if not demonstrate:
+                        goal_achieved = True
+                        success_no += 1
+                        p.disconnect()
+                        time.sleep(2)
+                        # exit("testing")
 
             winrate = success_no / (i+1)
             print("model = %s | traj_no = %d out of %d <winrate = %f> | actions_taken = %d  last action=%s" %
@@ -156,9 +160,10 @@ def performance_robot_with_cnn(do_gui, no_tries, model_name):
 
             if actions_taken >= 80 and not tried_grasping or detected_stuck_on_grasp or actions_taken >= 150:
                 print("robot stuck - didnt achieve the goal")
-                goal_achieved = True
-                p.disconnect()
-                time.sleep(2)
+                if not demonstrate:
+                    goal_achieved = True
+                    p.disconnect()
+                    time.sleep(2)
 
         # print("========== try=%d winrate = %f  ==========" % (i, winrate))
     return winrate
@@ -185,7 +190,7 @@ if __name__ == "__main__":
     )
 
     for model in model_names:
-        winrate = performance_robot_with_cnn(do_gui=False, no_tries=no_tries, model_name=model)
+        winrate = performance_robot_with_cnn(do_gui=True, no_tries=no_tries, model_name=model, demonstrate=True)
         # performance_robot_with_cnn(do_gui=False, no_tries=100, model_name=model_names[0])
         results_now = {"model": model, "no_tries": no_tries, "winrate": winrate}
         performance_l.append(results_now)
