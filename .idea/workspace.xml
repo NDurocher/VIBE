@@ -2,16 +2,212 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="71628e8f-2730-4db5-a601-c088ec11d14d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/pybullet_hello/generated_urdfs/box_example_2.urdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pybullet_hello/generated_urdfs/box_10.urdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pybullet_hello/generated_urdfs/box_11.urdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pybullet_hello/generated_urdfs/box_12.urdf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/east/37_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/east/39_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/east/41_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/east/43_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/east/45_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/east/47_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/east/49_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/east/51_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/east/53_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/east/55_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/east/57_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/east/59_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/east/61_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/east/63_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/east/65_0.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/east/65_0.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/east/67_0.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/east/67_0.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/east/69_0.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/east/69_0.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/east/71_0.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/east/71_0.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/east/73_0.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/east/73_0.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/east/75_0.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/east/75_0.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/east/77_0.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/east/77_0.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/east/79_0.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/east/79_0.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/east/81_0.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/east/81_0.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/east/83_0.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/east/83_0.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/east/85_0.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/east/85_0.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/east/87_0.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/east/87_0.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/grasp/30_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/grasp/47_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/0_0.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/0_0.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/101_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/103_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/10_0.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/10_0.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/11_0.jpg" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/12_0.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/12_0.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/13_0.jpg" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/14_0.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/14_0.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/15_0.jpg" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/16_0.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/16_0.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/17_0.jpg" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/18_0.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/18_0.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/19_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/1_0.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/1_0.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/20_0.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/20_0.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pybullet_hello/generated_urdfs/box_example.urdf" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/generated_urdfs/box_example.urdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/21_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/22_0.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/22_0.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/23_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/24_0.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/24_0.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/25_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/26_0.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/26_0.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/27_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/28_0.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/28_0.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/29_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/2_0.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/2_0.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/30_0.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/30_0.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/32_0.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/32_0.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/34_0.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/34_0.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/36_0.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/36_0.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/38_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/3_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/40_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/42_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/44_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/45_0.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/45_0.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/48_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/49_0.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/49_0.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/4_0.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/4_0.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/50_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/51_0.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/51_0.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/52_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/53_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/54_0.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/54_0.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/56_0.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/56_0.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/58_0.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/58_0.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/5_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/60_0.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/60_0.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/62_0.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/62_0.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/64_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/66_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/68_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/69_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/6_0.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/6_0.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/71_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/73_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/75_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/77_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/79_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/7_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/81_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/83_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/85_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/87_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/89_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/8_0.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/8_0.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/91_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/93_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/95_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/97_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/99_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/north/9_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/release/104_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/release/88_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/south/31_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/south/32_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/south/33_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/south/34_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/south/35_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/south/36_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/south/38_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/south/40_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/south/42_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/south/44_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/south/46_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/south/48_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/south/50_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/south/52_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/south/54_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/south/56_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/south/58_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/south/60_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/south/62_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/south/64_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/south/66_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/south/68_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/south/70_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/south/72_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/south/74_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/south/76_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/south/78_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/south/80_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/south/82_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/south/84_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/south/86_0.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/south/86_0.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/west/0_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/west/100_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/west/102_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/west/10_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/west/11_0.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/west/11_0.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/west/13_0.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/west/13_0.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/west/15_0.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/west/15_0.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/west/17_0.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/west/17_0.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/west/19_0.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/west/19_0.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/west/1_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/west/21_0.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/west/21_0.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/west/22_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/west/23_0.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/west/23_0.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/west/24_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/west/25_0.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/west/25_0.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/west/26_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/west/27_0.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/west/27_0.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/west/28_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/west/29_0.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/west/29_0.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/west/2_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/west/31_0.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/west/31_0.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/west/33_0.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/west/33_0.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/west/35_0.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/west/35_0.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/west/37_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/west/39_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/west/3_0.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/west/3_0.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/west/41_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/west/43_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/west/46_0.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/west/46_0.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/west/4_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/west/55_0.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/west/55_0.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/west/57_0.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/west/57_0.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/west/59_0.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/west/59_0.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/west/5_0.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/west/5_0.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/west/61_0.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/west/61_0.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/west/63_0.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/west/63_0.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/west/65_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/west/67_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/west/6_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/west/70_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/west/72_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/west/74_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/west/76_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/west/78_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/west/7_0.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/west/7_0.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/west/80_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/west/82_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/west/84_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/west/86_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/west/88_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/west/8_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/west/90_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/west/92_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/west/94_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/west/96_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/west/98_0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/west/9_0.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/expert_trajectories/try_smart_fast/west/9_0.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/generated_urdfs/box_1.urdf" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/generated_urdfs/box_1.urdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/generated_urdfs/box_2.urdf" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/generated_urdfs/box_2.urdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/generated_urdfs/box_3.urdf" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/generated_urdfs/box_3.urdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/generated_urdfs/box_4.urdf" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/generated_urdfs/box_4.urdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/generated_urdfs/box_5.urdf" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/generated_urdfs/box_5.urdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/generated_urdfs/box_6.urdf" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/generated_urdfs/box_6.urdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/generated_urdfs/box_7.urdf" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/generated_urdfs/box_7.urdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/generated_urdfs/box_8.urdf" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/generated_urdfs/box_8.urdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/generated_urdfs/box_9.urdf" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/generated_urdfs/box_9.urdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/generated_urdfs/box_example_2.urdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/generated_urdfs/panda_fixing_tcp_frame.urdf" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/pybullet_hello/myRobotCell.py" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/myRobotCell.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pybullet_hello/robot_CNN_actions.py" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/robot_CNN_actions.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/robot_generate_expert_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/robot_generate_expert_data.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,7 +257,7 @@
       <recent name="$PROJECT_DIR$/pybullet_hello/help_demos" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.robot_CNN_actions">
+  <component name="RunManager" selected="Python.robot_generate_expert_data">
     <configuration name="CNN_Train" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Keypoint_Visuomotor_Behaviours" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -176,8 +372,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.robot_CNN_actions" />
         <item itemvalue="Python.robot_generate_expert_data" />
+        <item itemvalue="Python.robot_CNN_actions" />
         <item itemvalue="Python.get_rid_of_similar_images" />
         <item itemvalue="Python.excercise_1_pygame" />
         <item itemvalue="Python.CNN_Train" />
@@ -229,6 +425,11 @@
           <url>file://$PROJECT_DIR$/pybullet_hello/expert_trajectories/get_rid_of_similar_images.py</url>
           <line>47</line>
           <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/pybullet_hello/myRobotCell.py</url>
+          <line>99</line>
+          <option name="timeStamp" value="6" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

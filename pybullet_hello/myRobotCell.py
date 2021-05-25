@@ -83,8 +83,25 @@ def set_fingertips_friction(body_id, link_indexes):
     return None
 
 
+def get_random_urdf_file(path):
+    found_files = os.listdir(path)
+    print("found_files", found_files)
+    box_urdfs = []
+    for file in found_files:
+        if file.startswith("box_") and file.endswith(".urdf"):
+            box_urdfs.append(file)
+
+    print("box_urdfs", box_urdfs)
+
+    choice = np.random.randint(0, len(box_urdfs))
+    chosen_file = path + box_urdfs[choice]
+    print("chosen_file", chosen_file)
+    # exit('test')
+    return chosen_file
+
+
 class RobotCell:
-    def __init__(self, grasp_loc, rel_loc, n_steps_taken, start_tcp_pos, dt=0.01):
+    def __init__(self, grasp_loc, rel_loc, n_steps_taken, start_tcp_pos, random_box=False, dt=0.01):
 
         self.dt = dt
         p.setTimeStep(dt)
@@ -101,7 +118,13 @@ class RobotCell:
                    useFixedBase=False)
 
         self.cube_position = grasp_loc
-        self.cube_id = p.loadURDF(os.getcwd()+"/generated_urdfs/box_example.urdf", self.cube_position, p.getQuaternionFromEuler((0, 0, 0)))
+
+        if random_box:
+            urdf_path = get_random_urdf_file(path=os.getcwd()+"/generated_urdfs/")
+        else:
+            urdf_path = os.getcwd()+"/generated_urdfs/box_example.urdf"
+
+        self.cube_id = p.loadURDF(urdf_path, self.cube_position, p.getQuaternionFromEuler((0, 0, 0)))
 
         set_dynamics_of_objects([self.mat_id, self.cube_id])
 

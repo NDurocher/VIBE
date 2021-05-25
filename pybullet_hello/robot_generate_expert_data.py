@@ -320,7 +320,7 @@ def get_random_tcp_start_pos():
     return start_tcp_pos
 
 
-def get_trajectories_actions_pick_place(how_many):
+def get_trajectories_actions_pick_place(how_many, use_GUI=False, random_box=False):
     # TODO: record and save the state!
     """
     randomizes the pick and place rotations and returns the expert demonstration
@@ -356,12 +356,14 @@ def get_trajectories_actions_pick_place(how_many):
         positions = get_smart_random_grasp_release_positions(1)
 
         pick_position, release_loc = positions[0]
-        physicsClient = p.connect(p.GUI)
-        # physicsClient = p.connect(p.DIRECT)
+        if use_GUI:
+            physicsClient = p.connect(p.GUI)
+        else:
+            physicsClient = p.connect(p.DIRECT)
 
         start_tcp_pos = get_random_tcp_start_pos()
 
-        robot_cell = RobotCell(pick_position, release_loc, n_steps_taken, start_tcp_pos=start_tcp_pos)  # start simulation with robot & cube
+        robot_cell = RobotCell(pick_position, release_loc, n_steps_taken, start_tcp_pos=start_tcp_pos, random_box=random_box)  # start simulation with robot & cube
         print(trajs_generated, pick_position, release_loc)
 
         stuck_detected = False
@@ -453,7 +455,25 @@ def get_lacking_grasp_release_img(how_many):
         time.sleep(0.2)
 
 
+def present_random_objects():
+    positions = get_smart_random_grasp_release_positions(1)
+
+    pick_position, release_loc = positions[0]
+    # physicsClient = p.connect(p.DIRECT)
+
+    start_tcp_pos = get_random_tcp_start_pos()
+
+    for i in range(10):
+        physicsClient = p.connect(p.GUI)
+        robot_cell = RobotCell(pick_position, release_loc, 0, start_tcp_pos=start_tcp_pos,
+                           random_box=True)  # start simulation with robot & cube
+        time.sleep(2)
+        p.disconnect()
+        time.sleep(1)
+
+
 if __name__ == "__main__":
     print(os.getcwd())
-    get_trajectories_actions_pick_place(150)
+    get_trajectories_actions_pick_place(100, use_GUI=False, random_box=True)
+    # present_random_objects()
     # get_lacking_grasp_release_img(2000)
