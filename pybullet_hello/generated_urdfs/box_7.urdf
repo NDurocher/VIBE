@@ -3,7 +3,7 @@
   <link name="box">
     <visual>
       <geometry>
-        <box size="0.05 0.05 0.05"/>
+        <box size="0.05 0.05 0.09"/>
       </geometry>
       <material name="color">
         <color rgba="0.6593126493379589 0.28100241262910164 0.7950455186090346 1"/>
@@ -11,7 +11,7 @@
     </visual>
     <collision>
       <geometry>
-        <box size="0.05 0.05 0.05"/>
+        <box size="0.05 0.05 0.09"/>
       </geometry>
     </collision>
   </link>

@@ -474,6 +474,6 @@ def present_random_objects():
 
 if __name__ == "__main__":
     print(os.getcwd())
-    get_trajectories_actions_pick_place(100, use_GUI=False, random_box=True)
+    get_trajectories_actions_pick_place(100, use_GUI=True, random_box=True)
     # present_random_objects()
     # get_lacking_grasp_release_img(2000)

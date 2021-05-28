@@ -1,3 +1,9 @@
+"""
+This code comes from "Learn to grasp demo" implemented by a phd student of SDU - Rasmus Laurvig Haugaard.
+Source: https://colab.research.google.com/drive/1DrfBVB-v8TsBmvnkgr3c2dFbr4N-RSVs?usp=sharing#scrollTo=fqsyRqTDmwR3
+"""
+
+
 from pybullet_hello.help_demos.r2d2_box_generation import *
 
 class RobotCell:

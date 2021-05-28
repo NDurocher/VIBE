@@ -79,7 +79,7 @@ def is_tcp_in_good_release(current_pos, release_loc):
     return False
 
 
-def performance_robot_with_cnn(do_gui, no_tries, model_name, demonstrate=False):
+def performance_robot_with_cnn(do_gui, no_tries, model_name, demonstrate=False, random_colours=False):
     """ load the model of the CNN and """
     # load cnn module
     Resnet = CNN(False, model_name)
@@ -99,7 +99,7 @@ def performance_robot_with_cnn(do_gui, no_tries, model_name, demonstrate=False):
             physicsClient = p.connect(p.DIRECT)
 
         robot_cell = RobotCell(pick_position, release_loc, n_steps_taken,
-                               start_tcp_pos=start_tcp_pos)  # start simulation with robot & cube
+                               start_tcp_pos=start_tcp_pos, random_box=random_colours)  # start simulation with robot & cube
 
         # second_cube_pos = (robot_cell.cube_position[1]+0.2, robot_cell.cube_position[0]-0.2, 0)
         # second_cube_id = p.loadURDF(os.getcwd()+"/generated_urdfs/box_example_2.urdf", second_cube_pos, p.getQuaternionFromEuler((0, 0, 0)))
@@ -186,11 +186,15 @@ if __name__ == "__main__":
         # 'natural_p200_without_sim.pth',
         # 'natural_p250.pth',
         # 'natural_p250_2.pth',
-        'natural_p250_without_sim.pth',
+        # 'natural_p250_without_sim.pth',
+
+        'colouredcubes.pth',
+
     )
 
     for model in model_names:
-        winrate = performance_robot_with_cnn(do_gui=True, no_tries=no_tries, model_name=model, demonstrate=True)
+        # winrate = performance_robot_with_cnn(do_gui=True, no_tries=no_tries, model_name=model, demonstrate=True)
+        winrate = performance_robot_with_cnn(do_gui=False, no_tries=no_tries, model_name=model, demonstrate=False, random_colours=True)
         # performance_robot_with_cnn(do_gui=False, no_tries=100, model_name=model_names[0])
         results_now = {"model": model, "no_tries": no_tries, "winrate": winrate}
         performance_l.append(results_now)

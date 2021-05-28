@@ -1,3 +1,9 @@
+"""
+This code was inspired by work of Rasmus Laurvig Haugaard (phd student of SDU) titled "Learn to grasp demo".
+Source: https://colab.research.google.com/drive/1DrfBVB-v8TsBmvnkgr3c2dFbr4N-RSVs?usp=sharing#scrollTo=fqsyRqTDmwR3
+"""
+
+
 import os
 import sys
 import time
