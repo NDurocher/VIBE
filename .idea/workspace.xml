@@ -2,26 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="71628e8f-2730-4db5-a601-c088ec11d14d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/pybullet_hello/present_randomized_cubes_pybullet.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pybullet_hello/RobotCell_pureRasmus.py" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/RobotCell_pureRasmus.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pybullet_hello/generated_urdfs/box_0.urdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pybullet_hello/generated_urdfs/box_1.urdf" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/generated_urdfs/box_1.urdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pybullet_hello/generated_urdfs/box_10.urdf" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/generated_urdfs/box_10.urdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pybullet_hello/generated_urdfs/box_11.urdf" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/generated_urdfs/box_11.urdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pybullet_hello/generated_urdfs/box_12.urdf" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/generated_urdfs/box_12.urdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pybullet_hello/generated_urdfs/box_2.urdf" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/generated_urdfs/box_2.urdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pybullet_hello/generated_urdfs/box_3.urdf" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/generated_urdfs/box_3.urdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pybullet_hello/generated_urdfs/box_4.urdf" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/generated_urdfs/box_4.urdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pybullet_hello/generated_urdfs/box_5.urdf" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/generated_urdfs/box_5.urdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pybullet_hello/generated_urdfs/box_6.urdf" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/generated_urdfs/box_6.urdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pybullet_hello/generated_urdfs/box_7.urdf" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/generated_urdfs/box_7.urdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pybullet_hello/generated_urdfs/box_8.urdf" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/generated_urdfs/box_8.urdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pybullet_hello/generated_urdfs/box_9.urdf" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/generated_urdfs/box_9.urdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pybullet_hello/myRobotCell.py" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/myRobotCell.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pybullet_hello/permormance_models.csv" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/permormance_models.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pybullet_hello/robot_CNN_actions.py" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/robot_CNN_actions.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pybullet_hello/robot_generate_expert_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/robot_generate_expert_data.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
