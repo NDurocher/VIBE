@@ -5,21 +5,21 @@ This repository contains a method for a visual motor behaviour cloning policy fo
 ## Getting Expert Data
 To generate training data, run:
 ```
-> robot_generate_expert_data.py
+robot_generate_expert_data.py
 ```
 file under the VIBE folder.
 
 ## Training A Model
 Use:
 ```
-> CNN_Train.py 
+CNN_Train.py 
 ```
 also under the VIBE folder to begin training a model. It is required to have a GPU to train, I suggest using Google Colabratory.
 
 ## See the Results
 Run:
 ```
-> robot_CNN_actions.py 
+robot_CNN_actions.py 
 ```
 Also under the VIBE folder to being the task.
 
