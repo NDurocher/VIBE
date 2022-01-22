@@ -4,7 +4,7 @@ This repository contains a method for a visual motor behaviour cloning policy fo
 
 ## Getting Expert Data
 To generate training data, run the 
-> robot_generate_expert_data.py <
+> robot_generate_expert_data.py >
 file under VIBE
 
 ## Training A Model
