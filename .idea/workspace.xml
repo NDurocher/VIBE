@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="71628e8f-2730-4db5-a601-c088ec11d14d" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/Keypoint_Visuomotor_Behaviours.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Keypoint_Visuomotor_Behaviours.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+<<<<<<< Updated upstream
+      <change beforePath="$PROJECT_DIR$/CNN_Testing/CNN_Train.py" beforeDir="false" afterPath="$PROJECT_DIR$/CNN_Testing/CNN_Train.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CNN_Testing/KEYVIBE_model.pth" beforeDir="false" afterPath="$PROJECT_DIR$/CNN_Testing/KEYVIBE_model.pth" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pybullet_hello/CNN_Train.py" beforeDir="false" afterPath="$PROJECT_DIR$/pybullet_hello/CNN_Train.py" afterDir="false" />
+>>>>>>> Stashed changes
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1pYrB1GodKppPL1IznCHbRzrEql" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+<<<<<<< Updated upstream
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/CNN_Testing" />
+    <property name="restartRequiresConfirmation" value="false" />
+=======
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+>>>>>>> Stashed changes
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/CNN_Testing" />
+      <recent name="$PROJECT_DIR$/pybullet_hello" />
+      <recent name="$PROJECT_DIR$/venv" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/CNN_Testing/notdata/east" />
+      <recent name="$PROJECT_DIR$/CNN_Testing/notdata/north" />
+      <recent name="$PROJECT_DIR$/CNN_Testing/" />
+      <recent name="$PROJECT_DIR$/CNN_Testing" />
+      <recent name="$PROJECT_DIR$/CNN_Testing/data" />
+    </key>
+  </component>
+<<<<<<< Updated upstream
+  <component name="RunManager" selected="Python.CNN_Train">
+=======
+  <component name="RunManager" selected="Python.robot_CNN_actions">
+>>>>>>> Stashed changes
+    <configuration name="CNN_Train" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Keypoint_Visuomotor_Behaviours" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/CNN_Testing" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+<<<<<<< Updated upstream
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/CNN_Testing/CNN_Train.py" />
+=======
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/pybullet_hello/CNN_Train.py" />
+>>>>>>> Stashed changes
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="ResNet_test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Keypoint_Visuomotor_Behaviours" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/CNN_Testing" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+<<<<<<< Updated upstream
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/CNN_Testing/ResNet_test.py" />
+=======
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/pybullet_hello/expert_trajectories/put_all_parts_to_export.py" />
+>>>>>>> Stashed changes
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="is_franka_here" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Keypoint_Visuomotor_Behaviours" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/pybullet_hello" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+<<<<<<< Updated upstream
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/pybullet_hello/help_demos/is_franka_here.py" />
+=======
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/pybullet_hello/expert_trajectories/grasp_release/rename_put_to_export.py" />
+>>>>>>> Stashed changes
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="load_fix_images" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Keypoint_Visuomotor_Behaviours" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="/usr/bin/python3" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/pybullet_hello" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+<<<<<<< Updated upstream
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/pybullet_hello/help_demos/load_fix_images.py" />
+=======
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/pybullet_hello/robot_CNN_actions.py" />
+>>>>>>> Stashed changes
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="rasmus_robot_move" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Keypoint_Visuomotor_Behaviours" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="/usr/bin/python3" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/pybullet_hello" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+<<<<<<< Updated upstream
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/pybullet_hello/rasmus_robot_move.py" />
+=======
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/pybullet_hello/robot_generate_expert_data.py" />
+>>>>>>> Stashed changes
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Python.CNN_Train" />
+      <item itemvalue="Python.put_all_parts_to_export" />
+      <item itemvalue="Python.rename_put_to_export" />
+      <item itemvalue="Python.robot_CNN_actions" />
+      <item itemvalue="Python.robot_generate_expert_data" />
+    </list>
+    <recent_temporary>
+      <list>
+<<<<<<< Updated upstream
+=======
+        <item itemvalue="Python.robot_CNN_actions" />
+        <item itemvalue="Python.robot_generate_expert_data" />
+>>>>>>> Stashed changes
+        <item itemvalue="Python.CNN_Train" />
+        <item itemvalue="Python.ResNet_test" />
+        <item itemvalue="Python.rasmus_robot_move" />
+        <item itemvalue="Python.is_franka_here" />
+        <item itemvalue="Python.load_fix_images" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="71628e8f-2730-4db5-a601-c088ec11d14d" name="Default Changelist" comment="" />
+      <created>1615370726569</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1615370726569</updated>
+<<<<<<< Updated upstream
+      <workItem from="1617610231675" duration="16540000" />
+      <workItem from="1617884417240" duration="987000" />
+      <workItem from="1618224979961" duration="279000" />
+      <workItem from="1618225357713" duration="18555000" />
+      <workItem from="1618385416890" duration="734000" />
+      <workItem from="1618486705445" duration="2761000" />
+=======
+      <workItem from="1619718573945" duration="1519000" />
+      <workItem from="1619955297099" duration="22000" />
+      <workItem from="1620042682911" duration="2343000" />
+      <workItem from="1620113084398" duration="29000" />
+>>>>>>> Stashed changes
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/pybullet_hello/rasmus_robot_move.py</url>
+          <line>150</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/pybullet_hello/myRobotCell.py</url>
+          <line>140</line>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/CNN_Testing/ResNet_test.py</url>
+          <line>26</line>
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
+      </breakpoints>
+      <default-breakpoints>
+        <breakpoint type="python-exception">
+          <properties notifyOnTerminate="true" exception="BaseException">
+            <option name="notifyOnTerminate" value="true" />
+          </properties>
+        </breakpoint>
+      </default-breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+<<<<<<< Updated upstream
+    <SUITE FILE_PATH="coverage/rasmus_robot_move_py$rasmus_robot_move.coverage" NAME="rasmus_robot_move Coverage Results" MODIFIED="1615642308373" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/pybullet_hello" />
+    <SUITE FILE_PATH="coverage/Keypoint_Visuomotor_Behaviours$ResNet_test.coverage" NAME="ResNet_test Coverage Results" MODIFIED="1617615757996" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/CNN_Testing" />
+    <SUITE FILE_PATH="coverage/Keypoint_Visuomotor_Behaviours$CNN_Train.coverage" NAME="CNN_Train Coverage Results" MODIFIED="1618487567346" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/CNN_Testing" />
+=======
+    <SUITE FILE_PATH="coverage/Keypoint_Visuomotor_Behaviours$robot_CNN_actions.coverage" NAME="robot_CNN_actions Coverage Results" MODIFIED="1620043937407" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/pybullet_hello" />
+>>>>>>> Stashed changes
+  </component>
+</project>
